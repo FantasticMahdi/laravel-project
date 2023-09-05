@@ -10,3 +10,17 @@
     z-index: 1000;
     align-items: stretch;
 }
+
+.logo {
+    max-height: 3.5rem;
+}
+
+.sidebar-header{
+    flex: 0 0 14rem;
+}
+
+.body-header {
+    background-color: #fff;
+    width: calc(100% - 14rem);
+    background-color: gray;
+}

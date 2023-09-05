@@ -7,3 +7,8 @@
     text-align: right;
     font-family: Vazir;
 }
+
+.bg-gray{
+    background-color: #404e67;
+    color: #dcdcdc;
+}
