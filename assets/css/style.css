@@ -1,0 +1,9 @@
+@font-face {
+    font-family: Vazir;
+    src: url(../fonts/Vazir-Medium.woff) format('woff');
+}
+*{
+    direction: rtl;
+    text-align: right;
+    font-family: Vazir;
+}
