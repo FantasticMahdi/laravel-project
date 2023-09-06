@@ -24,3 +24,15 @@
     width: calc(100% - 14rem);
     background-color: gray;
 }
+
+.search-area {
+    background-color: #dcdcdc;
+    padding: .3rem .6rem;
+    border-radius: 2rem;
+}
+.search-input {
+    background-color: rgba(0, 0, 0, 0);
+    outline: none;
+    border: none;
+    margin: 0 .6rem;
+}

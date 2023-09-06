@@ -12,3 +12,7 @@
     background-color: #404e67;
     color: #dcdcdc;
 }
+
+.pointer {
+    cursor: pointer;
+}
