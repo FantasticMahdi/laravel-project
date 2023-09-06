@@ -36,3 +36,33 @@
     border: none;
     margin: 0 .6rem;
 }
+.header-notification {
+    position: absolute;
+    left: 0;
+    margin-top: 0.2rem;
+    width: 16rem;
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 1px 20px 0 rgba(70, 90, 100, 0.08);
+    display: none;
+}
+.notification-img{
+    width: 4.1rem;
+    border-radius: .1rem;
+}
+
+.notification-user{
+    font-size: .8rem;
+    font-weight: bold;
+    margin-top: 0.3rem;
+}
+.notification-text{
+    font-size: .7rem;
+    line-height: .7rem;
+}
+
+.notification-time{
+    font-size: .6rem;
+    line-height: .6rem;
+    color: #919aa3;
+}
