@@ -1,4 +1,4 @@
-.header{
+.header {
     position: fixed;
     top: 0;
     right: 0;
@@ -15,14 +15,13 @@
     max-height: 3.5rem;
 }
 
-.sidebar-header{
+.sidebar-header {
     flex: 0 0 14rem;
 }
 
 .body-header {
     background-color: #fff;
     width: calc(100% - 14rem);
-    background-color: gray;
 }
 
 .search-area {
@@ -30,12 +29,14 @@
     padding: .3rem .6rem;
     border-radius: 2rem;
 }
+
 .search-input {
     background-color: rgba(0, 0, 0, 0);
     outline: none;
     border: none;
     margin: 0 .6rem;
 }
+
 .header-notification {
     position: absolute;
     left: 0;
@@ -46,61 +47,91 @@
     box-shadow: 0 1px 20px 0 rgba(70, 90, 100, 0.08);
     display: none;
 }
-.notification-img{
+
+.notification-img {
     width: 4.1rem;
     border-radius: .1rem;
 }
 
-.notification-user{
+.notification-user {
     font-size: .8rem;
     font-weight: bold;
     margin-top: 0.3rem;
 }
-.notification-text{
+
+.notification-text {
     font-size: .7rem;
     line-height: .7rem;
 }
 
-.notification-time{
+.notification-time {
     font-size: .6rem;
     line-height: .6rem;
     color: #919aa3;
 }
 
-.header-comment{
+.header-comment {
     position: absolute;
-    height:calc(100vh - 3.5rem);
+    height: calc(100vh - 3.5rem);
     width: 18rem;
     background-color: #fff;
     color: #000;
     box-shadow: 0 1px 20px 0 rgba(70, 90, 100, 0.08);
-    border-right: 1px solid rgba(0, 0, 0,0.125);
+    border-right: 1px solid rgba(0, 0, 0, 0.125);
     display: none;
 }
-.header-comment-wrapper{
+
+.header-comment-wrapper {
     height: calc(100% - 6rem);
     overflow: auto;
 }
-.header-comment-wrapper::-webkit-scrollbar{
-    /* display: none; */
-}
 
-.comment-user{
+/* .header-comment-wrapper::-webkit-scrollbar{
+    display: none;
+} */
+
+.comment-user {
     font-size: .75rem;
     font-weight: bold;
     margin-top: 0.8rem;
 }
-.comment-user-status{
+
+.comment-user-status {
     font-size: .5rem;
 }
 
-.header-avatar{
+.header-avatar {
     width: 2rem;
     height: 2rem;
     border-radius: .3rem;
     margin: 0.2rem;
 }
-.header-username{
+
+.header-username {
     color: #333;
     font-size: .8rem;
+}
+
+.header-profile {
+    position: absolute;
+    margin-top: 0.2rem;
+    left: 0;
+    z-index: 1000;
+    height: auto;
+    width: 10rem;
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 1px 20px 0 rgba(70, 90, 100, 0.125);
+    display: none;
+}
+
+.header-profile-link {
+    padding: .4rem;
+    font-size: .8rem;
+    line-height: 1.4rem;
+}
+
+.header-profile-link>i {
+    width: 2rem;
+    text-align: center;
 }
