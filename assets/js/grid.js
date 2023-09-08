@@ -50,4 +50,18 @@ $(document).ready(function() {
         }, 300);
     });
 
+
+    $('#header-notification-toggle').click(function() {
+        $('#header-notification').fadeToggle();
+    });
+
+
+    $('#header-comment-toggle').click(function() {
+        $('#header-comment').fadeToggle();
+    });
+
+
+    $('#header-profile-toggle').click(function() {
+        $('#header-profile').fadeToggle();
+    });
 })
