@@ -34,4 +34,20 @@ $(document).ready(function() {
     $('#menu-toggle').click(function() {
         $('#body-header').toggle(300);
     });
+    
+    $('#search-toggle').click(function() {
+        $('#search-toggle').removeClass('d-md-inline');
+        $('#search-area').addClass('d-md-inline');
+        $('#search-input').animate({width : "12rem"},300);
+    });
+    
+    
+    $('#search-area-hide').click(function() {
+        $('#search-input').animate({width : "0"},300);
+        setTimeout(function(){
+            $('#search-toggle').addClass('d-md-inline');
+            $('#search-area').removeClass('d-md-inline');
+        }, 300);
+    });
+
 })
