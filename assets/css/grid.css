@@ -273,3 +273,10 @@ button::before {
 button:hover {
     color: #fe8a7d;
 }
+.main-body{
+    width: calc(100% - 14rem);
+    padding: 1rem;
+    min-height: calc(100vh - 3.5rem);
+    background-color: #f3f3f3;
+    
+}
