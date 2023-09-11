@@ -49,3 +49,9 @@
     background: -o-gradient(linear, left top, right top, from(#01dbdf), to(#01a9ac));
     background: linear-gradient(to right, #01dbdf, #01a9ac);
 }
+.font-size-14{
+    font-size: 14px;
+}
+.width-16-rem{
+    width: 16rem;
+}

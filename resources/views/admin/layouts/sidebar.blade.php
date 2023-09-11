@@ -2,7 +2,7 @@
     <section class="sidebar-container">
         <section class="sidebar-wrapper">
 
-            <a href="#" class="sidebar-link">
+            <a href="{{ route('admin.home') }}" class="sidebar-link">
                 <i class="fas fa-home"></i>
                 <span>خانه</span>
             </a>
@@ -76,7 +76,7 @@
 
 
             <section class="sidebar-part-title">بخش محتوی</section>
-            <a href="#" class="sidebar-link">
+            <a href="{{ route('admin.market.category.index') }}" class="sidebar-link">
                 <i class="fas fa-bars"></i>
                 <span>دسته بندی</span>
             </a>
