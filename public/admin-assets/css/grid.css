@@ -165,15 +165,17 @@
 
 .sidebar-container {
     height: calc(100vh - 3.5rem);
-    /* position: fixed; */
+    position: fixed;
     right: 0;
     top: 3.5rem;
     z-index: 10000;
+    width: 14rem;
 }
 
 .sidebar-wrapper {
     padding: 1rem 0;
     overflow: auto;
+    height: 100%;
 }
 
 .sidebar-wrapper::-webkit-scrollbar {
@@ -302,7 +304,7 @@ button:hover {
     .main-body{
         width: 100%;
         z-index: 1;
-    }   
+    }
 }
 
 .info-box-body h5{
