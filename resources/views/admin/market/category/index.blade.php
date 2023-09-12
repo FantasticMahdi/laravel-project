@@ -22,9 +22,11 @@
 
                 </section>
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 pb-2">
-                    <a href="#" class="btn btn-info btn-sm">ایجاد دسته بندی</a>
-<div class="max-width-16-rem"><input type="text" class="form-control form-control-sm form-text"
-                            name="" id="" placeholder="search"></div>
+                    <a href="{{ route('admin.market.category.create') }}" class="btn btn-info btn-sm">ایجاد دسته بندی</a>
+                    <div class="max-width-16-rem">
+                        <input type="text" class="form-control form-control-sm form-text" name="" id=""
+                            placeholder="search">
+                    </div>
                 </section>
                 <section class="table-responsive">
                     <table class="table table-striped table-hover">
@@ -41,30 +43,41 @@
                                 <th>1</th>
                                 <td>lcd</td>
                                 <td>electronic products</td>
-<td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-<button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt"> حذف</i></button>
+                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
+                                            class="fa fa-edit"></i> ویرایش</a>
+                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
+                                            حذف</i></button>
                                 </td>
                             </tr>
                             <tr>
                                 <th>2</th>
                                 <td>lcd</td>
                                 <td>electronic products</td>
-<td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-<button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt"> حذف</i></button></td>
+                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
+                                            class="fa fa-edit"></i> ویرایش</a>
+                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
+                                            حذف</i></button>
+                                </td>
                             </tr>
                             <tr>
                                 <th>3</th>
                                 <td>lcd</td>
                                 <td>electronic products</td>
-<td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-<button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt"> حذف</i></button></td>
+                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
+                                            class="fa fa-edit"></i> ویرایش</a>
+                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
+                                            حذف</i></button>
+                                </td>
                             </tr>
                             <tr>
                                 <th>4</th>
                                 <td>lcd</td>
                                 <td>electronic products</td>
-<td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-<button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt"> حذف</i></button></td>
+                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
+                                            class="fa fa-edit"></i> ویرایش</a>
+                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
+                                            حذف</i></button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
