@@ -52,6 +52,12 @@
 .font-size-14{
     font-size: 14px;
 }
+.max-width-16-rem{
+    max-width: 16rem;
+}
 .width-16-rem{
     width: 16rem;
+}
+.main-body table {
+    font-size: .9rem;
 }
