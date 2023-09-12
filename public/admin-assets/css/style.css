@@ -61,5 +61,8 @@
 .main-body table {
     font-size: .9rem;
 }
+.max-height-2rem{
+    max-height: 2rem;
+}
 
 
