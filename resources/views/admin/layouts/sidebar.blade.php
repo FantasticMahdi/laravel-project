@@ -21,7 +21,7 @@
                     <a href="{{ route('admin.market.brand.index') }}">برندها</a>
                     <a href="#">کالاها</a>
                     <a href="#">انبار</a>
-                    <a href="#">نظرات</a>
+                    <a href="{{ route('admin.market.comment.index') }}">نظرات</a>
                 </section>
             </section>
 
