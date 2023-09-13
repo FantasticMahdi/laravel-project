@@ -62,9 +62,9 @@
                     <i class="fas fa-angle-left angle"></i>
                 </section>
                 <section class="sidebar-dropdown">
-                    <a href="#">کپن تخفیف</a>
-                    <a href="#">تخفیف عمومی</a>
-                    <a href="#">فروش شگفت انگیز</a>
+                    <a href="{{ route('admin.market.discount.coupon') }}">کپن تخفیف</a>
+                    <a href="{{ route('admin.market.discount.commonDiscount') }}">تخفیف عمومی</a>
+                    <a href="{{ route('admin.market.discount.amazingSale') }}">فروش شگفت انگیز</a>
                 </section>
             </section>
 
@@ -76,8 +76,8 @@
 
 
             <section class="sidebar-part-title">بخش محتوی</section>
-<a href="{{ route('admin.market.category.index') }}" class="sidebar-link">
-<i class="fas fa-bars"></i>
+            <a href="{{ route('admin.market.category.index') }}" class="sidebar-link">
+                <i class="fas fa-bars"></i>
                 <span>دسته بندی</span>
             </a>
             <a href="#" class="sidebar-link">
