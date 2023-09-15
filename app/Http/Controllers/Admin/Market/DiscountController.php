@@ -24,7 +24,7 @@ class DiscountController extends Controller
      */
     public function couponCreate()
     {
-        return view('admin.market.discount.coupon.create');
+        return view('admin.market.discount.create-coupon');
     }
 
     /**
@@ -35,7 +35,7 @@ class DiscountController extends Controller
      */
     public function commonDiscount()
     {
-        return view('admin.market.discount.commonDiscount');
+        return view('admin.market.discount.common');
     }
 
     /**
@@ -46,7 +46,7 @@ class DiscountController extends Controller
      */
     public function commonDiscountCreate()
     {
-        return view('admin.market.discount.commonDiscount.create');
+        return view('admin.market.discount.create-common');
     }
 
     /**
@@ -69,7 +69,7 @@ class DiscountController extends Controller
      */
     public function amazingSaleCreate()
     {
-        return view('admin.market.discount.amazingSale.create');
+        return view('admin.market.discount.create-amazing');
     }
 
     /**

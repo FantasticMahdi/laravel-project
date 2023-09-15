@@ -2,7 +2,7 @@
 
 
 @section('head-tag')
-    <title>کوپن تخفیف</title>
+    <title>ایجاد فروش شگفت انگیز</title>
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
             <li class="breadcrumb-item font-size-14"> <a href="">خانه</a></li>
             <li class="breadcrumb-item font-size-14"> <a href="#">بخش فروش</a></li>
             <li class="breadcrumb-item font-size-14"> <a href="#">کوپن تخفیف</a></li>
-            <li class="breadcrumb-item font-size-14 active" aria-current="page"> ساخت کوپن تخفیف</li>
+            <li class="breadcrumb-item font-size-14 active" aria-current="page"> ایجاد فروش شگفت انگیز</li>
         </ol>
     </nav>
 
@@ -19,36 +19,40 @@
         <section class="col-12">
             <section class="main-body-container">
                 <section class="main-body-container-header">
-                    <h5>ساخت کوپن تخفیف جدید</h5>
+                    <h5>ایجاد فروش شگفت انگیز</h5>
 
                 </section>
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 pb-3 border-bottom">
-                    <a href="{{ route('admin.market.discount.index') }}" class="btn btn-info btn-sm">بازگشت</a>
+                    <a href="{{ route('admin.market.discount.amazingSale') }}" class="btn btn-info btn-sm">بازگشت</a>
                 </section>
 
 
                 <section>
                     <form action="" method="post">
                         <section class="row">
-                            <section class="col-12 col-md-6 d-flex">
+
+
+                            <section class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="">پاسخ ادمین </label>
+                                    <label for="">نام کالا</label>
                                     <input class="form-control form-control-sm" type="text">
                                 </div>
+                            </section>
+                            <section class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="">پاسخ ادمین </label>
+                                    <label for="">درصد تخفیف</label>
                                     <input class="form-control form-control-sm" type="text">
                                 </div>
+                            </section>
+                            <section class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="">پاسخ ادمین </label>
+                                    <label for="">تاریخ شروع</label>
                                     <input class="form-control form-control-sm" type="text">
                                 </div>
+                            </section>
+                            <section class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="">پاسخ ادمین </label>
-                                    <input class="form-control form-control-sm" type="text">
-                                </div>
-                                <div class="form-group">
-                                    <label for="">پاسخ ادمین </label>
+                                    <label for="">تاریخ پایان</label>
                                     <input class="form-control form-control-sm" type="text">
                                 </div>
                             </section>

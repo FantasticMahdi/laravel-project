@@ -91,18 +91,18 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         });
 
         //discount
-Route::prefix('discount')->group(function () {
-Route::get('/coupon', [DiscountController::class, 'coupon'])->name('admin.market.discount.coupon');
-Route::get('/coupon/create', [DiscountController::class, 'couponCreate'])->name('admin.market.discount.coupon.create');
-Route::get('/common-discount', [DiscountController::class, 'commonDiscount'])->name('admin.market.discount.commonDiscount');
-Route::get('/common-discount/create', [DiscountController::class, 'commonDiscountCreate'])->name('admin.market.discount.commonDiscount.create');
-Route::get('/amazing-sale', [DiscountController::class, 'amazingSale'])->name('admin.market.discount.amazingSale');
-Route::get('/amazing-sale/create', [DiscountController::class, 'amazingSaleCreate'])->name('admin.market.discount.amazingSale.create');
+        Route::prefix('discount')->group(function () {
+
+            Route::get('/coupon', [DiscountController::class, 'coupon'])->name('admin.market.discount.coupon');
+            Route::get('/coupon/create', [DiscountController::class, 'couponCreate'])->name('admin.market.discount.coupon.create');
+            Route::get('/common-discount', [DiscountController::class, 'commonDiscount'])->name('admin.market.discount.common');
+
+            Route::get('/common-discount/create', [DiscountController::class, 'commonDiscountCreate'])->name('admin.market.discount.commonDiscount.create');
+
+            Route::get('/amazing-sale', [DiscountController::class, 'amazingSale'])->name('admin.market.discount.amazingSale');
+
+            Route::get('/amazing-sale/create', [DiscountController::class, 'amazingSaleCreate'])->name('admin.market.discount.amazingSale.create');
 
         });
-
-
-
-
     });
 });
