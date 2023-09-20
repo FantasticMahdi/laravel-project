@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Content;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class FAQController extends Controller
+class MenuController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class FAQController extends Controller
      */
     public function index()
     {
-        return view('admin.content.faq.index');
+        return view('admin.content.menu.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class FAQController extends Controller
      */
     public function create()
     {
-        return view('admin.content.faq.create');
+        return view('admin.content.menu.create');
     }
 
     /**
