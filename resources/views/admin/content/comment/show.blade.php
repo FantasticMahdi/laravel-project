@@ -2,7 +2,7 @@
 
 
 @section('head-tag')
-    <title>برند</title>
+    <title>نمایش نظر</title>
 @endsection
 
 @section('content')
