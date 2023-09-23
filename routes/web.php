@@ -32,6 +32,12 @@ use App\Http\Controllers\Admin\User\CustomerController;
 use App\Http\Controllers\Admin\User\RoleController;
 use App\Http\Controllers\Admin\User\PermissionController;
 
+
+//Notify
+use App\Http\Controllers\Admin\Notify\EmailController;
+use App\Http\Controllers\Admin\Notify\SMSController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -280,8 +286,8 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::delete('/destroy/{id}', [AdminUserController::class, 'destroy'])->name('admin.user.admin-user.destroy');
         });
 
-         //customer
-         Route::prefix('customer')->group(function () {
+        //customer
+        Route::prefix('customer')->group(function () {
             Route::get('/', [CustomerController::class, 'index'])->name('admin.user.customer.index');
             Route::get('/create', [CustomerController::class, 'create'])->name('admin.user.customer.create');
             Route::get('/show', [CustomerController::class, 'show'])->name('admin.user.customer.show');
@@ -312,7 +318,31 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::put('/update/{id}', [PermissionController::class, 'update'])->name('admin.user.permission.update');
             Route::delete('/destroy/{id}', [PermissionController::class, 'destroy'])->name('admin.user.permission.destroy');
         });
+    });
 
+    //notify
+    Route::prefix('notify')->namespace('Notify')->group(function () {
 
+        //email
+        Route::prefix('email')->group(function () {
+            Route::get('/', [EmailController::class, 'index'])->name('admin.notify.email.index');
+            Route::get('/create', [EmailController::class, 'create'])->name('admin.notify.email.create');
+            Route::get('/show', [EmailController::class, 'show'])->name('admin.notify.email.show');
+            Route::post('/store', [EmailController::class, 'store'])->name('admin.notify.email.store');
+            Route::get('/edit/{id}', [EmailController::class, 'edit'])->name('admin.notify.email.edit');
+            Route::put('/update/{id}', [EmailController::class, 'update'])->name('admin.notify.email.update');
+            Route::delete('/destroy/{id}', [EmailController::class, 'destroy'])->name('admin.notify.email.destroy');
+        });
+
+        //sms
+        Route::prefix('sms')->group(function () {
+            Route::get('/', [SMSController::class, 'index'])->name('admin.notify.sms.index');
+            Route::get('/create', [SMSController::class, 'create'])->name('admin.notify.sms.create');
+            Route::get('/show', [SMSController::class, 'show'])->name('admin.notify.sms.show');
+            Route::post('/store', [SMSController::class, 'store'])->name('admin.notify.sms.store');
+            Route::get('/edit/{id}', [SMSController::class, 'edit'])->name('admin.notify.sms.edit');
+            Route::put('/update/{id}', [SMSController::class, 'update'])->name('admin.notify.sms.update');
+            Route::delete('/destroy/{id}', [SMSController::class, 'destroy'])->name('admin.notify.sms.destroy');
+        });
     });
 });
