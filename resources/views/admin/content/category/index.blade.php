@@ -55,15 +55,16 @@
                                     <td><label for="">
                                             <input type="checkbox" @if ($postCategory->status === 1) checked @endif>
                                         </label></td>
-                                    <td class="width-16-rem text-left"><a
-                                            href="{{ route('admin.content.category.edit', $postCategory->id) }}"
-                                            class="btn btn-primary btn-sm">
-                                            <i class="fa fa-edit"></i> ویرایش</a>
-<form class="d-inline" action="{{ route('admin.content.category.destroy', $postCategory->id) }}"
+                                    <td class="width-16-rem text-left">
+<a href="{{ route('admin.content.category.edit', $postCategory->id) }}"
+class="btn btn-primary btn-sm">
+<i class="fa fa-edit"></i> ویرایش</a>
+<form class="d-inline"
+action="{{ route('admin.content.category.destroy', $postCategory->id) }}"
 method="post">
-@csrf
-{{ method_field('delete') }}
-<button class="btn btn-danger btn-sm" type="submit">
+                                            @csrf
+                                            {{ method_field('delete') }}
+                                            <button class="btn btn-danger btn-sm" type="submit">
                                                 <i class="fa fa-trash-alt">حذف</i>
                                             </button>
                                         </form>
