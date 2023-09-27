@@ -43,4 +43,14 @@ class PostCategoryRequest extends FormRequest
             ];
         }
     }
+    public function attributes()
+    {
+        return [
+            'name' => 'نام دسته بندی',
+            'description' => 'توضیحات',
+            'image' => 'عکس',
+            'tags' => 'تگ ها',
+            'status' => 'وضعیت',
+        ];
+    }
 }
