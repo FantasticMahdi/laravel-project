@@ -34,51 +34,29 @@
                             <tr>
                                 <th>#</th>
                                 <th>نام دسته بندی</th>
-                                <th>دسته والد</th>
+                        <th>توضیحات</th>
+                        <th>اسلاگ</th>
+                        <th>عکس</th>
+                        <th>تگ ها</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"> تنظیمات</i></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>1</th>
-                                <td>lcd</td>
-                                <td>electronic products</td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>lcd</td>
-                                <td>electronic products</td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <td>lcd</td>
-                                <td>electronic products</td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>4</th>
-                                <td>lcd</td>
-                                <td>electronic products</td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
-                                </td>
-                            </tr>
+                            @foreach ($postCategories as $postCategory)
+                                <tr>
+                                    <th>1</th>
+<td>{{ $postCategory->name }}</td>
+<td>{{ $postCategory->description }}</td>
+<td>{{ $postCategory->slug }}</td>
+<td><img src="{{ asset($postCategory->image) }}" alt="" width="50px" height="50px"></td>
+<td>{{ $postCategory->tags }}</td>
+<td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
+                                                class="fa fa-edit"></i> ویرایش</a>
+                                        <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
+                                                حذف</i></button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </section>
