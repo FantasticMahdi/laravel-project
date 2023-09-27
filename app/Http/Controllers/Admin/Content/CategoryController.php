@@ -40,7 +40,7 @@ class CategoryController extends Controller
     public function store(PostCategoryRequest $request)
     {
         $inputs = $request->all();
-        $inputs['slug'] = str_replace(' ','-', $inputs['name']) . '-' . Str::random(5);
+        $inputs['slug'] = str_replace(' ', '-', $inputs['name']) . '-' . Str::random(5);
         $inputs['image'] = 'image';
         $postCategory = PostCategory::create($inputs);
         return redirect()->route('admin.content.category.index');
@@ -65,7 +65,7 @@ class CategoryController extends Controller
      */
     public function edit(PostCategory $postCategory)
     {
-        return view('admin.content.category.edit',compact('postCategory'));
+        return view('admin.content.category.edit', compact('postCategory'));
     }
 
     /**
