@@ -25,32 +25,22 @@ class PostCategoryRequest extends FormRequest
     {
         if ($this->isMethod('post')) {
             return [
-'name' => 'required|max:120|min:2',
-'description' => 'required|max:500|min:5',
-'slug' => 'nullable',
-'image' => 'required',
-'status' => 'required|numeric|in:0,1',
-'tags' => 'required',
+                'name' => 'required|max:120|min:2',
+                'description' => 'required|max:500|min:5',
+                'slug' => 'nullable',
+                'image' => 'required',
+                'status' => 'required|numeric|in:0,1',
+                'tags' => 'required',
             ];
         } else {
             return [
-'name' => 'required|max:120|min:2',
-'description' => 'required|max:500|min:5',
-'slug' => 'nullable',
-'image' => '',
-'status' => 'required|numeric|in:0,1',
-'tags' => 'required',
+                'name' => 'required|max:120|min:2',
+                'description' => 'required|max:500|min:5',
+                'slug' => 'nullable',
+                'image' => '',
+                'status' => 'required|numeric|in:0,1',
+                'tags' => 'required',
             ];
         }
-    }
-    public function attributes()
-    {
-        return [
-            'name' => 'نام دسته بندی',
-            'description' => 'توضیحات',
-            'image' => 'عکس',
-            'tags' => 'تگ ها',
-            'status' => 'وضعیت',
-        ];
     }
 }
