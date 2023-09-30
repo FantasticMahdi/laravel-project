@@ -53,15 +53,18 @@
                                             height="50px"></td>
                                     <td>{{ $postCategory->tags }}</td>
                                     <td><label for="">
-                                            <input type="checkbox" @if ($postCategory->status === 1) checked @endif>
+                                            <input id="{{ $postCategory->id }}"
+                                                onchange="changeStatus({{ $postCategory->id }})"
+                                                data-url="{{ route('admin.content.category.status', $postCategory->id) }}"
+                                                type="checkbox" @if ($postCategory->status === 1) checked @endif>
                                         </label></td>
                                     <td class="width-16-rem text-left">
-<a href="{{ route('admin.content.category.edit', $postCategory->id) }}"
-class="btn btn-primary btn-sm">
-<i class="fa fa-edit"></i> ویرایش</a>
-<form class="d-inline"
-action="{{ route('admin.content.category.destroy', $postCategory->id) }}"
-method="post">
+                                        <a href="{{ route('admin.content.category.edit', $postCategory->id) }}"
+                                            class="btn btn-primary btn-sm">
+                                            <i class="fa fa-edit"></i> ویرایش</a>
+                                        <form class="d-inline"
+                                            action="{{ route('admin.content.category.destroy', $postCategory->id) }}"
+                                            method="post">
                                             @csrf
                                             {{ method_field('delete') }}
                                             <button class="btn btn-danger btn-sm" type="submit">
@@ -77,4 +80,30 @@ method="post">
             </section>
         </section>
     </section>
+@endsection
+
+@section('script')
+    <script type="text/javascript">
+        function changeStatus(id) {
+            var element = $('#' + id);
+            var url = element.attr('data-url');
+            var elementValue = !element.prop('checked');
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function(response) {
+                    if (response.status) {
+                        if (response.checked)
+                            element.prop('checked', true);
+                        else {
+                            element.prop('checked', false);
+                        }
+                    } else {
+                        element.prop('checked', elementValue);
+                    }
+                }
+            })
+        }
+    </script>
 @endsection
