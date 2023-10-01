@@ -68,7 +68,7 @@
                                             method="post">
                                             @csrf
                                             {{ method_field('delete') }}
-                                            <button class="btn btn-danger btn-sm" type="submit">
+                                            <button class="btn btn-danger btn-sm delete" type="submit">
                                                 <i class="fa fa-trash-alt">حذف</i>
                                             </button>
                                         </form>
@@ -141,10 +141,9 @@
                 $('.toast').toast('show').delay(5000).queue(function() {
                     $(this).remove();
                 });
-
-
             }
-
         }
     </script>
+
+    @include('admin.alerts.sweetalert.delete-confirm', ['className' => 'delete'])
 @endsection
