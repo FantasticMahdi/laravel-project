@@ -9,10 +9,8 @@
     </section>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.toast').toast('show');
         })
     </script>
-
-
 @endif

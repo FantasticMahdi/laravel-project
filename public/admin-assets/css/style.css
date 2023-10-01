@@ -1,14 +1,14 @@
 @font-face {
-  font-family: IRANSans;
-  src: url('../fonts/IRANSans/IRANSansWeb_Light.woff'),
-  url('../fonts/IRANSans/IRANSansWeb_Light.woff') format('truetype');
+  font-family: Vazir;
+  src: url('../fonts/Vazir-Medium.woff'),
+  url('../fonts/Vazir-Thin.woff') format('truetype');
   font-weight: normal;
 }
 
 * {
 	direction: rtl;
 	text-align: right;
-	font-family:IRANSans;
+	font-family:Vazir;
 }
 
 
@@ -35,7 +35,7 @@
 
 	.info-box-body p{
 		line-height: 1rem;
-		font-size: .7rem;		
+		font-size: .7rem;
 	}
 
 	.info-box-icon i{
@@ -137,13 +137,13 @@
 	width: 60px;
 	height: 34px;
   }
-  
-  .switch input { 
+
+  .switch input {
 	opacity: 0;
 	width: 0;
 	height: 0;
   }
-  
+
   .slider {
 	position: absolute;
 	cursor: pointer;
@@ -155,7 +155,7 @@
 	-webkit-transition: .4s;
 	transition: .4s;
   }
-  
+
   .slider:before {
 	position: absolute;
 	content: "";
@@ -167,27 +167,27 @@
 	-webkit-transition: .4s;
 	transition: .4s;
   }
-  
+
   input:checked + .slider {
 	background-color: #2196F3;
   }
-  
+
   input:focus + .slider {
 	box-shadow: 0 0 1px #2196F3;
   }
-  
+
   input:checked + .slider:before {
 	-webkit-transform: translateX(26px);
 	-ms-transform: translateX(26px);
 	transform: translateX(26px);
   }
-  
+
   /* Rounded sliders */
   .slider.round {
 	border-radius: 34px;
 	margin: 4px;
   }
-  
+
   .slider.round:before {
 	border-radius: 50%;
   }
