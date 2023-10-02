@@ -98,7 +98,7 @@ class ImageToolsService
     protected function provider()
     {
         //set properties
-        $this->getImageDirectory() ?? $this->setImageDirectory(date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . date('d') . DIRECTORY_SEPARATOR);
+        $this->getImageDirectory() ?? $this->setImageDirectory(date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . date('d'));
         $this->getImageName() ?? $this->setImageName(time());
         $this->getImageFormat() ?? $this->setImageFormat($this->image->extension());
 
