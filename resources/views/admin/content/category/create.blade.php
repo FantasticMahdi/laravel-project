@@ -61,9 +61,9 @@
                             </section>
                             <section class="col-12 col-md-6 my-2">
                                 <div class="form-group">
-                                    <label for="image">تصویر</label>
-                                    <input class="form-control form-control-sm" type="file" name="image"
-                                        id="image">
+<label for="image">تصویر</label>
+<input class="form-control form-control-sm" type="file" name="image"
+id="image">
                                 </div>
                                 @error('image')
                                     <span class="alert_required bg-danger text-white p-1 rounded"
@@ -119,7 +119,7 @@
             var default_tags = tags_input.val();
             var default_data = null;
 
-            if(tags_input.val() !== null && tags_input.val().length > 0){
+            if (tags_input.val() !== null && tags_input.val().length > 0) {
                 default_data = default_tags.split(',');
             }
 
@@ -127,7 +127,7 @@
             select_tags.select2({
                 placeholder: 'لطفا تگ های خود را وارد کنید.',
                 tags: true,
-                data : default_data
+                data: default_data
             });
             select_tags.children('option').attr('selected', true).trigger('change');
 

@@ -25,7 +25,7 @@ class ImageToolsService
 
     public function setExclusiveDirectory($exclusiveDirectory)
     {
-        $this->exclusiveDirectory = trim($exclusiveDirectory, '/\\');
+$this->exclusiveDirectory = trim($exclusiveDirectory, '/\\');
     }
 
     public function getImageDirectory()

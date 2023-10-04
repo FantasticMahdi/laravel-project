@@ -20,7 +20,7 @@ return [
 
 
     //index size
-    'index-image-size' => [
+    'index-image-sizes' => [
         'large' => [
             'width' => 800,
             'height' => 600

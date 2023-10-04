@@ -44,8 +44,8 @@ class ImageService extends ImageToolsService
         $this->setImage($image);
 
         //set directory
-        $this->getImageDirectory() ?? $this->setImageDirectory(date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . date('d'));
-        $this->setImageDirectory($this->getImageDirectory() . DIRECTORY_SEPARATOR . time());
+$this->getImageDirectory() ?? $this->setImageDirectory(date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . date('d'));
+$this->setImageDirectory($this->getImageDirectory() . DIRECTORY_SEPARATOR . time());
 
 
         //set name
@@ -63,7 +63,7 @@ class ImageService extends ImageToolsService
             $this->provider();
 
             //save image
-            $result = Image::make($image->getRealPath())->fit($imageSize['width'], $imageSize['height'])->save(public_path($this->getImageAddress()), null, $this->getImageFormat());
+$result = Image::make($image->getRealPath())->fit($imageSize['width'], $imageSize['height'])->save(public_path($this->getImageAddress()), null, $this->getImageFormat());
 
             if ($result) {
                 $indexArray[$sizeAlias] = $this->getImageAddress();
@@ -71,11 +71,11 @@ class ImageService extends ImageToolsService
                 return false;
             }
         }
-        $image['indexArray'] = $indexArray;
-        $image['directory'] = $this->getFinalImageDirectory();
-        $image['currentImage'] = Config::get('image.default-current-index-image');
+        $images['indexArray'] = $indexArray;
+        $images['directory'] = $this->getFinalImageDirectory();
+        $images['currentImage'] = Config::get('image.default-current-index-image');
 
-        return $image;
+        return $images;
     }
 
     public function deleteImage($imagePath)
