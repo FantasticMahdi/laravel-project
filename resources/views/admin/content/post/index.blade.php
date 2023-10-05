@@ -40,39 +40,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>1</th>
-                                <td>حفظ سرمایه</td>
-                                <td>دنیای اقتصاد</td>
-                                <td><img src="{{ asset('admin-assets/images/logo.png') }}" class="max-height-2rem" alt=""></td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>1</th>
-                                <td>حفظ سرمایه</td>
-                                <td>دنیای اقتصاد</td>
-                                <td><img src="{{ asset('admin-assets/images/logo.png') }}" class="max-height-2rem" alt=""></td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>1</th>
-                                <td>حفظ سرمایه</td>
-                                <td>دنیای اقتصاد</td>
-                                <td><img src="{{ asset('admin-assets/images/logo.png') }}" class="max-height-2rem" alt=""></td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
-                                </td>
-                            </tr>
+                            @foreach ($posts as $key => $post)
+                                <tr>
+<th>{{  $key += 1 }}</th>
+<td>{{ $post->title }}</td>
+<td>{{ $post->postCategory->name }}</td>
+<td>
+    {{--  <img src="{{ asset($post->image['indexArray'][$postCategory->image['currentImage']]) }}" alt="" width="70" height="60px">  --}}
+</td>
+<td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
+class="fa fa-edit"></i> ویرایش</a>
+<button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
+حذف</i></button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </section>
