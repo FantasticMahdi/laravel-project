@@ -198,7 +198,7 @@
                     <span id="header-profile-toggle" class="pointer">
                         <img class="header-avatar" src="{{ asset('admin-assets/images/avatar-2.jpg') }}"
                             alt="">
-                        <span class="header-username">نرگس خراسانی</span>
+                        <span class="header-username">مهدی خراسانی</span>
                         <i class="fas fa-angle-down"></i>
                     </span>
                     <section id="header-profile" class="header-profile rounded">
