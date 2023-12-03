@@ -134,7 +134,7 @@ return [
         "hour"                      => "ساعت",
         "minute"                    => "دقیقه",
         "second"                    => "ثانیه",
-        "title"                     => "عنوان کالا",
+        "title"                     => "عنوان",
         "text"                      => "متن",
         "content"                   => "محتوا",
         "description"               => "توضیحات",
