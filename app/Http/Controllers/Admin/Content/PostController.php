@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Content\PostCategory;
 use App\Http\Requests\Admin\Content\PostRequest;
+use App\Http\Services\Image\ImageService;
+
 
 class PostController extends Controller
 {
@@ -18,7 +20,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::orderBy('created_at', 'desc')->simplePaginate(15);
-        return view('admin.content.post.index',compact('posts'));
+        return view('admin.content.post.index', compact('posts'));
     }
 
     /**
@@ -29,7 +31,7 @@ class PostController extends Controller
     public function create()
     {
         $postCategories = PostCategory::all();
-        return view('admin.content.post.create',compact('postCategories'));
+        return view('admin.content.post.create', compact('postCategories'));
     }
 
     /**
@@ -38,9 +40,24 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request)
+    public function store(PostRequest $request, ImageService $imageService)
     {
-        dd($request);
+        $inputs = $request->all();
+
+        //date fix
+        $realTimestampStart = substr($request->published_at, 0, 10);
+        $inputs['published_at'] = date("Y-m-d H:i:s", (int)$realTimestampStart);
+        if ($request->hasFile('image')) {
+$imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'post');
+$result = $imageService->createIndexAndSave($request->file('image'));
+if ($result === false) {
+return redirect()->route('admin.content.post.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد.');
+            }
+$inputs['image'] = $result;
+        }
+$inputs['author_id'] = 1;
+$post = Post::create($inputs);
+return redirect()->route('admin.content.post.index')->with('swal-success', 'پست جدید با موفقیت اضافه شد');
     }
 
     /**
