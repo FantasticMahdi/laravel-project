@@ -159,5 +159,7 @@ return [
         "status"                    => "وضعیت",
         "tags"                      => "برچسب ها",
         "summary"                   => "خلاصه",
+        "question"                   => "پرسش",
+        "answer"                   => "پاسخ",
     ],
 ];

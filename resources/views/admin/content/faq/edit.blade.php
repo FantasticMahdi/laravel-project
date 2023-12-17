@@ -2,7 +2,7 @@
 
 
 @section('head-tag')
-    <title>ایجاد پاسخ</title>
+    <title>‌دسته بندی</title>
 @endsection
 
 @section('content')
@@ -10,8 +10,8 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item font-size-14"> <a href="">خانه</a></li>
             <li class="breadcrumb-item font-size-14"> <a href="#">بخش محتوی</a></li>
-            <li class="breadcrumb-item font-size-14"> <a href="#"> سوالات متداول</a></li>
-            <li class="breadcrumb-item font-size-14 active" aria-current="page">ایجاد سوال جدید</li>
+            <li class="breadcrumb-item font-size-14"> <a href="#">سوالات متداول</a></li>
+            <li class="breadcrumb-item font-size-14 active" aria-current="page">ایجاد پرسش جدید</li>
         </ol>
     </nav>
 
@@ -19,7 +19,7 @@
         <section class="col-12">
             <section class="main-body-container">
                 <section class="main-body-container-header">
-                    <h5>ایجاد پرسش جدید</h5>
+                    <h5>پرسش جدید</h5>
 
                 </section>
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 pb-3 border-bottom">
@@ -27,36 +27,37 @@
                 </section>
 
                 <section>
-<form action="{{ route('admin.content.faq.store') }}" method="post" id="form">
+                    <form action="{{ route('admin.content.faq.update', $faq->id) }}" method="post" id="form">
                         @csrf
+                        {{ method_field('put') }}
                         <section class="row">
                             <section class="col-12">
                                 <div class="form-group">
-                                    <label for="">پرسش</label>
-<textarea class="form-control form-control-sm" type="text" name="question" id="question">{{ old('question') }}</textarea>
+                                    <label for="name">پرسش</label>
+                                    <textarea class="form-control form-control-sm" type="text" name="question" id="question">{{ old('question', $faq->question) }}</textarea>
+
                                 </div>
                                 @error('question')
-                                <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                                    <span class="alert_required bg-danger text-white p-1 rounded"
+                                        role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
                             </section>
                             <section class="col-12">
                                 <div class="form-group">
-                                    <label for="">پاسخ</label>
-<textarea class="form-control form-control-sm" rows="4" name="answer" id="answer">{{ old('answer') }}</textarea>
+                                    <label for="name">پاسخ</label>
+                                    <textarea class="form-control form-control-sm" type="text" name="answer" id="answer">{{ old('answer', $faq->answer) }}</textarea>
+
                                 </div>
                                 @error('answer')
-                                <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                                    <span class="alert_required bg-danger text-white p-1 rounded"
+                                        role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
                             </section>
                             <section class="col-12">
                                 <div class="form-group">
                                     <label for="tags">تگ ها</label>
                                     <input class="form-control form-control-sm" type="hidden" name="tags" id="tags"
-                                        value="{{ old('tags') }}">
+                                        value="{{ old('tags', $faq->tags) }}">
                                     <select name="" class="select2 form-control form-control-sm" id="select_tags"
                                         multiple>
 
@@ -68,14 +69,15 @@
                                     </span>
                                 @enderror
                             </section>
-
-                            <section class="col-12">
-                                <button class="btn btn-primary btn-sm mt-2">ثبت</button>
-                            </section>
                         </section>
-                    </form>
+
+                </section>
+
+                <section class="col-12 my-3">
+                    <button class="btn btn-primary btn-sm">ثبت</button>
                 </section>
             </section>
+            </form>
         </section>
     </section>
 @endsection
