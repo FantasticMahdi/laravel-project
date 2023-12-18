@@ -24,7 +24,7 @@ class FaqRequest extends FormRequest
     public function rules()
     {
         return [
-            'question' => 'required|max:500|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.٬ <>\/;\n\r&?؟ ]+$/u',
+            'question' => 'required|max:500|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.٬ <>\/;&?؟ ]+$/u',
             'answer' => 'required|max:500|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.٬ <>\/;\n\r& ]+$/u',
             'tags' => 'required|regex:/^[a-zA-Z0-9,.ا-ی۰-۹\\/ ]+$/u',
         ];

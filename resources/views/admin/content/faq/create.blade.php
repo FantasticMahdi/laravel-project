@@ -33,7 +33,7 @@
                             <section class="col-12">
                                 <div class="form-group">
                                     <label for="">پرسش</label>
-<textarea class="form-control form-control-sm" type="text" name="question" id="question">{{ old('question') }}</textarea>
+<input class="form-control form-control-sm" type="text" name="question" id="question" value="{{ old('question') }}">
                                 </div>
                                 @error('question')
                                 <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -83,7 +83,6 @@
 @section('script')
     <script src="{{ asset('admin-assets/ckeditor/ckeditor.js') }}"></script>
     <script>
-        CKEDITOR.replace('question');
         CKEDITOR.replace('answer');
     </script>
 

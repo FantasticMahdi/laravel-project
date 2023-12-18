@@ -60,7 +60,7 @@
                                             method="post">
                                             @csrf
                                             {{ method_field('delete') }}
-                                            <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
+                                            <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash-alt">
                                                     حذف</i></button>
                                         </form>
                                     </td>

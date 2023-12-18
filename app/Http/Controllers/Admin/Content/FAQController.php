@@ -76,9 +76,9 @@ class FAQController extends Controller
      */
     public function update(FaqRequest $request,Faq $faq)
     {
-        // $inputs = $request->all();
-        // $faq->update($inputs);
-        // return redirect()->route('admin.content.faq.index')->with('swal-success', 'پرسش با موفقیت ویرایش شد');
+        $inputs = $request->all();
+        $faq->update($inputs);
+        return redirect()->route('admin.content.faq.index')->with('swal-success', 'پرسش با موفقیت ویرایش شد');
     }
 
     /**
@@ -89,8 +89,8 @@ class FAQController extends Controller
      */
     public function destroy(Faq $faq)
     {
-        // $result = $faq->delete();
-        // return redirect()->route('admin.content.faq.index')->with('swal-success', 'پرسش با موفقیت حذف شد');
+        $result = $faq->delete();
+        return redirect()->route('admin.content.faq.index')->with('swal-success', 'پرسش با موفقیت حذف شد');
     }
     public function status(Faq $faq)
     {
