@@ -25,9 +25,9 @@ class PageRequest extends FormRequest
     {
         return [
             'title' => 'required|max:500|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.٬ <>\/;&?؟ ]+$/u',
-            'url' => 'required|max:500|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.٬ <>\/;\n\r& ]+$/u',
-            'body' => 'required|max:500|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.٬ <>\/;\n\r& ]+$/u',
+            'body' => 'required|max:1000|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.٬،,‌ <>\/;\n\r& ]+$/u',
             'tags' => 'required|regex:/^[a-zA-Z0-9,.ا-ی۰-۹\\/ ]+$/u',
+            'status' => 'required|numeric|in:0,1',
         ];
     }
 }

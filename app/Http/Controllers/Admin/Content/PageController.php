@@ -38,10 +38,9 @@ class PageController extends Controller
      */
     public function store(PageRequest $request)
     {
-        // $inputs = $request->all();
-        // dd($request->all());
-        // $page = Page::create($inputs);
-        // return redirect()->route('admin.content.page.index')->with('swal-success', 'پیج با موفقیت اضافه شد');
+        $inputs = $request->all();
+        $page = Page::create($inputs);
+        return redirect()->route('admin.content.page.index')->with('swal-success', 'پیج با موفقیت اضافه شد');
     }
 
     /**
@@ -75,10 +74,9 @@ class PageController extends Controller
      */
     public function update(PageRequest $request, Page $page)
     {
-        // $inputs = $request->all();
-
-        // $page->update($inputs);
-        // return redirect()->route('admin.content.page.index')->with('swal-success', 'پیج با موفقیت ویرایش شد');
+        $inputs = $request->all();
+        $page->update($inputs);
+        return redirect()->route('admin.content.page.index')->with('swal-success', 'پیج با موفقیت ویرایش شد');
     }
 
     /**
