@@ -265,9 +265,11 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/create', [PageController::class, 'create'])->name('admin.content.page.create');
             Route::get('/show', [PageController::class, 'show'])->name('admin.content.page.show');
             Route::post('/store', [PageController::class, 'store'])->name('admin.content.page.store');
-            Route::get('/edit/{id}', [PageController::class, 'edit'])->name('admin.content.page.edit');
-            Route::put('/update/{id}', [PageController::class, 'update'])->name('admin.content.page.update');
-            Route::delete('/destroy/{id}', [PageController::class, 'destroy'])->name('admin.content.page.destroy');
+            Route::get('/edit/{page}', [PageController::class, 'edit'])->name('admin.content.page.edit');
+            Route::put('/update/{page}', [PageController::class, 'update'])->name('admin.content.page.update');
+            Route::delete('/destroy/{page}', [PageController::class, 'destroy'])->name('admin.content.page.destroy');
+            Route::get('/status/{page}', [PageController::class, 'status'])->name('admin.content.page.status');
+
         });
         //post
         Route::prefix('post')->group(function () {

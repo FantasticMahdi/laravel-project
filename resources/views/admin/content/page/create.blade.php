@@ -27,31 +27,44 @@
                 </section>
 
                 <section>
-                    <form action="" method="post">
+                    <form action="{{ route('admin.content.page.store') }}" method="post" id="form">
+                        @csrf
                         <section class="row">
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">عنوان</label>
-                                    <input class="form-control form-control-sm" type="text" name=""
-                                        id="">
+                                    <input class="form-control form-control-sm" type="text" name="title"
+                                        id="title" value="{{ old('title') }}">
                                 </div>
+                                @error('title')
+                                <span class="alert_required bg-danger text-white p-1 rounded"
+                                    role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">آدرس url</label>
-                                    <input class="form-control form-control-sm" type="text" name=""
-                                        id="">
+                                    <input class="form-control form-control-sm" type="text" name="url"
+                                        id="url" value="{{ old('url') }}">
                                 </div>
+                                @error('url')
+                                <span class="alert_required bg-danger text-white p-1 rounded"
+                                    role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
                             </section>
                             <section class="col-12">
                                 <div class="form-group">
                                     <label for="">محتوی</label>
                                     <textarea class="form-control form-control-sm" name="body"
-                                        id="body" rows="4"></textarea>
+                                        id="body" rows="4">{{ old('body') }}</textarea>
                                 </div>
+                                @error('body')
+                                <span class="alert_required bg-danger text-white p-1 rounded"
+                                    role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
                             </section>
                             <section class="col-12">
-                                <button class="btn btn-primary btn-sm">register</button>
+                                <button class="btn btn-primary btn-sm">ثبت</button>
                             </section>
                         </section>
                     </form>

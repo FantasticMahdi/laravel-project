@@ -50,23 +50,24 @@
                                     <td>{{ $postCategory->name }}</td>
                                     <td>{{ $postCategory->description }}</td>
                                     <td>{{ $postCategory->slug }}</td>
-<td><img src="{{ asset($postCategory->image['indexArray'][$postCategory->image['currentImage']]) }}"
-alt="" width="70" height="60px"></td>
-<td>{{ $postCategory->tags }}</td>
-<td><label for="">
-<input id="{{ $postCategory->id }}"
-onchange="changeStatus({{ $postCategory->id }})"
-data-url="{{ route('admin.content.category.status', $postCategory->id) }}"
-type="checkbox" @if ($postCategory->status === 1) checked @endif>
-</label></td>
-<td class="width-16-rem text-left">
-<a href="{{ route('admin.content.category.edit', $postCategory->id) }}"
-class="btn btn-primary btn-sm">
-<i class="fa fa-edit"></i> ویرایش</a>
-<form class="d-inline" action="{{ route('admin.content.category.destroy', $postCategory->id) }}"
-method="post">
+                                    <td><img src="{{ asset($postCategory->image['indexArray'][$postCategory->image['currentImage']]) }}"
+                                            alt="" width="70" height="60px"></td>
+                                    <td>{{ $postCategory->tags }}</td>
+                                    <td><label for="">
+                                            <input id="{{ $postCategory->id }}"
+                                                onchange="changeStatus({{ $postCategory->id }})"
+                                                data-url="{{ route('admin.content.category.status', $postCategory->id) }}"
+                                                type="checkbox" @if ($postCategory->status === 1) checked @endif>
+                                        </label></td>
+                                    <td class="width-16-rem text-left">
+                                        <a href="{{ route('admin.content.category.edit', $postCategory->id) }}"
+                                            class="btn btn-primary btn-sm">
+                                            <i class="fa fa-edit"></i> ویرایش</a>
+                                        <form class="d-inline"
+                                            action="{{ route('admin.content.category.destroy', $postCategory->id) }}"
+                                            method="post">
                                             @csrf
-{{ method_field('delete') }}
+                                            {{ method_field('delete') }}
                                             <button class="btn btn-danger btn-sm delete" type="submit">
                                                 <i class="fa fa-trash-alt">حذف</i>
                                             </button>
