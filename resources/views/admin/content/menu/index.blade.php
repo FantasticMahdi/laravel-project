@@ -45,7 +45,7 @@
                                 <tr>
                                     <th>{{ $key + 1 }}</th>
                                     <td>{{ $menu->name }}</td>
-<td>{{ $menu->parent_id ? $menu->parent_id  : 'منوی اصلی' }}</td>
+                                    <td>{{ $menu->parent_id ? $menu->parent->name : 'منوی اصلی' }}</td>
                                     <td>{{ $menu->url }}</td>
                                     <td><label for="">
                                             <input id="{{ $menu->id }}" onchange="changeStatus({{ $menu->id }})"
@@ -55,8 +55,12 @@
                                     <td class="width-16-rem text-left"><a
                                             href="{{ route('admin.content.menu.edit', $menu->id) }}"
                                             class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                        <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                                حذف</i></button>
+                                        <form class="d-inline" action="{{ route('admin.content.menu.destroy', $menu->id) }}" method="POST">
+                                            @csrf
+                                            {{ method_field('delete') }}
+                                            <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash-alt">
+                                                    حذف</i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
