@@ -2,7 +2,7 @@
 
 
 @section('head-tag')
-    <title>ایجاد منو</title>
+    <title>ویرایش پست</title>
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
             <li class="breadcrumb-item font-size-14"> <a href="">خانه</a></li>
             <li class="breadcrumb-item font-size-14"> <a href="#">بخش محتوی</a></li>
             <li class="breadcrumb-item font-size-14"> <a href="#">منو</a></li>
-            <li class="breadcrumb-item font-size-14 active" aria-current="page">ایجاد منو جدید</li>
+            <li class="breadcrumb-item font-size-14 active" aria-current="page">ویرایش منو</li>
         </ol>
     </nav>
 
@@ -19,7 +19,7 @@
         <section class="col-12">
             <section class="main-body-container">
                 <section class="main-body-container-header">
-                    <h5>ایجاد منو</h5>
+                    <h5>ویرایش منو</h5>
 
                 </section>
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 pb-3 border-bottom">
@@ -27,42 +27,45 @@
                 </section>
 
                 <section>
-                    <form action="{{ route('admin.content.menu.store') }}" method="post">
+                    <form action="{{ route('admin.content.menu.update', $menu->id) }}" method="POST">
                         @csrf
+                        {{ method_field('put') }}
                         <section class="row">
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="">نام منو</label>
-                                    <input class="form-control form-control-sm" type="text" name="name"
-                                        id="" value="{{ old('name') }}">
+                                    <label for="">عنوان منو</label>
+                                    <input class="form-control form-control-sm" type="text" name="name" id=""
+                                        value="{{ old('name', $menu->name) }}">
                                 </div>
                                 @error('name')
-                                    <span class="alert_required bg-danger text-white p-1 rounded"
-                                        role="alert"><strong>{{ $message }}</strong></span>
+                                    <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="">منو والد</label>
+                                    <label for="">انتخاب منو</label>
                                     <select class="form-control form-control-sm" name="parent_id" id="">
                                         <option value="">منو اصلی</option>
-                                        @foreach ($menus as $menu)
-                                            <option value="{{ $menu->id }}"
-                                                @if (old('parent_id') == $menu->id) selected @endif>{{ $menu->name }}
+                                        @foreach ($parent_menus as $parent_menu)
+<option value="{{ $parent_menu->id }}"
+@if (old('parent_id', $menu->parent_id) == $parent_menu->id) selected @endif>{{ $parent_menu->name }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
                                 @error('parent_id')
-                                    <span class="alert_required bg-danger text-white p-1 rounded"
-                                        role="alert"><strong>{{ $message }}</strong></span>
+                                    <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">آدرس url</label>
                                     <input class="form-control form-control-sm" type="text" name="url"
-                                        id="" value="{{ old('url') }}">
+                                        id="" value="{{ old('url', $menu->url) }}">
                                 </div>
                                 @error('url')
                                     <span class="alert_required bg-danger text-white p-1 rounded"
@@ -73,9 +76,9 @@
                                 <div class="form-group">
                                     <label for="status">وضعیت</label>
                                     <select class="form-control form-control-sm" name="status" id="status">
-                                        <option value="0" @if (old('status') == 0) selected @endif>غیر فعال
+                                        <option value="0" @if (old('status', $menu->status) == 0) selected @endif>غیر فعال
                                         </option>
-                                        <option value="1" @if (old('status') == 1) selected @endif>فعال
+                                        <option value="1" @if (old('status', $menu->status) == 1) selected @endif>فعال
                                         </option>
                                     </select>
                                 </div>
@@ -85,7 +88,7 @@
                                 @enderror
                             </section>
                             <section class="col-12">
-                                <button class="btn btn-primary btn-sm mt-2">ثبت</button>
+                                <button class="btn btn-primary btn-sm">ثبت</button>
                             </section>
                         </section>
                     </form>

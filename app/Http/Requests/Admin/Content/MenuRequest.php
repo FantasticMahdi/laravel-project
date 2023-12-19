@@ -25,9 +25,9 @@ class MenuRequest extends FormRequest
     {
         return [
             'name' => 'required|max:500|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.٬ <>\/;&?؟ ]+$/u',
-            'url' => 'required|max:500|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.٬ <>\/;\n\r& ]+$/u',
+            'url' => 'required|max:500|min:1|regex:/^[a-zA-Z0-9][a-zA-Z0-9]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}+$/u',
             'status' => 'required|numeric|in:0,1',
-            'parent_id' => 'numeric',
+            'parent_id' => 'nullable|min:1|max:10000000|regex:/^[0-9]+$/u|exists:menus,id',
 
         ];
     }
