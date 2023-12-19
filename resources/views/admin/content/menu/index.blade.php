@@ -2,7 +2,7 @@
 
 
 @section('head-tag')
-    <title>‌دسته بندی</title>
+    <title>منو</title>
 @endsection
 
 @section('content')
@@ -36,47 +36,100 @@
                                 <th>نام منو</th>
                                 <th>منو والد</th>
                                 <th>لینک منو</th>
+                                <th>وضعیت</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"> تنظیمات</i></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>1</th>
-                                <td> سی شارپ</td>
-                                <td>برنامه نویسی ویندوز</td>
-                                <td>http://localhost:8000/admin/content/menu</td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>1</th>
-                                <td> سی شارپ</td>
-                                <td>برنامه نویسی ویندوز</td>
-                                <td>http://localhost:8000/admin/content/menu</td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>1</th>
-                                <td> سی شارپ</td>
-                                <td>برنامه نویسی ویندوز</td>
-                                <td>http://localhost:8000/admin/content/menu</td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
-                                </td>
-                            </tr>
+                            @foreach ($menus as $key => $menu)
+                                <tr>
+                                    <th>{{ $key + 1 }}</th>
+                                    <td>{{ $menu->name }}</td>
+<td>{{ $menu->parent_id ? $menu->parent_id  : 'منوی اصلی' }}</td>
+                                    <td>{{ $menu->url }}</td>
+                                    <td><label for="">
+                                            <input id="{{ $menu->id }}" onchange="changeStatus({{ $menu->id }})"
+                                                data-url="{{ route('admin.content.menu.status', $menu->id) }}"
+                                                type="checkbox" @if ($menu->status === 1) checked @endif>
+                                        </label></td>
+                                    <td class="width-16-rem text-left"><a
+                                            href="{{ route('admin.content.menu.edit', $menu->id) }}"
+                                            class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                        <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
+                                                حذف</i></button>
+                                    </td>
+                                </tr>
+                            @endforeach
+
                         </tbody>
                     </table>
                 </section>
             </section>
         </section>
     </section>
+@endsection
+
+@section('script')
+    <script type="text/javascript">
+        function changeStatus(id) {
+            var element = $('#' + id);
+            var url = element.attr('data-url');
+            var elementValue = !element.prop('checked');
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function(response) {
+                    if (response.status) {
+                        if (response.checked) {
+                            element.prop('checked', true);
+                            successToast('منو با موفقیت فعال شد.')
+                        } else {
+                            element.prop('checked', false);
+                            successToast('منو با موفقیت غیر فعال شد.')
+                        }
+                    } else {
+                        element.prop('checked', elementValue);
+                        errorToast('هنگام ویرایش مشکلی پیش آمده است.');
+
+                    }
+                },
+                error: function() {
+                    element.prop('checked', elementValue);
+                    errorToast('ارتباط برقرار نشد.');
+                }
+            });
+
+            function successToast(message) {
+
+                var successToastTag = ' <section class="toast" data-delay="5000">\n' +
+                    '<section class="toast-body py-3 d-flex bg-success text-white">\n' +
+                    '<strong class="ml-auto">' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' + '</button>\n' + '</section>\n' + '</section>';
+
+
+                $('.toast-wrapper').append(successToastTag);
+                $('.toast').toast('show').delay(5000).queue(function() {
+                    $(this).remove();
+                });
+            }
+
+            function errorToast(message) {
+
+                var errorToastTag = ' <section class="toast" data-delay="5000">\n' +
+                    '<section class="toast-body py-3 d-flex bg-danger text-white">\n' +
+                    '<strong class="ml-auto">' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' + '</button>\n' + '</section>\n' + '</section>';
+
+                $('.toast-wrapper').append(errorToastTag);
+                $('.toast').toast('show').delay(5000).queue(function() {
+                    $(this).remove();
+                });
+            }
+        }
+    </script>
+
+    @include('admin.alerts.sweetalert.delete-confirm', ['className' => 'delete'])
 @endsection
