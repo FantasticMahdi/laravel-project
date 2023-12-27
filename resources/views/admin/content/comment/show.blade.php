@@ -33,7 +33,7 @@
                     </section>
                     <section class="card-body">
                         <h5 class="card-title">کد کالا : 987654 اپل واچ |مشخصات کالا : ساعت هوشمند</h5>
-                        <p class="card-text">ساعت خوبیه فقط سنگینه</p>
+                        <p class="card-text">{{ $comment->body }}</p>
                     </section>
                 </section>
 
