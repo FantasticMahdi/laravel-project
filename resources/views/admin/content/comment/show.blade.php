@@ -29,21 +29,23 @@
                 <section class="card mb-3">
 
                     <section class="card-header text-white bg-custom-yellow">
-                        987654 - مهدی خراسانی
+                        {{ $comment->user->id }} - {{ $comment->user->fullName }}
                     </section>
                     <section class="card-body">
-                        <h5 class="card-title">کد کالا : 987654 اپل واچ |مشخصات کالا : ساعت هوشمند</h5>
+                        <h5 class="card-title">کد کالا : {{ $comment->commentable->id }} | مشخصات کالا : {{ $comment->commentable->title }}</h5>
                         <p class="card-text">{{ $comment->body }}</p>
                     </section>
                 </section>
 
+                @if ($comment->parent_id == null)
                 <section>
-                    <form action="" method="post">
+                    <form action="{{ route('admin.content.comment.answer', $comment->id) }}" method="post">
+                        @csrf
                         <section class="row">
                             <section class="col-12">
                                 <div class="form-group">
                                     <label for="">پاسخ ادمین </label>
-                                    <textarea class="form-control form-control-sm" rows="4"></textarea>
+                                    <textarea class="form-control form-control-sm" rows="4" name="body"></textarea>
                                 </div>
                             </section>
                             <section class="col-12">
@@ -52,6 +54,7 @@
                         </section>
                     </form>
                 </section>
+                @endif
             </section>
         </section>
     </section>

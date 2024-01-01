@@ -33,6 +33,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>کد کاربر</th>
+                                <th>نظر</th>
+                                <th>پاسخ به</th>
                                 <th>نویسنده نظر</th>
                                 <th>کد پست</th>
                                 <th>پست</th>
@@ -44,13 +46,15 @@
                         <tbody>
                             @foreach ($comments as $key => $comment)
                                 <tr>
-                                    <th>{{ $key + 1 }}</th>
-                                    <td>{{ $comment->author_id }}</td>
-                                    <td>{{ $comment->author_id }}</td>
-                                    <td>{{ $comment->commentable_id }}</td>
-                                    <td>آیفون 13</td>
-                                    <td>{{ $comment->approved == 1 ? 'تایید شده' : 'تایید نشده' }}</td>
-                                    <td><label for="">
+<th>{{ $key + 1 }}</th>
+<td>{{ $comment->author_id }}</td>
+<td>{{ Str::limit($comment->body, 10) }}</td>
+<td>{{ $comment->parent_id ? Str::limit($comment->parent->body, 10) : '' }}</td>
+<td>{{ $comment->user->fullName }}</td>
+<td>{{ $comment->commentable_id }}</td>
+<td>{{ $comment->commentable->title }}</td>
+<td>{{ $comment->approved == 1 ? 'تایید شده' : 'تایید نشده' }}</td>
+<td><label for="">
 <input id="{{ $comment->id }}" onchange="changeStatus({{ $comment->id }})" data-url="{{ route('admin.content.comment.status', $comment->id) }}" type="checkbox" @if ($comment->status === 1) checked @endif>
                                     </label></td>
 <td class="width-16-rem text-left">
@@ -59,12 +63,12 @@
 <i class="fa fa-eye"></i>
 نمایش</a>
 @if ($comment->approved == 1)
-<button class="btn btn-warning btn-sm" type="submit" data-approved="{{ route('admin.content.comment.approved', $comment->id) }}" onclick="changeApproved({{ $comment->id }})">
-    <i class="fa fa-times"> عدم تایید</i></button>
+<a href="{{ route('admin.content.comment.approved', $comment->id) }}" class="btn btn-warning btn-sm text-white" type="submit">
+    <i class="fa fa-times"> عدم تایید</i></a>
     @else
 
-<button class="btn btn-success btn-sm" type="submit">
-    <i class="fa fa-check"> تایید</i></button>
+<a href="{{ route('admin.content.comment.approved', $comment->id) }}" class="btn btn-success btn-sm text-white" type="submit">
+    <i class="fa fa-check"> تایید</i></a>
 @endif
 
                                     </td>
@@ -106,67 +110,6 @@
                 },
                 error: function() {
                     element.prop('checked', elementValue);
-                    errorToast('ارتباط برقرار نشد.');
-                }
-            });
-
-            function successToast(message) {
-
-                var successToastTag = ' <section class="toast" data-delay="5000">\n' +
-                    '<section class="toast-body py-3 d-flex bg-success text-white">\n' +
-                    '<strong class="ml-auto">' + message + '</strong>\n' +
-                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
-                    '<span aria-hidden="true">&times;</span>\n' + '</button>\n' + '</section>\n' + '</section>';
-
-
-                $('.toast-wrapper').append(successToastTag);
-                $('.toast').toast('show').delay(5000).queue(function() {
-                    $(this).remove();
-                });
-            }
-
-            function errorToast(message) {
-
-                var errorToastTag = ' <section class="toast" data-delay="5000">\n' +
-                    '<section class="toast-body py-3 d-flex bg-danger text-white">\n' +
-                    '<strong class="ml-auto">' + message + '</strong>\n' +
-                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
-                    '<span aria-hidden="true">&times;</span>\n' + '</button>\n' + '</section>\n' + '</section>';
-
-                $('.toast-wrapper').append(errorToastTag);
-                $('.toast').toast('show').delay(5000).queue(function() {
-                    $(this).remove();
-                });
-            }
-        }
-    </script>
-
-    <script type="text/javascript">
-        function changeApproved(id) {
-            var element = $('#' + id);
-            var url = element.attr('data-url');
-        // var elementValue = !element.prop('checked');
-
-            $.ajax({
-                url: url,
-                type: "GET",
-                success: function(response) {
-                    if (response.Approved) {
-                        if (response.checked) {
-                        //  element.prop('checked', true);
-                            successToast(' کامنت با موفقیت فعال شد.')
-                        } else {
-                        //  element.prop('checked', false);
-                            successToast('کامنت با موفقیت غیر فعال شد.')
-                        }
-                    } else {
-                        //  element.prop('checked', elementValue);
-                        errorToast('هنگام ویرایش مشکلی پیش آمده است.');
-
-                    }
-                },
-                error: function() {
-                    //  element.prop('checked', elementValue);
                     errorToast('ارتباط برقرار نشد.');
                 }
             });

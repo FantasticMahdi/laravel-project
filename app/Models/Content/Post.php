@@ -25,10 +25,14 @@ class Post extends Model
     protected $fillable = ['title', 'slug', 'summary', 'body', 'image', 'status', 'commentable', 'tags', 'published_at', 'author_id', 'category_id'];
 
 
-    public function postCategory(){
+    public function postCategory()
+    {
         return $this->belongsTo(PostCategory::class, 'category_id');
-        
     }
 
 
+    public function comments()
+    {
+        return $this->morphMany('App\Models\Content\Comment', 'commentable');
+    }
 }
