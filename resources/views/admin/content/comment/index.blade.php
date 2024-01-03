@@ -46,30 +46,33 @@
                         <tbody>
                             @foreach ($comments as $key => $comment)
                                 <tr>
-<th>{{ $key + 1 }}</th>
-<td>{{ $comment->author_id }}</td>
-<td>{{ Str::limit($comment->body, 10) }}</td>
-<td>{{ $comment->parent_id ? Str::limit($comment->parent->body, 10) : '' }}</td>
-<td>{{ $comment->user->fullName }}</td>
-<td>{{ $comment->commentable_id }}</td>
-<td>{{ $comment->commentable->title }}</td>
-<td>{{ $comment->approved == 1 ? 'تایید شده' : 'تایید نشده' }}</td>
-<td><label for="">
-<input id="{{ $comment->id }}" onchange="changeStatus({{ $comment->id }})" data-url="{{ route('admin.content.comment.status', $comment->id) }}" type="checkbox" @if ($comment->status === 1) checked @endif>
-                                    </label></td>
-<td class="width-16-rem text-left">
-<a href="{{ route('admin.content.comment.show', $comment->id) }}" class="btn btn-info btn-sm">
+                                    <th>{{ $key + 1 }}</th>
+                                    <td>{{ $comment->author_id }}</td>
+                                    <td>{{ Str::limit($comment->body, 10) }}</td>
+                                    <td>{{ $comment->parent_id ? Str::limit($comment->parent->body, 10) : '' }}</td>
+                                    <td>{{ $comment->user->fullName }}</td>
+                                    <td>{{ $comment->commentable_id }}</td>
+                                    <td>{{ $comment->commentable->title }}</td>
+                                    <td>{{ $comment->approved == 1 ? 'تایید شده' : 'تایید نشده' }}</td>
+                                    <td><label for="">
+                                            <input id="{{ $comment->id }}" onchange="changeStatus({{ $comment->id }})"
+                                                data-url="{{ route('admin.content.comment.status', $comment->id) }}" type="checkbox"
+                                                @if ($comment->status === 1) checked @endif>
+                                        </label></td>
+                                    <td class="width-16-rem text-left">
+                                        <a href="{{ route('admin.content.comment.show', $comment->id) }}" class="btn btn-info btn-sm">
 
-<i class="fa fa-eye"></i>
-نمایش</a>
-@if ($comment->approved == 1)
-<a href="{{ route('admin.content.comment.approved', $comment->id) }}" class="btn btn-warning btn-sm text-white" type="submit">
-    <i class="fa fa-times"> عدم تایید</i></a>
-    @else
-
-<a href="{{ route('admin.content.comment.approved', $comment->id) }}" class="btn btn-success btn-sm text-white" type="submit">
-    <i class="fa fa-check"> تایید</i></a>
-@endif
+                                            <i class="fa fa-eye"></i>
+                                            نمایش</a>
+                                        @if ($comment->approved == 1)
+                                            <a href="{{ route('admin.content.comment.approved', $comment->id) }}"
+                                                class="btn btn-warning btn-sm text-white" type="submit">
+                                                <i class="fa fa-times"> عدم تایید</i></a>
+                                        @else
+                                            <a href="{{ route('admin.content.comment.approved', $comment->id) }}"
+                                                class="btn btn-success btn-sm text-white" type="submit">
+                                                <i class="fa fa-check"> تایید</i></a>
+                                        @endif
 
                                     </td>
                                 </tr>
@@ -144,5 +147,4 @@
             }
         }
     </script>
-
 @endsection
