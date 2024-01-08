@@ -50,10 +50,15 @@
                                                 data-url="{{ route('admin.notify.sms.status', $single_sms->id) }}" type="checkbox"
                                                 @if ($single_sms->status === 1) checked @endif>
                                         </label></td>
-                                    <td>{{ jalaliDate($single_sms->published_at) }}</td>
-                                    <td class="width-16-rem text-left"><a href="#" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> ویرایش</a>
-                                        <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                                حذف</i></button>
+                                    <td>{{ jalaliDate($single_sms->published_at, '(H:i:s) Y-m-D') }}</td>
+                                    <td class="width-16-rem text-left"><a href="{{ route('admin.notify.sms.edit', $single_sms->id) }}"
+                                            class="btn btn-info btn-sm"><i class="fa fa-eye"></i> ویرایش</a>
+                                        <form class="d-inline" action="{{ route('admin.notify.sms.destroy', $single_sms->id) }}" method="POST">
+                                            @csrf
+                                            {{ method_field('delete') }}
+                                            <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash-alt">
+                                                    حذف</i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -127,5 +132,5 @@
             }
         }
     </script>
+    @include('admin.alerts.sweetalert.delete-confirm', ['className' => 'delete'])
 @endsection
-

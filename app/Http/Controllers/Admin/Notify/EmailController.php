@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Notify;
 
-use App\Http\Controllers\Controller;
+use App\Models\Notify\Email;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Notify\EmailRequest;
 
 class EmailController extends Controller
 {
@@ -14,7 +16,8 @@ class EmailController extends Controller
      */
     public function index()
     {
-        return view('admin.notify.email.index');
+        $emails = Email::orderBy('created_at', 'desc')->simplePaginate(15);
+        return view('admin.notify.email.index', compact('emails'));
     }
 
     /**
@@ -33,11 +36,17 @@ class EmailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmailRequest $request)
     {
-        //
-    }
+        $inputs = $request->all();
 
+        //date fix
+        $realTimestampStart = substr($request->published_at, 0, 10);
+        $inputs['published_at'] = date("Y-m-d H:i:s", (int)$realTimestampStart);
+
+        $email = Email::create($inputs);
+        return redirect()->route('admin.notify.email.index')->with('swal-success', 'ایمیل جدید با موفقیت اضافه شد');
+    }
     /**
      * Display the specified resource.
      *
@@ -55,9 +64,9 @@ class EmailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Email $email)
     {
-        //
+        return view('admin.notify.email.edit', compact('email'));
     }
 
     /**
@@ -67,9 +76,15 @@ class EmailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EmailRequest $request, Email $email)
     {
-        //
+        $inputs = $request->all();
+        //date fix
+        $realTimestampStart = substr($request->published_at, 0, 10);
+        $inputs['published_at'] = date("Y-m-d H:i:s", (int)$realTimestampStart);
+
+        $email->update($inputs);
+        return redirect()->route('admin.notify.email.index')->with('swal-success', 'ایمیل با موفقیت ویرایش شد');
     }
 
     /**
@@ -78,8 +93,24 @@ class EmailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Email $email)
     {
-        //
+        $result = $email->delete();
+        return redirect()->route('admin.notify.email.index')->with('swal-success', 'ایمیل با موفقیت حذف شد');
+    }
+
+    public function status(Email $email)
+    {
+        $email->status = $email->status == 0 ? 1 : 0;
+        $result = $email->save();
+        if ($result) {
+            if ($email->status == 0) {
+                return response()->json(['status' => true, 'checked' => false]);
+            } else {
+                return response()->json(['status' => true, 'checked' => true]);
+            }
+        } else {
+            return response()->json(['status' => false]);
+        }
     }
 }
