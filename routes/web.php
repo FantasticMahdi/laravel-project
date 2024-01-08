@@ -347,9 +347,11 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/create', [EmailController::class, 'create'])->name('admin.notify.email.create');
             Route::get('/show', [EmailController::class, 'show'])->name('admin.notify.email.show');
             Route::post('/store', [EmailController::class, 'store'])->name('admin.notify.email.store');
-            Route::get('/edit/{id}', [EmailController::class, 'edit'])->name('admin.notify.email.edit');
-            Route::put('/update/{id}', [EmailController::class, 'update'])->name('admin.notify.email.update');
-            Route::delete('/destroy/{id}', [EmailController::class, 'destroy'])->name('admin.notify.email.destroy');
+            Route::get('/edit/{email}', [EmailController::class, 'edit'])->name('admin.notify.email.edit');
+            Route::put('/update/{email}', [EmailController::class, 'update'])->name('admin.notify.email.update');
+            Route::delete('/destroy/{email}', [EmailController::class, 'destroy'])->name('admin.notify.email.destroy');
+            Route::get('/status/{email}', [EmailController::class, 'status'])->name('admin.notify.email.status');
+
         });
 
         //sms
