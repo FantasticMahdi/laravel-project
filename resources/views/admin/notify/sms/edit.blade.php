@@ -2,7 +2,7 @@
 
 
 @section('head-tag')
-    <title>ایجاد اطلاعیه پیامکی</title>
+    <title>ویرایش اطلاعیه پیامکی</title>
     <link rel="stylesheet" href="{{ asset('admin-assets/jalalidatepicker/persian-datepicker.min.css') }}">
 @endsection
 

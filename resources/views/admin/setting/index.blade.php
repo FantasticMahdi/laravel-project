@@ -24,8 +24,7 @@
                     <a href="#" class="btn btn-info btn-sm disabled">ایجاد تنظیمات
                         جدید</a>
                     <div class="max-width-16-rem">
-                        <input type="text" class="form-control form-control-sm form-text" name="" id=""
-                            placeholder="search">
+                        <input type="text" class="form-control form-control-sm form-text" name="" id="" placeholder="search">
                     </div>
                 </section>
                 <section class="table-responsive">
@@ -47,10 +46,13 @@
                                 <td>{{ $setting->title }}</td>
                                 <td>{{ $setting->description }}</td>
                                 <td>{{ $setting->keywords }}</td>
-                                <td>{{ $setting->logo }}</td>
-                                <td>{{ $setting->icon }}</td>
+                                <td><img src="{{ asset($setting->logo) }}" alt=""
+                                    width="70" height="60px"></td>
+                                <td><img src="{{ asset($setting->icon) }}" alt=""
+                                    width="70" height="60px"></td>
                                 <td class="width-16-rem text-left">
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                    <a href="{{ route('admin.setting.edit', $setting->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>
+                                        ویرایش</a>
 
                                 </td>
                             </tr>
