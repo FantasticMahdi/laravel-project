@@ -2,7 +2,7 @@
 
 
 @section('head-tag')
-    <title>اطلاعیه ایمیلی</title>
+    <title>فایل های اطلاعیه ایمیلی</title>
 @endsection
 
 @section('content')
@@ -10,7 +10,8 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item font-size-14"> <a href="">خانه</a></li>
             <li class="breadcrumb-item font-size-14"> <a href="#"> اطلاعیه</a></li>
-            <li class="breadcrumb-item font-size-14 active" aria-current="page"> اطلاعیه ایمیلی</li>
+            <li class="breadcrumb-item font-size-14"><a href="#"> اطلاعیه ایمیلی</a></li>
+            <li class="breadcrumb-item font-size-14 active" aria-current="page">فایل های اطلاعیه ایمیلی</li>
         </ol>
     </nav>
 
@@ -18,11 +19,11 @@
         <section class="col-12">
             <section class="main-body-container">
                 <section class="main-body-container-header">
-                    <h5>اطلاعیه ایمیلی</h5>
+                    <h5>فایل های اطلاعیه ایمیلی</h5>
 
                 </section>
-                <section class="d-flex justify-content-between align-items-center mt-4 mb-3 pb-2">
-                    <a href="{{ route('admin.notify.email.create') }}" class="btn btn-info btn-sm">ایجاد اطلاعیه جدید</a>
+<section class="d-flex justify-content-between align-items-center mt-4 mb-3 pb-2">
+<a href="{{ route('admin.notify.email-file.create', $email->id) }}" class="btn btn-info btn-sm">ایجاد فایل اطلاعیه ایمیلی جدید</a>
                     <div class="max-width-16-rem">
                         <input type="text" class="form-control form-control-sm form-text" name="" id="" placeholder="search">
                     </div>
@@ -32,29 +33,29 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>عنوان اطلاعیه</th>
-                                <th>متن ایمیل</th>
-                                <th>تاریخ ارسال</th>
+                                <th>عنوان ایمیل</th>
+                                <th>سایز فایل</th>
+                                <th>نوع فایل</th>
                                 <th>وضعیت</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"> تنظیمات</i></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($emails as $key => $email)
+                            @foreach ($email->files as $key => $file)
                                 <tr>
                                     <th>{{ $key + 1 }}</th>
                                     <td>{{ $email->subject }}</td>
-                                    <td>{{ Str::limit($email->body, 80) }}</td>
-                                    <td>{{ jalaliDate($email->published_at, '(H:i:s) Y-m-D') }}</td>
+                                    <td>{{ $file->file_size }}</td>
+                                    <td>{{ $file->file_type }}</td>
                                     <td><label for="">
-                                            <input id="{{ $email->id }}" onchange="changeStatus({{ $email->id }})"
-                                                data-url="{{ route('admin.notify.email.status', $email->id) }}" type="checkbox"
-                                                @if ($email->status === 1) checked @endif>
+                                            <input id="{{ $file->id }}" onchange="changeStatus({{ $file->id }})"
+                                                data-url="{{ route('admin.notify.email-file.status', $file->id) }}" type="checkbox"
+                                                @if ($file->status === 1) checked @endif>
                                         </label></td>
 <td class="width-16-rem text-left"><a
-href="{{ route('admin.notify.email-file.index', $email->id) }}"class="btn btn-success btn-sm"><i class="fa fa-file"></i> فایل های ضمیمه شده</a>
-<a href="{{ route('admin.notify.email.edit', $email->id) }}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i>ویرایش</a>
-                                        <form class="d-inline" action="{{ route('admin.notify.email.destroy', $email->id) }}" method="POST">
+href="{{ route('admin.notify.email-file.index', $file->id) }}"class="btn btn-success btn-sm"><i class="fa fa-file"></i> فایل های ضمیمه شده</a>
+<a href="{{ route('admin.notify.email-file.edit', $file->id) }}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i>ویرایش</a>
+                                        <form class="d-inline" action="{{ route('admin.notify.email-file.destroy', $file->id) }}" method="POST">
                                             @csrf
                                             {{ method_field('delete') }}
                                             <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash-alt">
