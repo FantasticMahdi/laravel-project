@@ -48,13 +48,12 @@
                                     <td>{{ $file->file_size }}</td>
                                     <td>{{ $file->file_type }}</td>
                                     <td><label for="">
-                                            <input id="{{ $file->id }}" onchange="changeStatus({{ $file->id }})"
-                                                data-url="{{ route('admin.notify.email-file.status', $file->id) }}" type="checkbox"
-                                                @if ($file->status === 1) checked @endif>
-                                        </label></td>
-<td class="width-16-rem text-left"><a
-href="{{ route('admin.notify.email-file.index', $file->id) }}"class="btn btn-success btn-sm"><i class="fa fa-file"></i> فایل های ضمیمه شده</a>
-<a href="{{ route('admin.notify.email-file.edit', $file->id) }}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i>ویرایش</a>
+<input id="{{ $file->id }}" onchange="changeStatus({{ $file->id }})"
+data-url="{{ route('admin.notify.email-file.status', $file->id) }}" type="checkbox"
+@if ($file->status === 1) checked @endif>
+</label></td>
+<td class="width-16-rem text-left">
+<a href="{{ route('admin.notify.email-file.edit', $file->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
                                         <form class="d-inline" action="{{ route('admin.notify.email-file.destroy', $file->id) }}" method="POST">
                                             @csrf
                                             {{ method_field('delete') }}
@@ -87,10 +86,10 @@ href="{{ route('admin.notify.email-file.index', $file->id) }}"class="btn btn-suc
                     if (response.status) {
                         if (response.checked) {
                             element.prop('checked', true);
-                            successToast(' ایمیل با موفقیت فعال شد.')
+                            successToast(' فایل با موفقیت فعال شد.')
                         } else {
                             element.prop('checked', false);
-                            successToast('ایمیل با موفقیت غیر فعال شد.')
+                            successToast('فایل با موفقیت غیر فعال شد.')
                         }
                     } else {
                         element.prop('checked', elementValue);

@@ -16,7 +16,7 @@ class EmailFile extends Model
 
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['public_mail_id', 'file_path', 'file_size', 'status'];
+    protected $fillable = ['public_mail_id', 'file_path', 'file_size','file_type', 'status'];
 
 
     public function email()
