@@ -54,6 +54,20 @@
                                     <span class="alert_required bg-danger text-white p-1 rounded" role="alert"><strong>{{ $message }}</strong></span>
                                 @enderror
                             </section>
+                            <section class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="sensivity">نوع فایل</label>
+                                    <select class="form-control form-control-sm" name="sensivity" id="sensivity">
+                                        <option value="0" @if (old('sensivity') == 0) selected @endif>غیر حساس
+                                        </option>
+                                        <option value="1" @if (old('sensivity') == 1) selected @endif>حساس
+                                        </option>
+                                    </select>
+                                </div>
+                                @error('sensivity')
+                                    <span class="alert_required bg-danger text-white p-1 rounded" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </section>
                             <section class="col-12">
                                 <button class="btn btn-primary btn-sm">ثبت</button>
                             </section>

@@ -28,15 +28,13 @@
                 </section>
 
                 <section>
-                    <form action="{{ route('admin.content.post.store') }}" method="POST" enctype="multipart/form-data"
-                        id="form">
+                    <form action="{{ route('admin.content.post.store') }}" method="POST" enctype="multipart/form-data" id="form">
                         @csrf
                         <section class="row">
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">عنوان پست</label>
-                                    <input class="form-control form-control-sm" type="text" name="title" id=""
-                                        value="{{ old('title') }}">
+                                    <input class="form-control form-control-sm" type="text" name="title" id="" value="{{ old('title') }}">
                                 </div>
                                 @error('title')
                                     <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -50,8 +48,7 @@
                                     <select class="form-control form-control-sm" name="category_id" id="">
                                         <option value="">choose category</option>
                                         @foreach ($postCategories as $postCategory)
-                                            <option value="{{ $postCategory->id }}"
-                                                @if (old('category_id') == $postCategory->id) selected @endif>{{ $postCategory->name }}
+                                            <option value="{{ $postCategory->id }}" @if (old('category_id') == $postCategory->id) selected @endif>{{ $postCategory->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -65,8 +62,7 @@
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">تصویر</label>
-                                    <input class="form-control form-control-sm" type="file" name="image"
-                                        id="">
+                                    <input class="form-control form-control-sm" type="file" name="image" id="">
                                 </div>
                                 @error('iamge')
                                     <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -85,8 +81,7 @@
                                     </select>
                                 </div>
                                 @error('status')
-                                    <span class="alert_required bg-danger text-white p-1 rounded"
-                                        role="alert"><strong>{{ $message }}</strong></span>
+                                    <span class="alert_required bg-danger text-white p-1 rounded" role="alert"><strong>{{ $message }}</strong></span>
                                 @enderror
                             </section>
 
@@ -101,15 +96,13 @@
                                     </select>
                                 </div>
                                 @error('commentable')
-                                    <span class="alert_required bg-danger text-white p-1 rounded"
-                                        role="alert"><strong>{{ $message }}</strong></span>
+                                    <span class="alert_required bg-danger text-white p-1 rounded" role="alert"><strong>{{ $message }}</strong></span>
                                 @enderror
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">تاریخ انتشار</label>
-                                    <input class="form-control form-control-sm d-none" type="text" name="published_at"
-                                        id="published_at">
+                                    <input class="form-control form-control-sm d-none" type="text" name="published_at" id="published_at">
                                     <input class="form-control form-control-sm" type="text" id="published_at_view">
                                 </div>
                                 @error('published_at')
@@ -118,13 +111,11 @@
                                     </span>
                                 @enderror
                             </section>
-<section class="col-12">
-<div class="form-group">
-<label for="tags">تگ ها</label>
-<input class="form-control form-control-sm" type="hidden" name="tags" id="tags"
-                                        value="{{ old('tags') }}">
-                                    <select name="" class="select3 form-control form-control-sm" id="select_tags"
-                                        multiple>
+                            <section class="col-12">
+                                <div class="form-group">
+                                    <label for="tags">تگ ها</label>
+                                    <input class="form-control form-control-sm" type="hidden" name="tags" id="tags" value="{{ old('tags') }}">
+                                    <select name="" class="select3 form-control form-control-sm" id="select_tags" multiple>
 
                                     </select>
                                 </div>
@@ -187,30 +178,30 @@
 
     <script>
         $(document).ready(function() {
-                var tags_input = $('#tags');
-                var select_tags = $('#select_tags');
-                var default_tags = tags_input.val();
-                var default_data = null;
+            var tags_input = $('#tags');
+            var select_tags = $('#select_tags');
+            var default_tags = tags_input.val();
+            var default_data = null;
 
-                if (tags_input.val() !== null && tags_input.val().length > 0) {
-                    default_data = default_tags.split(',');
+            if (tags_input.val() !== null && tags_input.val().length > 0) {
+                default_data = default_tags.split(',');
+            }
+
+
+            select_tags.select2({
+                placeholder: 'لطفا تگ های خود را وارد کنید.',
+                tags: true,
+                data: default_data
+            });
+            select_tags.children('option').attr('selected', true).trigger('change');
+
+
+            $('#form').submit(function(event) {
+                if (select_tags.val() !== null && select_tags.val().length > 0) {
+                    var selectedSource = select_tags.val().join(',');
+                    tags_input.val(selectedSource);
                 }
-
-
-                select_tags.select2({
-                    placeholder: 'لطفا تگ های خود را وارد کنید.',
-                    tags: true,
-                    data: default_data
-                });
-                select_tags.children('option').attr('selected', true).trigger('change');
-
-
-                $('#form').submit(function(event) {
-                    if (select_tags.val() !== null && select_tags.val().length > 0) {
-                        var selectedSource = select_tags.val().join(',');
-                        tags_input.val(selectedSource);
-                    }
-                })
             })
-            </script>
-    @endsection
+        })
+    </script>
+@endsection

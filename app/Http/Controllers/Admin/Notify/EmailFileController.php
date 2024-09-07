@@ -40,15 +40,19 @@ class EmailFileController extends Controller
     public function store(EmailFileRequest $request, Email $email, FileService $fileService)
     {
         $inputs = $request->all();
+        $sensivity = $inputs['sensivity'];
         if ($request->hasFile('file')) {
-            $fileService->setExclusiveDirectory('files'. DIRECTORY_SEPARATOR . 'email-files');
+            $fileService->setExclusiveDirectory('files' . DIRECTORY_SEPARATOR . 'email-files');
             $fileService->setFileSize($request->file('file'));
             $fileSize = $fileService->getFileSize();
-            $result = $fileService->moveToPublic($request->file('file'));
+            if ($sensivity) {
+                $result = $fileService->moveToStorage($request->file('file'));
+            } else {
+                $result = $fileService->moveToPublic($request->file('file'));
+            }
             $fileFormat = $fileService->getFileFormat();
-
         }
-        if($result === false){
+        if ($result === false) {
             return redirect()->route('admin.notify.email-file.index', $email->id)->with('swal-error', 'آپلود فایل با خطا مواجه شد.');
         }
         $inputs['public_mail_id'] = $email->id;
@@ -77,9 +81,9 @@ class EmailFileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(EmailFile $file, Email $email)
     {
-        //
+        return view('admin.notify.email-file.edit', compact('file', 'email'));
     }
 
     /**
@@ -89,9 +93,37 @@ class EmailFileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EmailFileRequest $request, EmailFile $file, FileService $fileService)
     {
-        //
+
+        $inputs = $request->all();
+        $sensivity = $inputs['sensivity'];
+
+        if ($request->hasFile('file')) {
+
+            if (!empty($file->file_path) && $sensivity === 1) {
+                $fileService->deleteFile($file->file_path, true);
+            } else {
+                $fileService->deleteFile($file->file_path);
+            }
+            $fileService->setExclusiveDirectory('files' . DIRECTORY_SEPARATOR . 'email-files');
+            $fileService->setFileSize($request->file('file'));
+            $fileSize = $fileService->getFileSize();
+            if ($sensivity) {
+                $result = $fileService->moveToStorage($request->file('file'));
+            } else {
+                $result = $fileService->moveToPublic($request->file('file'));
+            }
+            $fileFormat = $fileService->getFileFormat();
+        }
+        if ($result === false) {
+            return redirect()->route('admin.notify.email-file.index', $file->email->id)->with('swal-error', 'آپلود فایل با خطا مواجه شد.');
+        }
+        $inputs['file_path'] = $result;
+        $inputs['file_size'] = $fileSize;
+        $inputs['file_type'] = $fileFormat;
+        $file->update($inputs);
+        return redirect()->route('admin.notify.email-file.index', $file->email->id)->with('swal-success', 'فایل جدید با موفقیت ویرایش شد');
     }
 
     /**
@@ -102,7 +134,7 @@ class EmailFileController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
     public function status(EmailFile $file)
     {
