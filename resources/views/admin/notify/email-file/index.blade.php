@@ -22,8 +22,8 @@
                     <h5>فایل های اطلاعیه ایمیلی</h5>
 
                 </section>
-<section class="d-flex justify-content-between align-items-center mt-4 mb-3 pb-2">
-<a href="{{ route('admin.notify.email-file.create', $email->id) }}" class="btn btn-info btn-sm">ایجاد فایل اطلاعیه ایمیلی جدید</a>
+                <section class="d-flex justify-content-between align-items-center mt-4 mb-3 pb-2">
+                    <a href="{{ route('admin.notify.email-file.create', $email->id) }}" class="btn btn-info btn-sm">ایجاد فایل اطلاعیه ایمیلی جدید</a>
                     <div class="max-width-16-rem">
                         <input type="text" class="form-control form-control-sm form-text" name="" id="" placeholder="search">
                     </div>
@@ -48,17 +48,16 @@
                                     <td>{{ $file->file_size }}</td>
                                     <td>{{ $file->file_type }}</td>
                                     <td><label for="">
-<input id="{{ $file->id }}" onchange="changeStatus({{ $file->id }})"
-data-url="{{ route('admin.notify.email-file.status', $file->id) }}" type="checkbox"
-@if ($file->status === 1) checked @endif>
-</label></td>
-<td class="width-16-rem text-left">
-<a href="{{ route('admin.notify.email-file.edit', $file->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                            <input id="{{ $file->id }}" onchange="changeStatus({{ $file->id }})" data-url="{{ route('admin.notify.email-file.status', $file->id) }}"
+                                                type="checkbox" @if ($file->status === 1) checked @endif>
+                                        </label></td>
+                                    <td class="width-16-rem text-left">
+                                        <a href="{{ route('admin.notify.email-file.edit', $file->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
                                         <form class="d-inline" action="{{ route('admin.notify.email-file.destroy', $file->id) }}" method="POST">
                                             @csrf
                                             {{ method_field('delete') }}
                                             <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash-alt">
-                                                    حذف</i></button>
+                                                </i> حذف</button>
                                         </form>
                                     </td>
                                 </tr>

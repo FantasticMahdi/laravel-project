@@ -97,6 +97,7 @@ class EmailFileController extends Controller
     {
 
         $inputs = $request->all();
+        // dd($inputs);
         $sensivity = $inputs['sensivity'];
 
         if ($request->hasFile('file')) {
@@ -109,19 +110,20 @@ class EmailFileController extends Controller
             $fileService->setExclusiveDirectory('files' . DIRECTORY_SEPARATOR . 'email-files');
             $fileService->setFileSize($request->file('file'));
             $fileSize = $fileService->getFileSize();
-            if ($sensivity) {
+            if ($sensivity === '1') {
                 $result = $fileService->moveToStorage($request->file('file'));
             } else {
                 $result = $fileService->moveToPublic($request->file('file'));
             }
             $fileFormat = $fileService->getFileFormat();
+            $inputs['file_path'] = $result;
+            $inputs['file_size'] = $fileSize;
+            $inputs['file_type'] = $fileFormat;
+            if ($result === false) {
+                return redirect()->route('admin.notify.email-file.index', $file->email->id)->with('swal-error', 'آپلود فایل با خطا مواجه شد.');
+            }
         }
-        if ($result === false) {
-            return redirect()->route('admin.notify.email-file.index', $file->email->id)->with('swal-error', 'آپلود فایل با خطا مواجه شد.');
-        }
-        $inputs['file_path'] = $result;
-        $inputs['file_size'] = $fileSize;
-        $inputs['file_type'] = $fileFormat;
+
         $file->update($inputs);
         return redirect()->route('admin.notify.email-file.index', $file->email->id)->with('swal-success', 'فایل جدید با موفقیت ویرایش شد');
     }
@@ -132,9 +134,10 @@ class EmailFileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(EmailFile $file)
     {
-
+        $result = $file->delete();
+        return redirect()->route('admin.notify.email-file.index',$file->email->id)->with('swal-success','فایل شما با موفقیت حذف شد');
     }
     public function status(EmailFile $file)
     {
