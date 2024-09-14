@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\User\AdminUserRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminUserController extends Controller
 {
@@ -14,7 +17,8 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-        return view('admin.user.admin-user.index');
+        $admins = User::where('user_type',1)->get();
+        return view('admin.user.admin-user.index',compact('admins'));
     }
 
     /**
@@ -33,9 +37,18 @@ class AdminUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdminUserRequest $request)
     {
-        //
+        $inputs = $request->all();
+        $user = User::create([
+            'first_name' => $inputs['first_name'],
+            'last_name' => $inputs['last_name'],
+            'email' => $inputs['email'],
+            'mobile' => $inputs['mobile'],
+            'password' => Hash::make($inputs['password']),
+            'activation' => $inputs['activation'],
+        ]);
+        return redirect()->route('admin.user.admin-user.index')->with('swal-success','کاربر شما با موفقیت ساخته شد');
     }
 
     /**
@@ -55,9 +68,9 @@ class AdminUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $admin)
     {
-        //
+        $admin
     }
 
     /**
