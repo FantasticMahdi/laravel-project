@@ -53,18 +53,26 @@
                                     <td>{{ $admin->last_name }}</td>
                                     <td>super admin</td>
                                     <td><label for="">
-<input id="{{ $admin->id }}-active" onchange="changeActive({{ $admin->id }})" data-url="{{ route('admin.user.admin-user.activation', $admin->id) }}" type="checkbox" @if ($admin->activation === 1) checked @endif>
+                                            <input id="{{ $admin->id }}-active" onchange="changeActive({{ $admin->id }})"
+                                                data-url="{{ route('admin.user.admin-user.activation', $admin->id) }}" type="checkbox"
+                                                @if ($admin->activation === 1) checked @endif>
                                         </label></td>
                                     <td><label for="">
-<input id="{{ $admin->id }}" onchange="changeStatus({{ $admin->id }})" data-url="{{ route('admin.user.admin-user.status', $admin->id) }}" type="checkbox" @if ($admin->status === 1) checked @endif>
+                                            <input id="{{ $admin->id }}" onchange="changeStatus({{ $admin->id }})"
+                                                data-url="{{ route('admin.user.admin-user.status', $admin->id) }}" type="checkbox"
+                                                @if ($admin->status === 1) checked @endif>
                                         </label></td>
                                     <td class="width-16-rem text-left">
                                         <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> نقش</a>
                                         <a href="{{ route('admin.user.admin-user.edit', $admin->id) }}" class="btn btn-primary btn-sm"><i
                                                 class="fa fa-edit"></i> ویرایش</a>
-                                        <button class="btn btn-danger btn-sm" type="submit">
-                                            <i class="fa fa-trash-alt"> حذف</i>
-                                        </button>
+                                        <form class="d-inline" action="{{ route('admin.user.admin-user.destroy', $admin->id) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-danger btn-sm" type="submit">
+                                                <i class="fa fa-trash-alt"> حذف</i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -140,7 +148,7 @@
 
     <script type="text/javascript">
         function changeActive(id) {
-            var element = $('#' + id +'-active');
+            var element = $('#' + id + '-active');
             var url = element.attr('data-url');
             var elementValue = !element.prop('checked');
 
