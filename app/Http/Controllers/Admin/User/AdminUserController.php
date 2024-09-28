@@ -95,7 +95,7 @@ class AdminUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AdminUserRequest $request, user $admin, ImageService $imageService)
+    public function update(AdminUserRequest $request, User $admin, ImageService $imageService)
     {
         $inputs = $request->only('first_name', 'last_name', 'profile_photo_path');
         if ($request->hasFile('profile_photo_path')) {
@@ -110,11 +110,15 @@ class AdminUserController extends Controller
             }
             $inputs['profile_photo_path'] = $result;
         }
+        else{
+            $inputs['profile_photo_path'] = $admin->profile_photo_path;
+        }
         $admin->update([
             'first_name' => $inputs['first_name'],
             'last_name' => $inputs['last_name'],
             'profile_photo_path' => $inputs['profile_photo_path'],
         ]);
+        return redirect()->route('admin.user.admin-user.index')->with('swal-success', 'ادمین شما با موفقیت ویرایش شد');
     }
 
     /**

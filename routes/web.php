@@ -262,7 +262,6 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::put('/update/{menu}', [MenuController::class, 'update'])->name('admin.content.menu.update');
             Route::delete('/destroy/{menu}', [MenuController::class, 'destroy'])->name('admin.content.menu.destroy');
             Route::get('/status/{menu}', [MenuController::class, 'status'])->name('admin.content.menu.status');
-
         });
 
         //page
@@ -275,7 +274,6 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::put('/update/{page}', [PageController::class, 'update'])->name('admin.content.page.update');
             Route::delete('/destroy/{page}', [PageController::class, 'destroy'])->name('admin.content.page.destroy');
             Route::get('/status/{page}', [PageController::class, 'status'])->name('admin.content.page.status');
-
         });
         //post
         Route::prefix('post')->group(function () {
@@ -303,8 +301,8 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/edit/{admin}', [AdminUserController::class, 'edit'])->name('admin.user.admin-user.edit');
             Route::put('/update/{admin}', [AdminUserController::class, 'update'])->name('admin.user.admin-user.update');
             Route::delete('/destroy/{admin}', [AdminUserController::class, 'destroy'])->name('admin.user.admin-user.destroy');
-Route::get('/status/{admin}', [AdminUserController::class, 'status'])->name('admin.user.admin-user.status');
-Route::get('/activation/{admin}', [AdminUserController::class, 'activation'])->name('admin.user.admin-user.activation');
+            Route::get('/status/{admin}', [AdminUserController::class, 'status'])->name('admin.user.admin-user.status');
+            Route::get('/activation/{admin}', [AdminUserController::class, 'activation'])->name('admin.user.admin-user.activation');
         });
 
         //customer
@@ -313,9 +311,11 @@ Route::get('/activation/{admin}', [AdminUserController::class, 'activation'])->n
             Route::get('/create', [CustomerController::class, 'create'])->name('admin.user.customer.create');
             Route::get('/show', [CustomerController::class, 'show'])->name('admin.user.customer.show');
             Route::post('/store', [CustomerController::class, 'store'])->name('admin.user.customer.store');
-            Route::get('/edit/{id}', [CustomerController::class, 'edit'])->name('admin.user.customer.edit');
-            Route::put('/update/{id}', [CustomerController::class, 'update'])->name('admin.user.customer.update');
-            Route::delete('/destroy/{id}', [CustomerController::class, 'destroy'])->name('admin.user.customer.destroy');
+            Route::get('/edit/{user}', [CustomerController::class, 'edit'])->name('admin.user.customer.edit');
+            Route::put('/update/{user}', [CustomerController::class, 'update'])->name('admin.user.customer.update');
+            Route::delete('/destroy/{user}', [CustomerController::class, 'destroy'])->name('admin.user.customer.destroy');
+            Route::get('/status/{user}', [CustomerController::class, 'status'])->name('admin.user.customer.status');
+            Route::get('/activation/{user}', [CustomerController::class, 'activation'])->name('admin.user.customer.activation');
         });
 
         //role
@@ -354,19 +354,18 @@ Route::get('/activation/{admin}', [AdminUserController::class, 'activation'])->n
             Route::put('/update/{email}', [EmailController::class, 'update'])->name('admin.notify.email.update');
             Route::delete('/destroy/{email}', [EmailController::class, 'destroy'])->name('admin.notify.email.destroy');
             Route::get('/status/{email}', [EmailController::class, 'status'])->name('admin.notify.email.status');
-
         });
 
         //email file
         Route::prefix('email-file')->group(function () {
-Route::get('/{email}', [EmailFileController::class, 'index'])->name('admin.notify.email-file.index');
-Route::get('/{email}/create', [EmailFileController::class, 'create'])->name('admin.notify.email-file.create');
-Route::get('/show', [EmailFileController::class, 'show'])->name('admin.notify.email-file.show');
-Route::post('/{email}/store', [EmailFileController::class, 'store'])->name('admin.notify.email-file.store');
-Route::get('/edit/{file}', [EmailFileController::class, 'edit'])->name('admin.notify.email-file.edit');
-Route::put('/update/{file}', [EmailFileController::class, 'update'])->name('admin.notify.email-file.update');
-Route::delete('/destroy/{file}', [EmailFileController::class, 'destroy'])->name('admin.notify.email-file.destroy');
-Route::get('/status/{file}', [EmailFileController::class, 'status'])->name('admin.notify.email-file.status');
+            Route::get('/{email}', [EmailFileController::class, 'index'])->name('admin.notify.email-file.index');
+            Route::get('/{email}/create', [EmailFileController::class, 'create'])->name('admin.notify.email-file.create');
+            Route::get('/show', [EmailFileController::class, 'show'])->name('admin.notify.email-file.show');
+            Route::post('/{email}/store', [EmailFileController::class, 'store'])->name('admin.notify.email-file.store');
+            Route::get('/edit/{file}', [EmailFileController::class, 'edit'])->name('admin.notify.email-file.edit');
+            Route::put('/update/{file}', [EmailFileController::class, 'update'])->name('admin.notify.email-file.update');
+            Route::delete('/destroy/{file}', [EmailFileController::class, 'destroy'])->name('admin.notify.email-file.destroy');
+            Route::get('/status/{file}', [EmailFileController::class, 'status'])->name('admin.notify.email-file.status');
         });
 
 

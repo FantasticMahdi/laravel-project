@@ -69,7 +69,7 @@
                                         <form class="d-inline" action="{{ route('admin.user.admin-user.destroy', $admin->id) }}" method="POST">
                                             @csrf
                                             @method('delete')
-                                            <button class="btn btn-danger btn-sm" type="submit">
+                                            <button class="btn btn-danger btn-sm delete" type="submit">
                                                 <i class="fa fa-trash-alt"> حذف</i>
                                             </button>
                                         </form>
@@ -97,10 +97,10 @@
                     if (response.status) {
                         if (response.checked) {
                             element.prop('checked', true);
-                            successToast('کاربر با موفقیت فعال شد.')
+                            successToast('ادمین با موفقیت فعال شد.')
                         } else {
                             element.prop('checked', false);
-                            successToast('کاربر با موفقیت غیر فعال شد.')
+                            successToast('ادمین با موفقیت غیر فعال شد.')
                         }
                     } else {
                         element.prop('checked', elementValue);
