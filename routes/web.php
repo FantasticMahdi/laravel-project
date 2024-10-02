@@ -42,6 +42,8 @@ use App\Http\Controllers\Admin\User\PermissionController;
 use App\Http\Controllers\Admin\Notify\EmailFileController;
 
 //Setting
+use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
+use App\Http\Controllers\Admin\Ticket\TicketPriorityController;
 use App\Http\Controllers\Admin\Content\CommentController as ContentCommentController;
 use App\Http\Controllers\Admin\Content\CategoryController as ContentCategoryController;
 
@@ -383,19 +385,46 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     });
 
     //ticket
-    Route::prefix('ticket')->namespace('Ticket')->group(function () {
+    Route::prefix('ticket')->namespace('Ticket')->group(function(){
 
-        Route::get('/new-tickets', [TicketController::class, 'newTickets'])->name('admin.ticket.newTickets');
-        Route::get('/open-tickets', [TicketController::class, 'openTickets'])->name('admin.ticket.openTickets');
-        Route::get('/close-tickets', [TicketController::class, 'closeTickets'])->name('admin.ticket.closeTickets');
-        Route::get('/', [TicketController::class, 'index'])->name('admin.ticket.index');
-        Route::get('/create', [TicketController::class, 'create'])->name('admin.ticket.create');
-        Route::get('/show', [TicketController::class, 'show'])->name('admin.ticket.show');
-        Route::post('/store', [TicketController::class, 'store'])->name('admin.ticket.store');
-        Route::get('/edit/{id}', [TicketController::class, 'edit'])->name('admin.ticket.edit');
-        Route::put('/update/{id}', [TicketController::class, 'update'])->name('admin.ticket.update');
-        Route::delete('/destroy/{id}', [TicketController::class, 'destroy'])->name('admin.ticket.destroy');
-    });
+        //category
+        Route::prefix('category')->group(function(){
+           Route::get('/', [TicketCategoryController::class, 'index'])->name('admin.ticket.category.index');
+           Route::get('/create', [TicketCategoryController::class, 'create'])->name('admin.ticket.category.create');
+           Route::post('/store', [TicketCategoryController::class, 'store'])->name('admin.ticket.category.store');
+           Route::get('/edit/{ticketCategory}', [TicketCategoryController::class, 'edit'])->name('admin.ticket.category.edit');
+           Route::put('/update/{ticketCategory}', [TicketCategoryController::class, 'update'])->name('admin.ticket.category.update');
+           Route::delete('/destroy/{ticketCategory}', [TicketCategoryController::class, 'destroy'])->name('admin.ticket.category.destroy');
+           Route::get('/status/{ticketCategory}', [TicketCategoryController::class, 'status'])->name('admin.ticket.category.status');
+
+   });
+
+
+ //priority
+        Route::prefix('priority')->group(function(){
+           Route::get('/', [TicketPriorityController::class, 'index'])->name('admin.ticket.priority.index');
+           Route::get('/create', [TicketPriorityController::class, 'create'])->name('admin.ticket.priority.create');
+           Route::post('/store', [TicketPriorityController::class, 'store'])->name('admin.ticket.priority.store');
+           Route::get('/edit/{ticketPriority}', [TicketPriorityController::class, 'edit'])->name('admin.ticket.priority.edit');
+           Route::put('/update/{ticketPriority}', [TicketPriorityController::class, 'update'])->name('admin.ticket.priority.update');
+           Route::delete('/destroy/{ticketPriority}', [TicketPriorityController::class, 'destroy'])->name('admin.ticket.priority.destroy');
+           Route::get('/status/{ticketPriority}', [TicketPriorityController::class, 'status'])->name('admin.ticket.priority.status');
+
+   });
+
+
+       Route::get('/new-tickets', [TicketController::class, 'newTickets'])->name('admin.ticket.newTickets');
+       Route::get('/open-tickets', [TicketController::class, 'openTickets'])->name('admin.ticket.openTickets');
+       Route::get('/close-tickets', [TicketController::class, 'closeTickets'])->name('admin.ticket.closeTickets');
+       Route::get('/', [TicketController::class, 'index'])->name('admin.ticket.index');
+       Route::get('/show', [TicketController::class, 'show'])->name('admin.ticket.show');
+       Route::get('/create', [TicketController::class, 'create'])->name('admin.ticket.create');
+       Route::post('/store', [TicketController::class, 'store'])->name('admin.ticket.store');
+       Route::get('/edit/{id}', [TicketController::class, 'edit'])->name('admin.ticket.edit');
+       Route::put('/update/{id}', [TicketController::class, 'update'])->name('admin.ticket.update');
+       Route::delete('/destroy/{id}', [TicketController::class, 'destroy'])->name('admin.ticket.destroy');
+
+   });
 
     //setting
     Route::prefix('setting')->namespace('Setting')->group(function () {
