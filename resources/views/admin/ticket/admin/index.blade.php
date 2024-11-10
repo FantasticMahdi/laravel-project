@@ -49,7 +49,7 @@
                             <td>{{$admin->email}}</td>
                             <td class="width-16-rem text-left">
                                 <a href="{{ route('admin.ticket.admin.set',$admin->id) }}" class="btn btn-info btn-sm"><i class="fa fa-check"></i>
-                                    {{ $admin->ticketAdmin == null ? 'حذف':'اضافه'}}
+                                    {{ $admin->ticketAdmin == null ? 'اضافه':'حذف'}}
                                 </a>
                             </td>
                         </tr>

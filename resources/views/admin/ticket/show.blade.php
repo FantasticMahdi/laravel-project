@@ -1,27 +1,27 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-<title>نمایش تیکت ها</title>
+<title>نمایش تیکت</title>
 @endsection
 
 @section('content')
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item font-size-12"> <a href="#"> خانه</a></li>
-      <li class="breadcrumb-item font-size-12"> <a href="#"> بخش تیکت ها</a></li>
-      <li class="breadcrumb-item font-size-12"> <a href="#"> تیکت ها</a></li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page"> نمایش تیکت ها</li>
+        <li class="breadcrumb-item font-size-12"> <a href="#"> خانه</a></li>
+        <li class="breadcrumb-item font-size-12"> <a href="#"> بخش تیکت ها</a></li>
+        <li class="breadcrumb-item font-size-12"> <a href="#"> تیکت ها</a></li>
+        <li class="breadcrumb-item font-size-12 active" aria-current="page"> نمایش تیکت</li>
     </ol>
-  </nav>
+</nav>
 
 
-  <section class="row">
+<section class="row">
     <section class="col-12">
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-                نمایش تیکت ها
+                    نمایش تیکت
                 </h5>
             </section>
 
@@ -31,24 +31,30 @@
 
             <section class="card mb-3">
                 <section class="card-header text-white bg-custom-pink">
-                    کامران محمدی - 845362736
+                    {{$ticket->user->first_name .' '. $ticket->user->last_name}} - {{$ticket->id}}
                 </section>
                 <section class="card-body">
-                    <h5 class="card-title">موضوع : عدم دسترسی به صفحه سفارشات من
+                    <h5 class="card-title">موضوع : {{$ticket->subject}}
                     </h5>
-                    <p class="card-text">من دیروز خرید کردم، ولی به بخش سفارشات پنل نمی توانم برم و وضعیت سفارشم را ببینم
+                    <p class="card-text">
+                        {{$ticket->description}}
                     </p>
                 </section>
             </section>
 
             <section>
-                <form action="" method="">
+                <form action="{{route('admin.ticket.answer',$ticket->id)}}" method="post">
+                    @csrf
                     <section class="row">
                         <section class="col-12">
                             <div class="form-group">
                                 <label for="">پاسخ تیکت </label>
-                               ‍<textarea class="form-control form-control-sm" rows="4"></textarea>
+                                ‍<textarea class="form-control form-control-sm" rows="4" name="description">{{old('description')}}</textarea>
                             </div>
+                            @error('description')
+                                    <span class="alert_required bg-danger text-white p-1 rounded"
+                                        role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
                         </section>
                         <section class="col-12">
                             <button class="btn btn-primary btn-sm">ثبت</button>
