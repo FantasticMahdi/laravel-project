@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-<title>تیکت</title>
+<title>تیکت ادمین</title>
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item font-size-12"> <a href="#"> خانه</a></li>
         <li class="breadcrumb-item font-size-12"> <a href="#"> بخش تیکت ها</a></li>
-        <li class="breadcrumb-item font-size-12 active" aria-current="page"> تیکت</li>
+        <li class="breadcrumb-item font-size-12 active" aria-current="page">ادمین تیکت</li>
     </ol>
 </nav>
 
@@ -20,12 +20,12 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-                    تیکت
+                    تیکت ادمین
                 </h5>
             </section>
 
             <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-                <a href="#" class="btn btn-info btn-sm disabled">ایجاد تیکت </a>
+                <a class="btn btn-info btn-sm disabled">ایجاد ادمین تیکت </a>
                 <div class="max-width-16-rem">
                     <input type="text" class="form-control form-control-sm form-text" placeholder="جستجو">
                 </div>
@@ -36,29 +36,21 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>نویسنده تیکت</th>
-                            <th>عنوان تیکت</th>
-                            <th>دسته تیکت</th>
-                            <th>اولویت تیکت</th>
-                            <th>ارجاع شده از</th>
-                            <th>تیکت مرجع</th>
+                            <th>نام ادمین</th>
+                            <th>ایمیل ادمین</th>
                             <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($tickets as $key => $ticket)
+                        @foreach ($admins as $key => $admin)
                         <tr>
                             <th>{{$key + 1}}</th>
-                            <td>{{$ticket->user->first_name . ' ' . $ticket->user->last_name}}</td>
-                            <td>{{$ticket->subject}}</td>
-                            <td>{{$ticket->category->name}}</td>
-                            <td>{{$ticket->priority->name}}</td>
-                            <td>{{$ticket->admin->user->first_name . ' ' . $ticket->admin->user->last_name}}</td>
-                            <td>{{$ticket->parent->subject ?? '-'}}</td>
+                            <td>{{ $admin->fullName}}</td>
+                            <td>{{$admin->email}}</td>
                             <td class="width-16-rem text-left">
-                                <a href="{{ route('admin.ticket.show',$ticket->id) }}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> مشاهده</a>
-                                <a href="{{ route('admin.ticket.change',$ticket->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-check"></i> {{$ticket->status == 1 ? 'باز کردن':
-                                    'بستن'}}</a>
+                                <a href="{{ route('admin.ticket.admin.set',$admin->id) }}" class="btn btn-info btn-sm"><i class="fa fa-check"></i>
+                                    {{ $admin->ticketAdmin == null ? 'اضافه':'حذف'}}
+                                </a>
                             </td>
                         </tr>
                         @endforeach
