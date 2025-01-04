@@ -25,8 +25,7 @@
                     <a href="{{ route('admin.user.admin-user.create') }}" class="btn btn-info btn-sm">ایجاد ادمین
                         جدید</a>
                     <div class="max-width-16-rem">
-                        <input type="text" class="form-control form-control-sm form-text" name="" id=""
-                            placeholder="search">
+                        <input type="text" class="form-control form-control-sm form-text" name="" id="" placeholder="search">
                     </div>
                 </section>
                 <section class="table-responsive">
@@ -43,21 +42,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-<th>1</th>
-<td>mahdi@gmail.com</td>
-<td>09121212121</td>
-<td>mahdi</td>
-<td>khorasani</td>
-<td>super admin</td>
-<td class="width-16-rem text-left">
-    <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> نقش</a>
-<a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-<button class="btn btn-danger btn-sm" type="submit">
-    <i class="fa fa-trash-alt"> حذف</i>
-</button>
-                                </td>
-                            </tr>
+                            @foreach ($admins as $key => $admin)
+                                <tr>
+                                    <th>{{ $key + 1 }}</th>
+                                    <td>{{ $admin->email }}</td>
+                                    <td>{{ $admin->phone }}</td>
+                                    <td>mahdi</td>
+                                    <td>khorasani</td>
+                                    <td>super admin</td>
+                                    <td class="width-16-rem text-left">
+                                        <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> نقش</a>
+                                        <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                        <button class="btn btn-danger btn-sm" type="submit">
+                                            <i class="fa fa-trash-alt"> حذف</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </section>
