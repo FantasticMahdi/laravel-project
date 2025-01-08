@@ -55,12 +55,16 @@
                                     @endif
                                 </td>
                                 <td class="width-16-rem text-left">
-                                    <a href="#" class="btn btn-success btn-sm"><i class="fa fa-user-graduate"></i>
+                                    <a href="{{route('admin.user.role.permission-form',$role->id)}}" class="btn btn-success btn-sm"><i class="fa fa-user-graduate"></i>
                                         دسترسی ها</a>
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                    <a href="{{route('admin.user.role.edit',$role->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                    <form class="d-inline" action="{{ route('admin.user.role.destroy', $role->id) }}" method="POST">
+                                        @method('delete')
+                                        @csrf
                                     <button class="btn btn-danger btn-sm" type="submit">
-                                        <i class="fa fa-trash-alt"> حذف</i>
+                                        <i class="fa fa-trash-alt"></i>حذف
                                     </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

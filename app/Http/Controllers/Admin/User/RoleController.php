@@ -17,7 +17,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::select('id','name', 'description', 'status')->with('permissions')->simplePaginate(10);
+        $roles = Role::select('id', 'name', 'description', 'status')->with('permissions')->simplePaginate(10);
         return view('admin.user.role.index', ['roles' => $roles]);
     }
 
@@ -28,7 +28,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::select('id','name','description','status')->simplePaginate(10);
+        $permissions = Permission::select('id', 'name', 'description', 'status')->simplePaginate(10);
         return view('admin.user.role.create', ['permissions' => $permissions]);
     }
 
@@ -47,7 +47,7 @@ class RoleController extends Controller
         ]);
         $inputs['permissions'] = $inputs['permissions'] ?? [];
         $role->permissions()->sync($inputs['permissions']);
-        return redirect()->route('admin.user.role.index')->with('swal-succes','نقش جدید با موفقیت ساخته شد!');
+        return redirect()->route('admin.user.role.index')->with('swal-succes', 'نقش جدید با موفقیت ساخته شد!');
     }
 
     /**
@@ -67,9 +67,9 @@ class RoleController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, Role $role)
     {
-        //
+        return view('admin.user.role.edit', ['role' => $role]);
     }
 
     /**
@@ -79,9 +79,14 @@ class RoleController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, Role $role)
     {
-        //
+        $inputs = $request->only('name', 'description');
+        $role->update([
+            'name' => $inputs['name'],
+            'description' => $inputs['description'],
+        ]);
+        return redirect()->route('admin.user.role.index')->with('swal-succes', 'نقش با موفقیت ویرایش شد!');
     }
 
     /**
@@ -90,8 +95,22 @@ class RoleController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        //
+        $role->delete();
+        return redirect()->route('admin.user.role.index')->with('swal-succes', 'نقش با موفقیت حذف شد!');
+    }
+
+    public function permissionForm(Role $role)
+    {
+        $permissions = Permission::select('id', 'name', 'description')->get();
+        return view('admin.user.role.permission-form', ['role' => $role, 'permissions' => $permissions]);
+    }
+
+    public function permissionUpdate(RoleRequest $request,Role $role)
+    {
+        $inputs = $request->only('permissions');
+        $role->permissions()->sync($inputs['permissions']);
+        return redirect()->route('admin.user.role.index')->with('swal-succes', 'دسترسی ها با موفقیت ویرایش شد!');
     }
 }

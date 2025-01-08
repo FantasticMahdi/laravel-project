@@ -327,9 +327,11 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/create', [RoleController::class, 'create'])->name('admin.user.role.create');
             Route::get('/show', [RoleController::class, 'show'])->name('admin.user.role.show');
             Route::post('/store', [RoleController::class, 'store'])->name('admin.user.role.store');
-            Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('admin.user.role.edit');
-            Route::put('/update/{id}', [RoleController::class, 'update'])->name('admin.user.role.update');
-            Route::delete('/destroy/{id}', [RoleController::class, 'destroy'])->name('admin.user.role.destroy');
+            Route::get('/edit/{role}', [RoleController::class, 'edit'])->name('admin.user.role.edit');
+            Route::put('/update/{role}', [RoleController::class, 'update'])->name('admin.user.role.update');
+            Route::delete('/destroy/{role}', [RoleController::class, 'destroy'])->name('admin.user.role.destroy');
+            Route::get('/permission-form/{role}', [RoleController::class, 'permissionForm'])->name('admin.user.role.permission-form');
+            Route::put('/permission-update/{role}', [RoleController::class, 'permissionUpdate'])->name('admin.user.role.permission-update');
         });
 
         //permission
