@@ -166,5 +166,8 @@ return [
         "logo"                      => "لوگو",
         "icon"                      => "آیکون",
         "keywords"                  => "کلمات کلیدی",
+        "amount"                    => "هزینه",
+        "delivery_time"            => "زمان ارسال",
+        "delivery_time_unit"        => "واحد زمان ارسال",
     ],
 ];

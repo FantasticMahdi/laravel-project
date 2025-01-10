@@ -8,8 +8,8 @@
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item font-size-14"> <a href=""> خانه</a></li>
-            <li class="breadcrumb-item font-size-14"> <a href="#"> بخش فروش</a></li>
+            <li class="breadcrumb-item font-size-14"><a href=""> خانه</a></li>
+            <li class="breadcrumb-item font-size-14"><a href="#"> بخش فروش</a></li>
             <li class="breadcrumb-item font-size-14 active" aria-current="page"> روش های ارسال</li>
         </ol>
     </nav>
@@ -26,61 +26,119 @@
                         جدید</a>
                     <div class="max-width-16-rem">
                         <input type="text" class="form-control form-control-sm form-text" name="" id=""
-                            placeholder="search">
+                               placeholder="search">
                     </div>
                 </section>
                 <section class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>نام روش ارسال</th>
-                                <th>هزینه ارسال</th>
-                                <th>زمان ارسال</th>
-                                <th class="max-width-16-rem text-center"><i class="fa fa-cogs"> تنظیمات</i></th>
-                            </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>نام روش ارسال</th>
+                            <th>هزینه ارسال</th>
+                            <th>زمان ارسال</th>
+                            <th>وضعیت</th>
+                            <th class="max-width-16-rem text-center"><i class="fa fa-cogs"> تنظیمات</i></th>
+                        </tr>
                         </thead>
                         <tbody>
+                        @foreach($deliveryMethods as $key => $deliveryMethod)
                             <tr>
-                                <th>1</th>
-                                <td>پست پیشتاز</td>
-                                <td>10.000 تومان</td>
-                                <td>حداکثر تا 2 روز کاری</td>
+                                <th>{{$loop->iteration}}</th>
+                                <td>{{$deliveryMethod->name}}</td>
+                                <td>{{$deliveryMethod->amount}}تومان</td>
+                                <td>{{$deliveryMethod->delivery_time . ' - ' . $deliveryMethod->delivery_time_unit}}</td>
+                                <td>
+                                    <label for="">
+                                        <input type="checkbox" id="{{$deliveryMethod->id}}"
+                                               onchange="changeStatus({{$deliveryMethod->id}})"
+                                               data-url="{{route('admin.market.delivery.status',$deliveryMethod->id)}}"
+                                               @if($deliveryMethod->status === 1)checked @endif>
+                                    </label>
+                                </td>
                                 <td class="width-16-rem text-left">
-                                    <a href="{{ route('admin.market.comment.show') }}" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit">
-                                        <i class="fa fa-trash-alt"> حذف</i></button>
+                                    <a href="{{ route('admin.market.delivery.edit',$deliveryMethod->id) }}"
+                                       class="btn btn-primary btn-sm"><i
+                                                class="fa fa-edit"></i> ویرایش</a>
+                                    <form class="d-inline delete"
+                                          action="{{route('admin.market.delivery.destroy',$deliveryMethod->id)}}"
+                                          method="post">
+                                        @method('delete')
+                                        @csrf
+                                        <button class="btn btn-danger btn-sm" type="submit">
+                                            <i class="fa fa-trash-alt"> حذف</i></button>
+                                    </form>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>پست پیشتاز</td>
-                                <td>10.000 تومان</td>
-                                <td>حداکثر تا 2 روز کاری</td>
-                                <td class="width-16-rem text-left">
-                                    <a href="{{ route('admin.market.comment.show') }}" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit">
-                                        <i class="fa fa-trash-alt"> حدف</i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <td>پست پیشتاز</td>
-                                <td>10.000 تومان</td>
-                                <td>حداکثر تا 2 روز کاری</td>
-                                <td class="width-16-rem text-left">
-                                    <a href="{{ route('admin.market.comment.show') }}" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit">
-                                        <i class="fa fa-trash-alt"> حذف</i></button>
-                                </td>
-                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </section>
             </section>
         </section>
     </section>
+@endsection
+@section('script')
+    <script type="text/javascript">
+        function changeStatus(id) {
+            var element = $('#' + id);
+            var url = element.attr('data-url');
+            var elementValue = !element.prop('checked');
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (response) {
+                    if (response.status) {
+                        if (response.checked) {
+                            element.prop('checked', true);
+                            successToast('روش ارسال با موفقیت فعال شد.')
+                        } else {
+                            element.prop('checked', false);
+                            successToast('روش ارسال با موفقیت غیر فعال شد.')
+                        }
+                    } else {
+                        element.prop('checked', elementValue);
+                        errorToast('هنگام ویرایش مشکلی پیش آمده است.');
+
+                    }
+                },
+                error: function () {
+                    element.prop('checked', elementValue);
+                    errorToast('ارتباط برقرار نشد.');
+                }
+            });
+
+            function successToast(message) {
+
+                var successToastTag = ' <section class="toast" data-delay="5000">\n' +
+                    '<section class="toast-body py-3 d-flex bg-success text-white">\n' +
+                    '<strong class="ml-auto">' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' + '</button>\n' + '</section>\n' + '</section>';
+
+
+                $('.toast-wrapper').append(successToastTag);
+                $('.toast').toast('show').delay(5000).queue(function () {
+                    $(this).remove();
+                });
+            }
+
+            function errorToast(message) {
+
+                var errorToastTag = ' <section class="toast" data-delay="5000">\n' +
+                    '<section class="toast-body py-3 d-flex bg-danger text-white">\n' +
+                    '<strong class="ml-auto">' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' + '</button>\n' + '</section>\n' + '</section>';
+
+                $('.toast-wrapper').append(errorToastTag);
+                $('.toast').toast('show').delay(5000).queue(function () {
+                    $(this).remove();
+                });
+            }
+        }
+    </script>
+
+    @include('admin.alerts.sweetalert.delete-confirm', ['className' => 'delete'])
 @endsection

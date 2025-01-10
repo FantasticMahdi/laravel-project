@@ -2,7 +2,7 @@
 
 
 @section('head-tag')
-    <title>ساخت روش ارسال</title>
+    <title>ویرایش روش ارسال</title>
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
             <li class="breadcrumb-item font-size-14"><a href="">خانه</a></li>
             <li class="breadcrumb-item font-size-14"><a href="#">بخش فروش</a></li>
             <li class="breadcrumb-item font-size-14"><a href="#">روش های ارسال</a></li>
-            <li class="breadcrumb-item font-size-14 active" aria-current="page">ایجاد روش ارسال جدید</li>
+            <li class="breadcrumb-item font-size-14 active" aria-current="page">ویرایش روش ارسال جدید</li>
         </ol>
     </nav>
 
@@ -19,7 +19,7 @@
         <section class="col-12">
             <section class="main-body-container">
                 <section class="main-body-container-header">
-                    <h5>روش ارسال جدید</h5>
+                    <h5>ویرایش روش ارسال</h5>
 
                 </section>
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 pb-3 border-bottom">
@@ -27,14 +27,15 @@
                 </section>
 
                 <section>
-                    <form action="{{route('admin.market.delivery.store')}}" method="post">
+                    <form action="{{route('admin.market.delivery.update',$delivery->id)}}" method="post">
                         @csrf
+                        @method('PUT')
                         <section class="row">
                             <section class="col-12 col-md-6 mb-1">
                                 <div class="form-group">
                                     <label for=""> نام روش ارسال</label>
                                     <input class="form-control form-control-sm" type="text" name="name"
-                                           id="" value="{{old('name')}}">
+                                           id="" value="{{old('name',$delivery->name)}}">
                                 </div>
                                 @error('name')
                                 <span class="alert_required bg-danger text-white p-1 rounded"
@@ -46,7 +47,7 @@
                                 <div class="form-group">
                                     <label for=""> هزینه روش ارسال</label>
                                     <input class="form-control form-control-sm" type="text" name="amount"
-                                           id="" value="{{old('amount')}}">
+                                           id="" value="{{old('amount',$delivery->amount)}}">
                                 </div>
                                 @error('amount')
                                 <span class="alert_required bg-danger text-white p-1 rounded"
@@ -58,7 +59,7 @@
                                 <div class="form-group">
                                     <label for=""> زمان ارسال</label>
                                     <input class="form-control form-control-sm" type="text" name="delivery_time"
-                                           id="" value="{{old('delivery_time')}}">
+                                           id="" value="{{old('delivery_time',$delivery->delivery_time)}}">
                                 </div>
                                 @error('delivery_time')
                                 <span class="alert_required bg-danger text-white p-1 rounded"
@@ -70,7 +71,7 @@
                                 <div class="form-group">
                                     <label for="">واحد زمان ارسال</label>
                                     <input class="form-control form-control-sm" type="text" name="delivery_time_unit"
-                                           id="" value="{{old('delivery_time_unit')}}">
+                                           id="" value="{{old('delivery_time_unit',$delivery->delivery_time_unit)}}">
                                 </div>
                                 @error('delivery_time_unit')
                                 <span class="alert_required bg-danger text-white p-1 rounded"
