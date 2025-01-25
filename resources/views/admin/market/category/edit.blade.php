@@ -27,14 +27,15 @@
                 </section>
 
                 <section>
-                    <form action="{{route('admin.market.category.store')}}" method="post" enctype="multipart/form-data" id="form">
+                    <form action="{{route('admin.market.category.update',$productCategory->id)}}" method="post" enctype="multipart/form-data" id="form">
                         @csrf
+                        @method('put')
                         <section class="row">
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">نام دسته</label>
                                     <input class="form-control form-control-sm" type="text" name="name"
-                                           id="" value="{{old('name')}}">
+                                           id="" value="{{old('name',$productCategory->name)}}">
                                 </div>
                                 @error('name')
                                 <span class="alert_required bg-danger text-white p-1 rounded"
@@ -46,8 +47,9 @@
                                     <label for="">نام والد</label>
                                     <select class="form-control form-control-sm" name="parent_id" id="">
                                         <option value="">choose category</option>
-                                        @foreach($productCategories as $productCategory)
-                                            <option value="{{$productCategory->id}}" @if(old('parent_id') == $productCategory->id) selected @endif>{{$productCategory->name}}</option>
+                                        @foreach($parentCategories as $parentCategory)
+                                            <option value="{{$parentCategory->id}}" @if(old('parent_id',$productCategory->parent_id) == $parentCategory->id) selected @endif>
+                                                {{$parentCategory->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -60,7 +62,7 @@
                                 <div class="form-group">
                                     <label for="tags">تگ ها</label>
                                     <input class="form-control form-control-sm" type="hidden" name="tags" id="tags"
-                                           value="{{ old('tags') }}">
+                                           value="{{ old('tags',$productCategory->tags) }}">
                                     <select name="" class="select2 form-control form-control-sm" id="select_tags"
                                             multiple>
 
@@ -83,13 +85,34 @@
                                       role="alert"><strong>{{ $message }}</strong></span>
                                 @enderror
                             </section>
+                            <section class="row">
+                                @php
+                                    $number = 1;
+                                @endphp
+                                @foreach ($productCategory->image['indexArray'] as $key => $value)
+                                    <section class="col-md-{{ 6 / $number }}">
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input" name="currentImage"
+                                                   id="{{ $number }}" value="{{ $key }}"
+                                                   @if ($productCategory->image['currentImage'] == $key) checked @endif>
+                                            <label for="{{ $number }}" class="form-check-label mx-2">
+                                                <img src="{{ asset($value) }}" class="w-100" alt=""
+                                                     srcset="">
+                                            </label>
+                                        </div>
+                                    </section>
+                                    @php
+                                        $number++;
+                                    @endphp
+                                @endforeach
+                            </section>
                             <section class="col-12 col-md-6 my-2">
                                 <div class="form-group">
                                     <label for="status">وضعیت</label>
                                     <select class="form-control form-control-sm" name="status" id="status">
-                                        <option value="0" @if (old('status') == 0) selected @endif>غیر فعال
+                                        <option value="0" @if (old('status',$productCategory->status) == 0) selected @endif>غیر فعال
                                         </option>
-                                        <option value="1" @if (old('status') == 1) selected @endif>فعال
+                                        <option value="1" @if (old('status',$productCategory->status) == 1) selected @endif>فعال
                                         </option>
                                     </select>
                                 </div>
@@ -102,9 +125,9 @@
                                 <div class="form-group">
                                     <label for="show_in_menu">نمایش در منو</label>
                                     <select class="form-control form-control-sm" name="show_in_menu" id="show_in_menu">
-                                        <option value="0" @if (old('show_in_menu') == 0) selected @endif>غیر فعال
+                                        <option value="0" @if (old('show_in_menu',$productCategory->show_in_menu) == 0) selected @endif>غیر فعال
                                         </option>
-                                        <option value="1" @if (old('show_in_menu') == 1) selected @endif>فعال
+                                        <option value="1" @if (old('show_in_menu',$productCategory->show_in_menu) == 1) selected @endif>فعال
                                         </option>
                                     </select>
                                 </div>
@@ -116,7 +139,7 @@
                             <section class="col-12">
                                 <div class="form-group">
                                     <label for="">توضیحات</label>
-                                    <textarea class="form-control form-control-sm" name="description" id="description" rows="4">{{ old('description') }}</textarea>
+                                    <textarea class="form-control form-control-sm" name="description" id="description" rows="4">{{ old('description',$productCategory->description) }}</textarea>
                                 </div>
                                 @error('description')
                                 <span class="alert_required bg-danger text-white p-1 rounded"

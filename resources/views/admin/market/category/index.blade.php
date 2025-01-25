@@ -8,8 +8,8 @@
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item font-size-14"> <a href="">خانه</a></li>
-            <li class="breadcrumb-item font-size-14"> <a href="#">بخش فروش</a></li>
+            <li class="breadcrumb-item font-size-14"><a href="">خانه</a></li>
+            <li class="breadcrumb-item font-size-14"><a href="#">بخش فروش</a></li>
             <li class="breadcrumb-item font-size-14 active" aria-current="page"> دسته بندی</li>
         </ol>
     </nav>
@@ -22,67 +22,51 @@
 
                 </section>
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 pb-2">
-                    <a href="{{ route('admin.market.category.create') }}" class="btn btn-info btn-sm">ایجاد دسته بندی</a>
+                    <a href="{{ route('admin.market.category.create') }}" class="btn btn-info btn-sm">ایجاد دسته
+                        بندی</a>
                     <div class="max-width-16-rem">
                         <input type="text" class="form-control form-control-sm form-text" name="" id=""
-                            placeholder="search">
+                               placeholder="search">
                     </div>
                 </section>
                 <section class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>نام دسته بندی</th>
-                                <th>دسته والد</th>
-                                <th class="max-width-16-rem text-center"><i class="fa fa-cogs"> تنظیمات</i></th>
-                            </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>نام دسته بندی</th>
+                            <th>دسته والد</th>
+                            <th class="max-width-16-rem text-center"><i class="fa fa-cogs"> تنظیمات</i></th>
+                        </tr>
                         </thead>
                         <tbody>
+                        @foreach($productCategories as $productCategory)
                             <tr>
-                                <th>1</th>
-                                <td>lcd</td>
-                                <td>electronic products</td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
+                                <th>{{$loop->iteration}}</th>
+                                <td>{{$productCategory->name}}</td>
+                                <td>{{$productCategory->parent_id ? $productCategory->parent->name : 'دسته بندی اصلی'}}</td>
+                                <td class="width-16-rem text-left">
+                                    <a href="{{route('admin.market.category.edit',$productCategory->id)}}"
+                                       class="btn btn-primary btn-sm"><i
+                                                class="fa fa-edit"></i> ویرایش</a>
+                                    <form class="d-inline"
+                                          action="{{route('admin.market.category.destroy',$productCategory->id)}}"
+                                          method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash-alt">
+                                                حذف</i></button>
+                                    </form>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>lcd</td>
-                                <td>electronic products</td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <td>lcd</td>
-                                <td>electronic products</td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>4</th>
-                                <td>lcd</td>
-                                <td>electronic products</td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
-                                </td>
-                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </section>
             </section>
         </section>
     </section>
+@endsection
+@section('script')
+    @include('admin.alerts.sweetalert.delete-confirm', ['className' => 'delete'])
 @endsection

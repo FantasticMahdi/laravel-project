@@ -25,14 +25,13 @@ class ImageToolsService
 
     public function setExclusiveDirectory($exclusiveDirectory)
     {
-$this->exclusiveDirectory = trim($exclusiveDirectory, '/\\');
+        $this->exclusiveDirectory = trim($exclusiveDirectory, '/\\');
     }
 
     public function getImageDirectory()
     {
         return $this->imageDirectory;
     }
-
     public function setImageDirectory($imageDirectory)
     {
         $this->imageDirectory = trim($imageDirectory, '/\\');
@@ -43,14 +42,15 @@ $this->exclusiveDirectory = trim($exclusiveDirectory, '/\\');
         return $this->imageName;
     }
 
-    public function setImageName($imageName)
+     public function setImageName($imageName)
     {
         $this->imageName = $imageName;
     }
 
     public function setCurrentImageName()
     {
-        return !empty($this->image) ? $this->setImageName(pathinfo($this->image->getClientOriginalName(), PATHINFO_FILENAME)) : false;
+            return !empty($this->image) ? $this->setImageName(pathinfo($this->image->getClientOriginalName(), PATHINFO_FILENAME)) : false;
+            // $_FILES['image']['name']
     }
 
     public function getImageFormat()
@@ -58,7 +58,7 @@ $this->exclusiveDirectory = trim($exclusiveDirectory, '/\\');
         return $this->imageFormat;
     }
 
-    public function setImageFormat($imageFormat)
+   public function setImageFormat($imageFormat)
     {
         $this->imageFormat = $imageFormat;
     }
@@ -73,7 +73,7 @@ $this->exclusiveDirectory = trim($exclusiveDirectory, '/\\');
         $this->finalImageDirectory = $finalImageDirectory;
     }
 
-    public function getFinalImageName()
+   public function getFinalImageName()
     {
         return $this->finalImageName;
     }
@@ -85,8 +85,9 @@ $this->exclusiveDirectory = trim($exclusiveDirectory, '/\\');
 
     protected function checkDirectory($imageDirectory)
     {
-        if (!file_exists($imageDirectory)) {
-            mkdir($imageDirectory, 777, true);
+        if(!file_exists($imageDirectory))
+        {
+            mkdir($imageDirectory, 0755, true);
         }
     }
 
@@ -103,7 +104,7 @@ $this->exclusiveDirectory = trim($exclusiveDirectory, '/\\');
         $this->getImageFormat() ?? $this->setImageFormat($this->image->extension());
 
 
-        //set final image directory
+        //set final image Directory
         $finalImageDirectory = empty($this->getExclusiveDirectory()) ? $this->getImageDirectory() : $this->getExclusiveDirectory() . DIRECTORY_SEPARATOR . $this->getImageDirectory();
         $this->setFinalImageDirectory($finalImageDirectory);
 
@@ -112,7 +113,17 @@ $this->exclusiveDirectory = trim($exclusiveDirectory, '/\\');
         $this->setFinalImageName($this->getImageName() . '.' . $this->getImageFormat());
 
 
-        //check and create final Image directory
+        //check adn create final image directory
         $this->checkDirectory($this->getFinalImageDirectory());
     }
+
+
+
+
+
+
+
+
+
+
 }
