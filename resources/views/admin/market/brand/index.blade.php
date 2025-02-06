@@ -8,8 +8,8 @@
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item font-size-14"> <a href="">خانه</a></li>
-            <li class="breadcrumb-item font-size-14"> <a href="#">بخش فروش</a></li>
+            <li class="breadcrumb-item font-size-14"><a href="">خانه</a></li>
+            <li class="breadcrumb-item font-size-14"><a href="#">بخش فروش</a></li>
             <li class="breadcrumb-item font-size-14 active" aria-current="page">برندها</li>
         </ol>
     </nav>
@@ -25,64 +25,50 @@
                     <a href="{{ route('admin.market.brand.create') }}" class="btn btn-info btn-sm">ایجاد برند جدید</a>
                     <div class="max-width-16-rem">
                         <input type="text" class="form-control form-control-sm form-text" name="" id=""
-                            placeholder="search">
+                               placeholder="search">
                     </div>
                 </section>
                 <section class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>نام برند</th>
-                                <th>لوگو</th>
-                                <th class="max-width-16-rem text-center"><i class="fa fa-cogs"> تنظیمات</i></th>
-                            </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>نام برند</th>
+                            <th>نام فارسی برند</th>
+                            <th>لوگو</th>
+                            <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
+                        </tr>
                         </thead>
                         <tbody>
+                        @foreach($brands as $brand)
                             <tr>
-                                <th>1</th>
-                                <td>lcd</td>
-                                <td><img src="{{ asset('admin-assets/images/logo.png') }}" class="max-height-2rem" alt=""></td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
+                                <th>{{$loop->iteration}}</th>
+                                <td>{{$brand->original_name}}</td>
+                                <td>{{$brand->persian_name}}</td>
+                                <td><img src="{{ asset('admin-assets/images/logo.png') }}" class="max-height-2rem"
+                                         alt=""></td>
+                                <td class="width-16-rem text-left">
+                                    <a href="{{route('admin.market.brand.edit',$brand)}}"
+                                       class="btn btn-primary btn-sm"><i
+                                                class="fa fa-edit"></i> ویرایش</a>
+                                    <form class="d-inline" action="{{route('admin.market.brand.destroy',$brand)}}"
+                                          method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm delete" type="submit">
+                                            <i class="fa fa-trash-alt"></i>حذف
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>lcd</td>
-                                <td><img src="{{ asset('admin-assets/images/logo.png') }}" class="max-height-2rem" alt=""></td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <td>lcd</td>
-                                <td><img src="{{ asset('admin-assets/images/logo.png') }}" class="max-height-2rem" alt=""></td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>4</th>
-                                <td>lcd</td>
-                                <td><img src="{{ asset('admin-assets/images/logo.png') }}" class="max-height-2rem" alt=""></td>
-                                <td class="width-16-rem text-left"><a href="#" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-edit"></i> ویرایش</a>
-                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt">
-                                            حذف</i></button>
-                                </td>
-                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </section>
             </section>
         </section>
     </section>
+@endsection
+@section('script')
+    @include('admin.alerts.sweetalert.delete-confirm', ['className' => 'delete'])
 @endsection

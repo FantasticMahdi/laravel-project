@@ -39,3 +39,4 @@ Thumbs.db
 *.log
 *.log.*
 *.bak
+/public/images/

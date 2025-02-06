@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Services\Image\ImageService;
+use App\Models\Market\Brand;
 
 class BrandController extends Controller
 {
@@ -14,7 +15,8 @@ class BrandController extends Controller
      */
     public function index()
     {
-        return view('admin.market.brand.index');
+        $brands = Brand::select('id', 'persian_name', 'original_name', 'logo', 'status')->simplePaginate(10);
+        return view('admin.market.brand.index', ['brands' => $brands]);
     }
 
     /**
@@ -30,18 +32,34 @@ class BrandController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BrandRequest $request, ImageService $imageService)
     {
-        return view('admin.market.brand.store');
+        $inputs = $request->only('original_name', 'persian_name', 'logo', 'status', 'tags');
+        if ($request->hasFile('logo')) {
+            return $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'brand');
+            $result = $imageService->createIndexAndSave($request->file('logo'));
+        }
+        if ($result === false) {
+            return redirect()->route('admin.market.brand.index')->with('swall-error', 'آپلود تصویر با خطا مواجه شد!');
+        }
+        $inputs['logo'] = $result;
+        $brand = Brand::create([
+            'original_name' => $inputs['original_name'],
+            'persian_name' => $inputs['persian_name'],
+            'logo' => $inputs['logo'],
+            'status' => $inputs['status'],
+            'tags' => $inputs['tags']
+        ]);
+        return redirect()->route('admin.market.brand.index')->with('swal-success', 'برند جدید شما با موفقیت ثبت شد!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -52,34 +70,60 @@ class BrandController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Brand $brand)
     {
-        //
+        return view('admin.market.brand.edit', ['brand' => $brand]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BrandRequest $request, Brand $brand, ImageService $imageService)
     {
-        //
+        $inputs = $request->only('original_name', 'persian_name', 'logo', 'status', 'tags');
+        if ($request->hasFile('logo')) {
+            if (!empty($brand->logo)) {
+                $imageService->deleteDirectoryAndFiles($brand->logo['directory']);
+            }
+            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'brand');
+            $result = $imageService->createIndexAndSave($request->file('logo'));
+            if ($result === false) {
+                return redirect()->route('admin.market.brand.index')->with('swall-error', 'آپلود تصویر با خطا مواجه شد!');
+            }
+            $inputs['logo'] = $result;
+        } else {
+            if (!isset($inputs['currentImage']) && !empty($brand->logo)) {
+                $image = $brand->logo;
+                $image['currentImage'] = $inputs['currentImage'];
+                $inputs['logo'] = $image;
+            }
+        }
+        $brand->update([
+            'original_name' => $inputs['original_name'],
+            'persian_name' => $inputs['persian_name'],
+            'logo' => $inputs['logo'],
+            'status' => $inputs['status'],
+            'tags' => $inputs['tags']
+        ]);
+        return redirect()->route('admin.market.brand.index')->with('swal-success', 'برند شما با موفقیت ویرایش شد!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Brand $brand)
     {
-        //
+        $result = $brand->delete();
+        return redirect()->route('admin.market.brand.index')->with('swal-success','برند شما با موفقیت حذف شد!');
     }
 }
