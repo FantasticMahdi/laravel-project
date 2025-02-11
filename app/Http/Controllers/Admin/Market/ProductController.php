@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Market\ProductRequest;
+use App\Http\Services\Image\ImageService;
+use App\Models\Market\Brand;
+use App\Models\Market\Product;
+use App\Models\Market\ProductCategory;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -14,7 +19,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.market.product.index');
+        $products = Product::select('id', 'name', 'image', 'brand_id','category_id', 'price','weight')->orderBy('created_at', 'desc')->simplePaginate(15);
+
+        return view('admin.market.product.index', ['products' => $products]);
     }
 
     /**
@@ -24,7 +31,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.market.product.create');
+        $productCategories = ProductCategory::select('id', 'name')->get();
+        $brands = Brand::select('id', 'persian_name')->get();
+        return view('admin.market.product.create', ['productCategories' => $productCategories,'brands' => $brands]);
     }
 
     /**
@@ -33,9 +42,9 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request,ImageService $imageService)
     {
-        //
+
     }
 
     /**

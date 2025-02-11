@@ -36,21 +36,18 @@
                                 <th>نام کالا</th>
                                 <th>تصویر کالا</th>
                                 <th>قیمت</th>
-                                <th>وزن</th>
                                 <th>دسته</th>
-                                <th>فرم کالا</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"> تنظیمات</i></th>
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($products as $product)
                             <tr>
-                                <th>1</th>
-                                <td>آیفون 12</td>
-                                <td><img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt=""></td>
-                                <td>300.000تومان</td>
-                                <td>500گرم</td>
-                                <td>کالا الکترونیک</td>
-                                <td>اندازه صفحه</td>
+                                <th>{{$loop->iteration}}</th>
+                                <td>{{$product->name}}</td>
+                                <td><img src="{{ asset($product->image) }}" alt=""></td>
+                                <td>{{$product->price}} تومان</td>
+                                <td>{{$product->brand->persian_name}}</td>
 
                                 <td class="width-8-rem text-left">
                                     <div class="dropdown">
@@ -75,70 +72,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>1</th>
-                                <td>آیفون 12</td>
-                                <td><img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt=""></td>
-                                <td>300.000تومان</td>
-                                <td>500گرم</td>
-                                <td>کالا الکترونیک</td>
-                                <td>اندازه صفحه</td>
-
-                                <td class="width-8-rem text-left">
-                                    <div class="dropdown">
-                                        <a href="" class="btn  btn-success btn-sm btn-block dropdown-toggle"
-                                            role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="fa fa-tools"></i> عملیات
-                                        </a>
-                                        <div class="dropdown-menu" aria-label="dropdownMenuLink">
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-images"></i>
-                                                گالری</a>
-<a href="" class="dropdown-item text-right"><i class="fa fa-list-ul"></i>
-فرم کالا</a>
-<a href="" class="dropdown-item text-right"><i class="fa fa-edit"></i>
-                                                ویرایش</a>
-                                            <form action="" method="POST">
-                                                <button type="submit" class="dropdown-item text-right"><i
-                                                        class="fa fa-window-close"></i> حذف</button>
-                                            </form>
-                                            <a href=""></a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>1</th>
-                                <td>آیفون 12</td>
-                                <td><img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt=""></td>
-                                <td>300.000تومان</td>
-                                <td>500گرم</td>
-                                <td>کالا الکترونیک</td>
-                                <td>اندازه صفحه</td>
-
-                                <td class="width-8-rem text-left">
-                                    <div class="dropdown">
-                                        <a href="" class="btn  btn-success btn-sm btn-block dropdown-toggle"
-                                            role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="fa fa-tools"></i> عملیات
-                                        </a>
-                                        <div class="dropdown-menu" aria-label="dropdownMenuLink">
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-images"></i>
-                                                گالری</a>
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-list-ul"></i>
-                                                فرم کالا</a>
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-edit"></i>
-                                                ویرایش</a>
-                                            <form action="" method="POST">
-                                                <button type="submit" class="dropdown-item text-right"><i
-                                                        class="fa fa-window-close"></i> حذف</button>
-                                            </form>
-                                            <a href=""></a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </section>
