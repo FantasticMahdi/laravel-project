@@ -186,9 +186,9 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::delete('/destroy/{product}', [ProductController::class, 'destroy'])->name('admin.market.product.destroy');
 
             //gallery
-            Route::delete('/gallery/{id}', [GalleryController::class, 'destroy'])->name('admin.market.product.destroy');
-            Route::delete('/gallery/store', [GalleryController::class, 'destroy'])->name('admin.market.product.destroy');
-            Route::delete('/gallery/destroy/{id}', [GalleryController::class, 'destroy'])->name('admin.market.product.destroy');
+//            Route::delete('/gallery/{id}', [GalleryController::class, 'destroy'])->name('admin.market.product.destroy');
+//            Route::delete('/gallery/store', [GalleryController::class, 'destroy'])->name('admin.market.product.destroy');
+//            Route::delete('/gallery/destroy/{id}', [GalleryController::class, 'destroy'])->name('admin.market.product.destroy');
         });
 
 

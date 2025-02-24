@@ -11,16 +11,7 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes, Sluggable;
 
-    protected $fillable = ['name',
-        'introduction', 'slug',
-        'description', 'image',
-        'weight', 'length',
-        'width', 'height',
-        'price', 'status',
-        'marketable', 'tags',
-        'sold_number', 'frozen_number',
-        'marketable_number', 'brand_id',
-        'category_id', 'published_at'];
+    protected $fillable = ['name', 'introduction', 'slug', 'image', 'weight', 'length', 'width', 'height', 'price', 'status', 'marketable', 'tags', 'sold_number', 'frozen_number', 'marketable_number', 'brand_id', 'category_id', 'published_at'];
 
     public function sluggable(): array
     {
@@ -41,5 +32,10 @@ class Product extends Model
     public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id');
+    }
+
+    public function metas()
+    {
+        return $this->hasMany(ProductMeta::class, 'product_id');
     }
 }

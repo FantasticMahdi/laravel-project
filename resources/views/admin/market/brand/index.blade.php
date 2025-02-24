@@ -45,8 +45,9 @@
                                 <th>{{$loop->iteration}}</th>
                                 <td>{{$brand->original_name}}</td>
                                 <td>{{$brand->persian_name}}</td>
-                                <td><img src="{{ asset('admin-assets/images/logo.png') }}" class="max-height-2rem"
-                                         alt=""></td>
+                                <td><img src="{{ asset($brand->logo['indexArray'][$brand->logo['currentImage']]) }}"
+                                         class="max-height-2rem"
+                                         alt="" width="80" height="50"></td>
                                 <td class="width-16-rem text-left">
                                     <a href="{{route('admin.market.brand.edit',$brand)}}"
                                        class="btn btn-primary btn-sm"><i

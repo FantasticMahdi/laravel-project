@@ -29,7 +29,7 @@ class BrandRequest extends FormRequest
                 'persian_name' => ['required','string','max:120','min:2'],
                 'logo' => ['required','image','mimes:jpeg,png,jpg,gif'],
                 'status' => ['required','numeric','in:0,1'],
-                'tags' => ['required'],
+                'tags' => ['required','string'],
             ];
         } else {
             return [

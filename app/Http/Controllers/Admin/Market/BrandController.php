@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Market\BrandRequest;
 use App\Http\Services\Image\ImageService;
 use App\Models\Market\Brand;
 
@@ -39,7 +40,7 @@ class BrandController extends Controller
     {
         $inputs = $request->only('original_name', 'persian_name', 'logo', 'status', 'tags');
         if ($request->hasFile('logo')) {
-            return $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'brand');
+            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'brand');
             $result = $imageService->createIndexAndSave($request->file('logo'));
         }
         if ($result === false) {
@@ -87,7 +88,7 @@ class BrandController extends Controller
      */
     public function update(BrandRequest $request, Brand $brand, ImageService $imageService)
     {
-        $inputs = $request->only('original_name', 'persian_name', 'logo', 'status', 'tags');
+        $inputs = $request->only('original_name', 'persian_name', 'logo', 'status', 'tags','currentImage');
         if ($request->hasFile('logo')) {
             if (!empty($brand->logo)) {
                 $imageService->deleteDirectoryAndFiles($brand->logo['directory']);
@@ -99,7 +100,7 @@ class BrandController extends Controller
             }
             $inputs['logo'] = $result;
         } else {
-            if (!isset($inputs['currentImage']) && !empty($brand->logo)) {
+            if (isset($inputs['currentImage']) && !empty($brand->logo)) {
                 $image = $brand->logo;
                 $image['currentImage'] = $inputs['currentImage'];
                 $inputs['logo'] = $image;

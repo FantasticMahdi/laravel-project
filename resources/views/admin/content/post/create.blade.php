@@ -115,7 +115,7 @@
                                 <div class="form-group">
                                     <label for="tags">تگ ها</label>
                                     <input class="form-control form-control-sm" type="hidden" name="tags" id="tags" value="{{ old('tags') }}">
-                                    <select name="" class="select3 form-control form-control-sm" id="select_tags" multiple>
+                                    <select name="" class="select2 form-control form-control-sm" id="select_tags" multiple>
 
                                     </select>
                                 </div>

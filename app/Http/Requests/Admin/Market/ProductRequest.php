@@ -23,39 +23,40 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->isMethod('post')) {
+        if($this->isMethod('post')){
             return [
-                'name' => ['required', 'string'],
-                'introduction' => ['required', 'string', 'min:10', 'max:1000'],
-                'image' => ['required','image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-                'weight' => ['required', 'integer', 'min:0', 'max:10000'],
-                'length' => ['required', 'integer', 'min:0'],
-                'width' => ['required', 'integer', 'min:0'],
-                'height' => ['required', 'integer', 'min:0'],
-                'price' => ['required', 'integer', 'min:0', 'regex:/^[0-9]+$/u'],
-                'status' => ['required', 'numeric', 'in:0,1'],
-                'marketable' => ['required', 'numeric', 'in:0,1'],
-                'tags' => ['required', 'string'],
-                'brand_id' => ['required', 'integer', 'exists:brands,id'],
-                'category_id' => ['required', 'integer', 'exists:product_categories,id'],
-                'published_at' => ['required', 'numeric'],
+                'name' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
+                'introduction' => 'required|max:1000|min:5',
+                'weight' => 'required|max:1000|min:1|numeric',
+                'length' => 'required|max:1000|min:1|numeric',
+                'width' => 'required|max:1000|min:1|numeric',
+                'height' => 'required|max:1000|min:1|numeric',
+                'price' => 'required|numeric',
+                'image' => 'required|image|mimes:png,jpg,jpeg,gif',
+                'status' => 'required|numeric|in:0,1',
+                'marketable' => 'required|numeric|in:0,1',
+                'tags' => 'required|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
+                'category_id' => 'required|min:1|max:100000000|regex:/^[0-9]+$/u|exists:product_categories,id',
+                'brand_id' => 'required|min:1|max:100000000|regex:/^[0-9]+$/u|exists:brands,id',
+                'published_at' => 'required|numeric',
             ];
-        } else {
+        }
+        else{
             return [
-                'name' => ['required', 'string'],
-                'introduction' => ['required', 'string', 'min:10', 'max:1000'],
-                'image' => ['image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-                'weight' => ['required', 'integer', 'min:0', 'max:10000'],
-                'length' => ['required', 'integer', 'min:0'],
-                'width' => ['required', 'integer', 'min:0'],
-                'height' => ['required', 'integer', 'min:0'],
-                'price' => ['required', 'integer', 'min:0', 'regex:/^[0-9]+$/u'],
-                'status' => ['required', 'numeric', 'in:0,1'],
-                'marketable' => ['required', 'numeric', 'in:0,1'],
-                'tags' => ['required', 'string'],
-                'brand_id' => ['required', 'integer', 'exists:brands,id'],
-                'category_id' => ['required', 'integer', 'exists:product_categories,id'],
-                'published_at' => ['required', 'numeric'],
+                'name' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
+                'introduction' => 'required|max:1000|min:5',
+                'weight' => 'required|max:1000|min:1|numeric',
+                'length' => 'required|max:1000|min:1|numeric',
+                'width' => 'required|max:1000|min:1|numeric',
+                'height' => 'required|max:1000|min:1|numeric',
+                'price' => 'required|numeric',
+                'image' => 'image|mimes:png,jpg,jpeg,gif',
+                'status' => 'required|numeric|in:0,1',
+                'marketable' => 'required|numeric|in:0,1',
+                'tags' => 'required|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
+                'category_id' => 'required|min:1|max:100000000|regex:/^[0-9]+$/u|exists:product_categories,id',
+                'brand_id' => 'required|min:1|max:100000000|regex:/^[0-9]+$/u|exists:brands,id',
+                'published_at' => 'required|numeric',
             ];
         }
     }
