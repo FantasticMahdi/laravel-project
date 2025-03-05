@@ -60,8 +60,8 @@
                                         <div class="dropdown-menu" aria-label="dropdownMenuLink">
                                             <a href="" class="dropdown-item text-right"><i class="fa fa-images"></i>
                                                 گالری</a>
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-list-ul"></i>
-                                                فرم کالا</a>
+                                            <a href="{{route('admin.market.color.index',$product)}}" class="dropdown-item text-right"><i class="fa fa-list-ul"></i>
+                                                رنگ کالا</a>
                                             <a href="{{ route('admin.market.product.edit',$product) }}"
                                                class="dropdown-item text-right"><i class="fa fa-edit"></i>
                                                 ویرایش</a>
@@ -84,4 +84,7 @@
             </section>
         </section>
     </section>
+@endsection
+@section('script')
+    @include('admin.alerts.sweetalert.delete-confirm', ['className' => 'delete'])
 @endsection

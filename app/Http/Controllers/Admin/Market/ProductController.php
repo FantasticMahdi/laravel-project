@@ -158,7 +158,6 @@ class ProductController extends Controller
             'published_at' => $inputs['published_at'],
             'image' => $inputs['image'],
         ]);
-
         $meta_keys = $request->meta_key;
         $meta_values = $request->meta_value;
         $meta_ids = array_keys($request->meta_key);
@@ -168,13 +167,11 @@ class ProductController extends Controller
                 [$meta_id, $meta_key, $meta_value]
             );
         }, $meta_keys, $meta_values, $meta_ids);
-
         foreach ($metas as $meta)
             ProductMeta::where('id', $meta['meta_id'])->update([
                 'meta_key' => $meta['meta_key'],
                 'meta_value' => $meta['meta_value'],
             ]);
-
         return redirect()->route('admin.market.product.index')->with('swal-success', 'محصول شما با موفقیت ویرایش شد!');
     }
 

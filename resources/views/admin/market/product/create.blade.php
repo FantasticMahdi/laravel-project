@@ -39,8 +39,8 @@
                                 </div>
                                 @error('name')
                                 <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </section>
                             <section class="col-12 col-md-6">
@@ -56,8 +56,8 @@
                                 </div>
                                 @error('category_id')
                                 <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </section>
                             <section class="col-12 col-md-6">
@@ -85,8 +85,8 @@
                                 </div>
                                 @error('image')
                                 <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </section>
                             <section class="col-12">
@@ -98,8 +98,8 @@
                                 </div>
                                 @error('price')
                                 <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </section>
                             <section class="col-12 col-md-6">
@@ -111,8 +111,8 @@
                                 </div>
                                 @error('weight')
                                 <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </section>
                             <section class="col-12 col-md-6">
@@ -124,8 +124,8 @@
                                 </div>
                                 @error('length')
                                 <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </section>
                             <section class="col-12 col-md-6">
@@ -137,8 +137,8 @@
                                 </div>
                                 @error('width')
                                 <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </section>
                             <section class="col-12 col-md-6">
@@ -150,8 +150,8 @@
                                 </div>
                                 @error('height')
                                 <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </section>
                             <section class="col-12">
@@ -165,8 +165,8 @@
                                 </div>
                                 @error('introduction')
                                 <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </section>
                             <section class="col-12 col-md-6">
@@ -180,8 +180,8 @@
                                 </div>
                                 @error('tags')
                                 <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </section>
                             <section class="col-12 col-md-6">
@@ -223,34 +223,72 @@
                                 </div>
                                 @error('published_at')
                                 <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </section>
                             <section class="col-12 border-top border-bottom py-4 my-4">
-                                <section class="row">
-                                    <section class="col-6 col-md-3">
-                                        <div class="form-group">
-                                            <input class="form-control form-control-sm" type="text" name="meta_key[]"
-                                                   id="" placeholder="ویژگی">
-                                        </div>
-                                        @error('meta_key')
-                                        <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </section>
-                                    <section class="col-6 col-md-3">
-                                        <div class="form-group">
-                                            <input class="form-control form-control-sm" type="text" name="meta_value[]"
-                                                   id="" placeholder="مقدار">
-                                        </div>
-                                    </section>
+                                <section class="row dynamic-fields">
+                                    @if(old('meta_key'))
+                                        @foreach(old('meta_key') as $index => $meta_key)
+                                            <section class="col-6 col-md-3">
+                                                <div class="form-group">
+                                                    <input class="form-control form-control-sm" type="text"
+                                                           name="meta_key[]" placeholder="ویژگی"
+                                                           value="{{ $meta_key }}">
+                                                    @error("meta_key.{$index}")
+                                                    <span class="alert_required bg-danger text-white p-1 rounded"
+                                                          role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div>
+                                            </section>
+                                            <section class="col-6 col-md-3">
+                                                <div class="form-group">
+                                                    <input class="form-control form-control-sm" type="text"
+                                                           name="meta_value[]" placeholder="مقدار"
+                                                           value="{{ old('meta_value')[$index] ?? '' }}">
+                                                    @error("meta_value.{$index}")
+                                                    <span class="alert_required bg-danger text-white p-1 rounded"
+                                                          role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div>
+                                            </section>
+                                        @endforeach
+                                    @else
+                                        <section class="col-6 col-md-3">
+                                            <div class="form-group">
+                                                <input class="form-control form-control-sm" type="text"
+                                                       name="meta_key[]" placeholder="ویژگی">
+                                            </div>
+                                            @error("meta_value.{$index}")
+                                            <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </section>
+                                        <section class="col-6 col-md-3">
+                                            <div class="form-group">
+                                                <input class="form-control form-control-sm" type="text"
+                                                       name="meta_value[]" placeholder="مقدار">
+                                            </div>
+                                            @error("meta_value.{$index}")
+                                            <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </section>
+                                    @endif
                                 </section>
+
                                 <section>
                                     <button id="btn-copy" type="button" class="btn btn-success btn-sm">افزودن</button>
                                 </section>
                             </section>
+
                             <section class="col-12">
                                 <button class="btn btn-primary btn-sm">ثبت</button>
                             </section>
@@ -308,10 +346,15 @@
     <script>
         $(function () {
             $('#btn-copy').on('click', function () {
-                var ele = $(this).parent().prev().clone(true);
-                $(this).before(ele);
-            })
-        })
+                // Clone both key and value inputs together
+                var clone = $('.dynamic-fields .col-6').slice(-2).clone(true);
+                // Clear input values in the cloned pair
+                clone.find('input').val('');
+                // Append the cloned pair back to the parent
+                $('.dynamic-fields').append(clone);
+            });
+        });
+
     </script>
 @endsection
 
