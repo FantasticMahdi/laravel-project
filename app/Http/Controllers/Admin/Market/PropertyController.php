@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\Market\CategoryAttributeRequest;
+use App\Models\Market\CategoryAttribute;
+use App\Models\Market\ProductCategory;
 
 class PropertyController extends Controller
 {
@@ -14,7 +16,9 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        return view('admin.market.property.index');
+        $category_attributes = CategoryAttribute::select('id', 'name', 'category_id', 'unit')->with('category:name,id')->orderBy('created_at', 'desc')->simplePaginate(10);
+//        dd($category_attributes);
+        return view('admin.market.property.index', ['category_attributes' => $category_attributes]);
     }
 
     /**
@@ -24,24 +28,31 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        return view('admin.market.property.create');
+        $product_categories = ProductCategory::select('id', 'name')->orderBy('created_at', 'desc')->get();
+        return view('admin.market.property.create', ['product_categories' => $product_categories]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryAttributeRequest $request)
     {
-        
+        $inputs = $request->only('name', 'category_id', 'unit');
+        $property = CategoryAttribute::create([
+            'name' => $inputs['name'],
+            'category_id' => $inputs['category_id'],
+            'unit' => $inputs['unit'],
+        ]);
+        return redirect()->route('admin.market.property.index')->with('swal-success', 'ویژگی با موفقیت ساخته شد!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -52,34 +63,42 @@ class PropertyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(CategoryAttribute $categoryAttribute)
     {
-        //
+        $product_categories = ProductCategory::select('id', 'name')->orderBy('created_at', 'desc')->get();
+        return view('admin.market.property.edit', ['category_attribute' => $categoryAttribute, 'product_categories' => $product_categories]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryAttributeRequest $request, CategoryAttribute $categoryAttribute)
     {
-        //
+        $inputs = $request->only('name', 'category_id', 'unit');
+        $categoryAttribute->update([
+            'name' => $inputs['name'],
+            'category_id' => $inputs['category_id'],
+            'unit' => $inputs['unit'],
+        ]);
+        return redirect()->route('admin.market.property.index')->with('swal-success', 'ویژگی با موفقیت ویرایش شد!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(CategoryAttribute $categoryAttribute)
     {
-        //
+        $categoryAttribute->delete();
+        return redirect()->route('admin.market.property.index')->with('swal-success', 'ویژگی با موفقیت حذف شد!');
     }
 }
