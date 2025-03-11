@@ -58,7 +58,7 @@
                                             <i class="fa fa-tools"></i> عملیات
                                         </a>
                                         <div class="dropdown-menu" aria-label="dropdownMenuLink">
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-images"></i>
+                                            <a href="{{route('admin.market.gallery.index',$product)}}" class="dropdown-item text-right"><i class="fa fa-images"></i>
                                                 گالری</a>
                                             <a href="{{route('admin.market.color.index',$product)}}" class="dropdown-item text-right"><i class="fa fa-list-ul"></i>
                                                 رنگ کالا</a>
