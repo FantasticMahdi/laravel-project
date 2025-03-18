@@ -53,11 +53,9 @@
                                 <td>{{json_decode($value->value)->price_increase}}</td>
                                 <td>{{$value->type == 0 ? 'ساده': 'انتخابی'}}</td>
                                 <td class="width-16-rem text-left">
-                                    <a href="{{route('admin.market.property.edit',$categoryAttribute)}}"
+                                    <a href="{{route('admin.market.value.edit',['categoryAttribute' => $categoryAttribute,'value'=> $value])}}"
                                        class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <a href="{{route('admin.market.value.index',$categoryAttribute)}}"
-                                       class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> ویژگی ها</a>
-                                    <form action="{{route('admin.market.property.destroy',$categoryAttribute)}}"
+                                    <form action="{{route('admin.market.value.destroy',['categoryAttribute' => $categoryAttribute, 'value' => $value])}}"
                                           method="post" class="d-inline">
                                         @csrf
                                         @method('DELETE')
