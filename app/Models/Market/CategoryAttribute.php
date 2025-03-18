@@ -16,4 +16,8 @@ class CategoryAttribute extends Model
     {
         return $this->belongsTo(ProductCategory::class);
     }
+
+    public function values(){
+        return $this->hasMany(CategoryValue::class);
+    }
 }

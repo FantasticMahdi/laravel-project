@@ -47,4 +47,9 @@ class Product extends Model
     {
         return $this->hasMany(Gallery::class);
     }
+
+    public function values()
+    {
+        return $this->hasMany(CategoryValue::class);
+    }
 }

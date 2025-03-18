@@ -264,7 +264,7 @@
                                                 <input class="form-control form-control-sm" type="text"
                                                        name="meta_key[]" placeholder="ویژگی">
                                             </div>
-                                            @error("meta_value.{$index}")
+                                            @error("meta_value")
                                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -275,7 +275,7 @@
                                                 <input class="form-control form-control-sm" type="text"
                                                        name="meta_value[]" placeholder="مقدار">
                                             </div>
-                                            @error("meta_value.{$index}")
+                                            @error("meta_value")
                                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
