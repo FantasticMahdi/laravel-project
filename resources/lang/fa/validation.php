@@ -177,5 +177,8 @@ return [
         "price"                     => "قیمت",
         "introduction"              => "توضیحات",
         "unit"                      => "واحد اندازه گیری",
+        "receiver"                  => "تحویل گیرنده",
+        "deliverer"                 => "تحویل دهنده",
+        "marketable_number"         => "تعداد",
     ],
 ];
