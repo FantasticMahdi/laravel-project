@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class OfflinePayment extends Model
 {
     use HasFactory;
+    public function payments()
+    {
+        return $this->morphMany('App\Models\Market\Payment', 'paymentable');
+    }
 }

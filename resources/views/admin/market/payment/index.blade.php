@@ -46,16 +46,17 @@
                         @foreach($payments as $payment)
                             <tr>
                                 <th>{{$loop->iteration}}</th>
-                                <td>123456</td>
-                                <td>ملت</td>
+                                <td>{{$payment->paymentable->transaction_id ?? '-'}}</td>
+                                <td>{{$payment->paymentable->gateway ?? '-'}}</td>
                                 <td>{{$payment->user->fullName}}</td>
-                                <td>{{$payment->status == 0 ? 'تایید نشده' : 'تایید شده'}}</td>
+                                <td>@if($payment->status == 0) پرداخت شده@elseif($payment->status == 1)پرداخت نشده
+                                    @elseif($payment->status == 2) باطل شده@else برگشت داده شده @endif</td>
                                 <td>{{$payment->type == 0 ? 'آنلاین' : ($payment->type == 1 ? 'آفلاین' : 'درب محل')}}</td>
                                 <td class="width-22-rem text-left">
-                                    <a href="#" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-window-close"></i> باطل
+                                    <a href="#" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> مشاهده</a>
+                                    <a href="{{ route('admin.market.payment.canceled',$payment) }}" class="btn btn-warning btn-sm"><i class="fa fa-window-close"></i> باطل
                                         کردن</a>
-                                    <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i>
+                                    <a href="{{ route('admin.market.payment.returned',$payment) }}" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i>
                                         برگرداندن</a>
                                 </td>
                             </tr>
