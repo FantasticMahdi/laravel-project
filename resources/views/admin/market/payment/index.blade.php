@@ -53,7 +53,7 @@
                                     @elseif($payment->status == 2) باطل شده@else برگشت داده شده @endif</td>
                                 <td>{{$payment->type == 0 ? 'آنلاین' : ($payment->type == 1 ? 'آفلاین' : 'درب محل')}}</td>
                                 <td class="width-22-rem text-left">
-                                    <a href="#" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> مشاهده</a>
+                                    <a href="{{route('admin.market.payment.show',$payment)}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> مشاهده</a>
                                     <a href="{{ route('admin.market.payment.canceled',$payment) }}" class="btn btn-warning btn-sm"><i class="fa fa-window-close"></i> باطل
                                         کردن</a>
                                     <a href="{{ route('admin.market.payment.returned',$payment) }}" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i>

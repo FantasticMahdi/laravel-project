@@ -171,6 +171,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/cash', [PaymentController::class, 'cash'])->name('admin.market.payment.cash');
             Route::get('/canceled/{payment}', [PaymentController::class, 'canceled'])->name('admin.market.payment.canceled');
             Route::get('/returned/{payment}', [PaymentController::class, 'returned'])->name('admin.market.payment.returned');
+            Route::get('/show/{payment}', [PaymentController::class, 'show'])->name('admin.market.payment.show');
         });
 
         //product
