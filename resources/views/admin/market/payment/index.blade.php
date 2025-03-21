@@ -8,8 +8,8 @@
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item font-size-14"> <a href="">خانه</a></li>
-            <li class="breadcrumb-item font-size-14"> <a href="#">بخش فروش</a></li>
+            <li class="breadcrumb-item font-size-14"><a href="">خانه</a></li>
+            <li class="breadcrumb-item font-size-14"><a href="#">بخش فروش</a></li>
             <li class="breadcrumb-item font-size-14 active" aria-current="page">پرداخت ها</li>
         </ol>
     </nav>
@@ -22,33 +22,35 @@
 
                 </section>
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 pb-2">
-                    <a href="#" class="btn btn-info btn-sm disabled">ایجاد پرداخت جدید</a>
+                    <a href="#" class="btn btn-info btn-sm disabled">ایجاد پرداخت
+                        جدید</a>
                     <div class="max-width-16-rem">
                         <input type="text" class="form-control form-control-sm form-text" name="" id=""
-                            placeholder="search">
+                               placeholder="search">
                     </div>
                 </section>
                 <section class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>کد تراکنش</th>
-                                <th>بانک</th>
-                                <th>پرداخت کننده</th>
-                                <th>وضعیت پرداخت</th>
-                                <th>نوع پرداخت</th>
-                                <th class="max-width-16-rem text-center"><i class="fa fa-cogs"> تنظیمات</i></th>
-                            </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>کد تراکنش</th>
+                            <th>بانک</th>
+                            <th>پرداخت کننده</th>
+                            <th>وضعیت پرداخت</th>
+                            <th>نوع پرداخت</th>
+                            <th class="max-width-16-rem text-center"><i class="fa fa-cogs"> تنظیمات</i></th>
+                        </tr>
                         </thead>
                         <tbody>
+                        @foreach($payments as $payment)
                             <tr>
-                                <th>1</th>
+                                <th>{{$loop->iteration}}</th>
                                 <td>123456</td>
-                                <td>شهر</td>
-                                <td>حشمت</td>
-                                <td>تایید شده</td>
-                                <td>آنلاین</td>
+                                <td>ملت</td>
+                                <td>{{$payment->user->fullName}}</td>
+                                <td>{{$payment->status == 0 ? 'تایید نشده' : 'تایید شده'}}</td>
+                                <td>{{$payment->type == 0 ? 'آنلاین' : ($payment->type == 1 ? 'آفلاین' : 'درب محل')}}</td>
                                 <td class="width-22-rem text-left">
                                     <a href="#" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
                                     <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-window-close"></i> باطل
@@ -57,37 +59,7 @@
                                         برگرداندن</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>1</th>
-                                <td>123456</td>
-                                <td>شهر</td>
-                                <td>حشمت</td>
-                                <td>تایید شده</td>
-                                <td>آنلاین</td>
-                                <td class="width-22-rem text-left">
-                                    <a href="#" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-window-close"></i> باطل
-                                        کردن</a>
-                                    <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i>
-                                        برگرداندن</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>1</th>
-                                <td>123456</td>
-                                <td>شهر</td>
-                                <td>حشمت</td>
-                                <td>تایید شده</td>
-                                <td>آنلاین</td>
-                                <td class="width-22-rem text-left">
-                                    <a href="#" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-window-close"></i> باطل
-                                        کردن</a>
-                                    <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i>
-                                        برگرداندن</a>
-                                </td>
-                            </tr>
-
+                        @endforeach
                         </tbody>
                     </table>
                 </section>

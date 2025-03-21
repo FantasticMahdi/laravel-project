@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Market\Payment;
 use App\Models\Ticket\Ticket;
 use App\Models\Ticket\TicketAdmin;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -78,5 +79,10 @@ class User extends Authenticatable
     public function tickets()
     {
         return $this->hasMany(Ticket::class,'parent_id');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
     }
 }
