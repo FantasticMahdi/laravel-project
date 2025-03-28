@@ -182,6 +182,9 @@ return [
         "marketable_number"         => "تعداد",
         "percentage"                => "درصد",
         "discount_ceiling"          => "سقف تخفیف",
-        "minimal_order_amount"      => "حداقل مبلغ"
+        "minimal_order_amount"      => "حداقل مبلغ",
+        "code"                      => "کد تخفیف",
+        "user_id"                   => "کاربر",
+        "type"                      => "نوع",
     ],
 ];

@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Admin\Market;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Market\AmazingSaleRequest;
 use App\Http\Requests\Admin\Market\CommonDiscountRequest;
+use App\Http\Requests\Admin\Market\CouponRequest;
 use App\Models\Market\AmazingSale;
 use App\Models\Market\CommonDiscount;
+use App\Models\Market\Coupon;
 use App\Models\Market\Product;
+use App\Models\User;
 
 class DiscountController extends Controller
 {
@@ -18,7 +21,8 @@ class DiscountController extends Controller
      */
     public function coupon()
     {
-        return view('admin.market.discount.coupon');
+        $coupons = Coupon::select('id', 'code', 'amount', 'amount_type', 'discount_ceiling', 'type', 'status', 'start_date', 'end_date', 'user_id')->orderBy('created_at', 'desc')->simplePaginate(10);
+        return view('admin.market.discount.coupon', ['coupons' => $coupons]);
     }
 
     /**
@@ -28,8 +32,62 @@ class DiscountController extends Controller
      */
     public function couponCreate()
     {
-        return view('admin.market.discount.create-coupon');
+        $users = User::select('id', 'first_name', 'last_name')->get();
+        return view('admin.market.discount.coupon-create', ['users' => $users]);
     }
+
+    public function couponStore(CouponRequest $request)
+    {
+        $inputs = $request->only('code', 'type', 'user_id', 'amount_type', 'amount', 'discount_ceiling', 'start_date', 'end_date', 'status');
+
+        $inputs['start_date'] = date("Y-m-d H:i:s", (int)substr($inputs['start_date'], 0, 10));
+        $inputs['end_date'] = date("Y-m-d H:i:s", (int)substr($inputs['end_date'], 0, 10));
+
+        $coupon = Coupon::create([
+            'code' => $inputs['code'],
+            'type' => $inputs['type'],
+            'user_id' => $inputs['type'] == '0' ? null : $inputs['user_id'],
+            'amount_type' => $inputs['amount_type'],
+            'amount' => $inputs['amount'],
+            'discount_ceiling' => $inputs['discount_ceiling'],
+            'start_date' => $inputs['start_date'],
+            'end_date' => $inputs['end_date'],
+            'status' => $inputs['status']
+        ]);
+        return redirect()->route('admin.market.discount.coupon')->with('swal-success', 'کوپن جدید شما با موفقیت ثبت شد!');
+    }
+
+    public function couponEdit(Coupon $coupon)
+    {
+        $users = User::select('id', 'first_name', 'last_name')->get();
+        return view('admin.market.discount.coupon-edit', ['coupon' => $coupon, 'users' => $users]);
+    }
+
+    public function couponUpdate(CouponRequest $request, Coupon $coupon)
+    {
+        $inputs = $request->only('code', 'type', 'user_id', 'amount_type', 'amount', 'discount_ceiling', 'start_date', 'end_date', 'status');
+
+        $inputs['start_date'] = date("Y-m-d H:i:s", (int)substr($inputs['start_date'], 0, 10));
+        $inputs['end_date'] = date("Y-m-d H:i:s", (int)substr($inputs['end_date'], 0, 10));
+        $coupon->update([
+            'code' => $inputs['code'],
+            'type' => $inputs['type'],
+            'user_id' => $inputs['type'] == '0' ? null : $inputs['user_id'],
+            'amount_type' => $inputs['amount_type'],
+            'amount' => $inputs['amount'],
+            'discount_ceiling' => $inputs['discount_ceiling'],
+            'start_date' => $inputs['start_date'],
+            'end_date' => $inputs['end_date'],
+            'status' => $inputs['status']
+        ]);
+        return redirect()->route('admin.market.discount.coupon')->with('swal-success', 'کوپن شما با موفقیت ویرایش شد!');
+    }
+
+    public function couponDelete(Coupon $coupon){
+        $coupon->delete();
+        return redirect()->route('admin.market.discount.coupon')->with('swal-success', 'کوپن شما با موفقیت حذف شد!');
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -67,7 +125,7 @@ class DiscountController extends Controller
             'minimal_order_amount' => $inputs['minimal_order_amount'],
             'start_date' => $inputs['start_date'],
             'end_date' => $inputs['end_date'],
-            'status' => $inputs['status'],
+            'status' => $inputs['status']
         ]);
         return redirect()->route('admin.market.discount.commonDiscount')->with('swal-success', 'تخفیف جدید شما با موفقیت ثبت شد!');
     }
@@ -90,7 +148,7 @@ class DiscountController extends Controller
             'minimal_order_amount' => $inputs['minimal_order_amount'],
             'start_date' => $inputs['start_date'],
             'end_date' => $inputs['end_date'],
-            'status' => $inputs['status'],
+            'status' => $inputs['status']
         ]);
         return redirect()->route('admin.market.discount.commonDiscount')->with('swal-success', 'تخفیف شما با موفقیت ویرایش شد!');
     }
@@ -138,7 +196,7 @@ class DiscountController extends Controller
             'percentage' => $inputs['percentage'],
             'start_date' => $inputs['start_date'],
             'end_date' => $inputs['end_date'],
-            'status' => $inputs['status'],
+            'status' => $inputs['status']
         ]);
         return redirect()->route('admin.market.discount.amazingSale')->with('swal-success', 'فروش ویژه شما با موفقیت اضافه شد!');
     }
@@ -159,7 +217,7 @@ class DiscountController extends Controller
             'percentage' => $inputs['percentage'],
             'start_date' => $inputs['start_date'],
             'end_date' => $inputs['end_date'],
-            'status' => $inputs['status'],
+            'status' => $inputs['status']
         ]);
         return redirect()->route('admin.market.discount.amazingSale')->with('swal-success', 'فروش ویژه شما با موفقیت ویرایش شد!');
     }
@@ -170,14 +228,4 @@ class DiscountController extends Controller
         return redirect()->route('admin.market.discount.amazingSale')->with('swal-success', 'فروش ویژه شما با موفقیت حذف شد!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
