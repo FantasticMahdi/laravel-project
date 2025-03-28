@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\Market;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CommonDiscounRequest extends FormRequest
+class AmazingSaleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,11 @@ class CommonDiscounRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required','string','max:255'],
+            'product_id' => ['required', 'numeric','exists:products,id'],
             'percentage' => ['required','numeric','max:100'],
-            'discount_ceiling' => ['required','numeric','max:100000000'],
-            'minimal_order_amount' => ['required','numeric','max:100000000'],
-            'status' => ['required','numeric','in:0,1'],
             'start_date' => ['required','numeric'],
             'end_date' => ['required','numeric'],
+            'status' => ['required','numeric','in:0,1'],
         ];
     }
 }

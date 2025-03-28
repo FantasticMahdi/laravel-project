@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Market\CommonDiscounRequest;
+use App\Http\Requests\Admin\Market\AmazingSaleRequest;
+use App\Http\Requests\Admin\Market\CommonDiscountRequest;
+use App\Models\Market\AmazingSale;
 use App\Models\Market\CommonDiscount;
+use App\Models\Market\Product;
 
 class DiscountController extends Controller
 {
@@ -51,7 +54,7 @@ class DiscountController extends Controller
         return view('admin.market.discount.common-create');
     }
 
-    public function commonDiscountStore(CommonDiscounRequest $request)
+    public function commonDiscountStore(CommonDiscountRequest $request)
     {
         $inputs = $request->only('title', 'percentage', 'discount_ceiling', 'minimal_order_amount', 'start_date', 'end_date', 'status');
 
@@ -74,7 +77,7 @@ class DiscountController extends Controller
         return view('admin.market.discount.common-edit', ['commonDiscount' => $commonDiscount]);
     }
 
-    public function commonDiscountUpdate(CommonDiscounRequest $request, CommonDiscount $commonDiscount)
+    public function commonDiscountUpdate(CommonDiscountRequest $request, CommonDiscount $commonDiscount)
     {
         $inputs = $request->only('title', 'percentage', 'discount_ceiling', 'minimal_order_amount', 'start_date', 'end_date', 'status');
         $inputs['start_date'] = date("Y-m-d H:i:s", (int)substr($inputs['start_date'], 0, 10));
@@ -106,8 +109,10 @@ class DiscountController extends Controller
      */
     public function amazingSale()
     {
-        return view('admin.market.discount.amazingSale');
+        $amazingSales = AmazingSale::select('id', 'product_id', 'percentage', 'start_date', 'end_date', 'status')->orderBy('created_at', 'DESC')->simplePaginate(10);
+        return view('admin.market.discount.amazingSale', ['amazingSales' => $amazingSales]);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -118,7 +123,51 @@ class DiscountController extends Controller
      */
     public function amazingSaleCreate()
     {
-        return view('admin.market.discount.create-amazing');
+        $products = Product::select('id', 'name')->get();
+        return view('admin.market.discount.amazing-create', ['products' => $products]);
+    }
+
+    public function amazingSaleStore(AmazingSaleRequest $request)
+    {
+        $inputs = $request->only('product_id', 'percentage', 'start_date', 'end_date', 'status');
+        $inputs['start_date'] = date("Y-m-d H:i:s", (int)substr($inputs['start_date'], 0, 10));
+        $inputs['end_date'] = date("Y-m-d H:i:s", (int)substr($inputs['end_date'], 0, 10));
+
+        $amazingSale = AmazingSale::create([
+            'product_id' => $inputs['product_id'],
+            'percentage' => $inputs['percentage'],
+            'start_date' => $inputs['start_date'],
+            'end_date' => $inputs['end_date'],
+            'status' => $inputs['status'],
+        ]);
+        return redirect()->route('admin.market.discount.amazingSale')->with('swal-success', 'فروش ویژه شما با موفقیت اضافه شد!');
+    }
+
+    public function amazingSaleEdit(AmazingSale $amazingSale)
+    {
+        return view('admin.market.discount.amazing-edit', ['amazingSale' => $amazingSale]);
+    }
+
+    public function amazingSaleUpdate(AmazingSaleRequest $request, AmazingSale $amazingSale)
+    {
+        $inputs = $request->only('product_id', 'percentage', 'start_date', 'end_date', 'status');
+        $inputs['start_date'] = date("Y-m-d H:i:s", (int)substr($inputs['start_date'], 0, 10));
+        $inputs['end_date'] = date("Y-m-d H:i:s", (int)substr($inputs['end_date'], 0, 10));
+
+        $amazingSale->update([
+            'product_id' => $inputs['product_id'],
+            'percentage' => $inputs['percentage'],
+            'start_date' => $inputs['start_date'],
+            'end_date' => $inputs['end_date'],
+            'status' => $inputs['status'],
+        ]);
+        return redirect()->route('admin.market.discount.amazingSale')->with('swal-success', 'فروش ویژه شما با موفقیت ویرایش شد!');
+    }
+
+    public function amazingSaleDestroy(AmazingSale $amazingSale)
+    {
+        $amazingSale->delete();
+        return redirect()->route('admin.market.discount.amazingSale')->with('swal-success', 'فروش ویژه شما با موفقیت حذف شد!');
     }
 
     /**
