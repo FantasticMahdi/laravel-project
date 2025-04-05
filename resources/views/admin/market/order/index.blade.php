@@ -53,11 +53,11 @@
                                 <td>{{$order->id}}</td>
                                 <td>{{$order->order_final_amount}}</td>
                                 <td>{{$order->order_discount_amount}}</td>
-                                <td>{{$order->order_total_products_ddiscoutn_amount>}}</td>
+                                <td>{{$order->order_total_products_discount_amount}}</td>
                                 <td>{{$order->order_final_amount - $order->order_discount_amount}}</td>
                                 <td>@if($order->payment_status == 0)
                                         پرداخت نشده
-                                    @elseif($oreddr->payment_status == 1)
+                                    @elseif($order->payment_status == 1)
                                         پرداخت شده
                                     @elseif($order->payment_status == 2)
                                         باطل شده
@@ -66,7 +66,7 @@
                                     @endif</td>
                                 <td>@if($order->payment_type == 0)
                                         آنلاین
-                                    @elseif($oreddr->payment_type == 1)
+                                    @elseif($order->payment_type == 1)
                                         آفلاین
                                     @else
                                         درمحل
@@ -74,20 +74,26 @@
                                 <td>{{$order->payment->paymentable->getway ?? '-'}}</td>
                                 <td>@if($order->delivery_status == 0)
                                         ارسال نشده
-                                    @elseif($oreddr->delivery_status == 1)
+                                    @elseif($order->delivery_status == 1)
                                         درحال ارسال
-                                    @elseif($oreddr->delivery_status == 2)
+                                    @elseif($order->delivery_status == 2)
                                         ارسال شده
                                     @else
                                         تحویل شده
                                     @endif</td>
                                 <td>{{{$order->delivery->name}}}</td>
-                                <td>@if($order->status == 0)
+                                <td>@if($order->order_status == 0)
+                                        برسسی نشده
+                                    @elseif($order->order_status == 1)
                                         در انتظار تایید
-                                    @elseif($oreddr->status == 1)
+                                    @elseif($order->order_status == 2)
                                         تایید نشده
-                                    @else
+                                    @elseif($order->order_status == 3)
                                         تایید شده
+                                    @elseif($order->order_status == 4)
+                                        باطل شده
+                                    @else
+                                        مرجوعی
                                     @endif</td>
                                 <td class="width-8-rem text-left">
                                     <div class="dropdown">

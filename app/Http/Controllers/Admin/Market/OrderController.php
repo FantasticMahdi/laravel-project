@@ -13,29 +13,38 @@ class OrderController extends Controller
         return view('admin.market.order.index', ['orders' => $orders]);
     }
 
-    public function newOrder()
+    public function newOrders()
     {
-        return view('admin.market.order.index');
+        $orders = Order::where('order_status', 0)->orderBy('created_at', 'desc')->simplePaginate(10);
+
+        $orderIds = $orders->pluck('id')->toArray();
+
+        Order::whereIn('id', $orderIds)->update(['order_status' => 1]);
+        return view('admin.market.order.index', ['orders' => $orders]);
     }
 
     public function sending()
     {
-        return view('admin.market.order.index');
+        $orders = Order::where('delivery_status', 1)->orderBy('created_at', 'desc')->simplePaginate(10);
+        return view('admin.market.order.index', ['orders' => $orders]);
     }
 
     public function unpaid()
     {
-        return view('admin.market.order.index');
+        $orders = Order::where('payment_status', 0)->orderBy('created_at', 'desc')->simplePaginate(10);
+        return view('admin.market.order.index',['orders' => $orders]);
     }
 
     public function canceled()
     {
-        return view('admin.market.order.index');
+        $orders = Order::where('order_status', 4)->orderBy('created_at', 'desc')->simplePaginate(10);
+        return view('admin.market.order.index',['orders' => $orders]);
     }
 
     public function returned()
     {
-        return view('admin.market.order.index');
+        $orders = Order::where('order_status', 5)->orderBy('created_at', 'desc')->simplePaginate(10);
+        return view('admin.market.order.index',['orders' => $orders]);
     }
 
     public function show()
