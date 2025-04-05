@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Market;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CouponRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class CouponRequest extends FormRequest
     {
         return [
             'user_id' => ['required_if:type,1', 'numeric', 'exists:users,id'],
-            'code' => ['required', 'string', 'max:255', 'unique:coupons,code'],
+            'code' => ['required', 'string', 'max:255', Rule::unique('coupons', 'code')->ignore($this->coupon->id)],
             'discount_ceiling' => ['required', 'numeric', 'max:10000000'],
             'start_date' => ['required', 'numeric'],
             'end_date' => ['required', 'numeric'],

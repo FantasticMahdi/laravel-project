@@ -47,8 +47,10 @@
                                 <div class="form-group">
                                     <label for="">نوع کوپن</label>
                                     <select class="form-control form-control-sm" name="type" id="type">
-                                        <option value="0" @if(old('type',$coupon->type) == 0) selected @endif>عمومی</option>
-                                        <option value="1" @if(old('type',$coupon->type) == 1) selected @endif>خصوصی</option>
+                                        <option value="0" @if(old('type',$coupon->type) == 0) selected @endif>عمومی
+                                        </option>
+                                        <option value="1" @if(old('type',$coupon->type) == 1) selected @endif>خصوصی
+                                        </option>
                                     </select>
                                 </div>
                                 @error('type')
@@ -60,7 +62,8 @@
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">کاربران</label>
-                                    <select class="form-control form-control-sm" name="user_id" id="users" disabled>
+                                    <select class="form-control form-control-sm" name="user_id"
+                                            id="users" {{ $coupon->type == 0 ? 'disabled':''}}>
                                         <option value="">کاربر را انتخاب کنید</option>
                                         @foreach($users as $user)
                                             <option value="{{$user->id}}"
@@ -78,8 +81,12 @@
                                 <div class="form-group">
                                     <label for="">نوع تخفیف</label>
                                     <select class="form-control form-control-sm" name="amount_type" id="amount_type">
-                                        <option value="0" @if(old('amount_type',$coupon->amount_type) == 0) selected @endif>درصدی</option>
-                                        <option value="1" @if(old('amount_type',$coupon->amount_type) == 1) selected @endif>عددی</option>
+                                        <option value="0"
+                                                @if(old('amount_type',$coupon->amount_type) == 0) selected @endif>درصدی
+                                        </option>
+                                        <option value="1"
+                                                @if(old('amount_type',$coupon->amount_type) == 1) selected @endif>عددی
+                                        </option>
                                     </select>
                                 </div>
                                 @error('type')
@@ -142,8 +149,11 @@
                                 <div class="form-group">
                                     <label for="">وضعیت</label>
                                     <select class="form-control form-control-sm" name="status" id="status">
-                                        <option value="0" @if(old('status',$coupon->status) == 0) selected @endif>فعال</option>
-                                        <option value="1" @if(old('status',$coupon->status) == 1) selected @endif>غیر فعال</option>
+                                        <option value="0" @if(old('status',$coupon->status) == 0) selected @endif>فعال
+                                        </option>
+                                        <option value="1" @if(old('status',$coupon->status) == 1) selected @endif>غیر
+                                            فعال
+                                        </option>
                                     </select>
                                 </div>
                                 @error('type')
