@@ -169,9 +169,9 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/canceled', [OrderController::class, 'canceled'])->name('admin.market.order.canceled');
             Route::get('/returned', [OrderController::class, 'returned'])->name('admin.market.order.returned');
             Route::get('/show', [OrderController::class, 'show'])->name('admin.market.order.show');
-            Route::get('/change-send-status', [OrderController::class, 'changeSendStatus'])->name('admin.market.order.changeSendStatus');
-            Route::get('/change-order-status', [OrderController::class, 'changeOrderStatus'])->name('admin.market.order.changeOrderStatus');
-            Route::get('/cancel-order', [OrderController::class, 'cancelOrder'])->name('admin.market.order.cancelOrder');
+            Route::get('/change-send-status/{order}', [OrderController::class, 'changeSendStatus'])->name('admin.market.order.changeSendStatus');
+            Route::get('/change-order-status/{order}', [OrderController::class, 'changeOrderStatus'])->name('admin.market.order.changeOrderStatus');
+            Route::get('/cancel-order/{order}', [OrderController::class, 'cancelOrder'])->name('admin.market.order.cancelOrder');
         });
 
 

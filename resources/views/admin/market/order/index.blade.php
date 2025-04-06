@@ -105,11 +105,11 @@
                                         <div class="dropdown-menu" aria-label="dropdownMenuLink">
                                             <a href="" class="dropdown-item text-right"><i class="fa fa-images"></i>
                                                 مشاهده فاکتور</a>
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-list-ul"></i>
+                                            <a href="{{route('admin.market.order.changeSendStatus',$order)}}" class="dropdown-item text-right"><i class="fa fa-list-ul"></i>
                                                 تغییر وضعیت ارسال</a>
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-edit"></i>
+                                            <a href="{{route('admin.market.order.changeOrderStatus',$order)}}" class="dropdown-item text-right"><i class="fa fa-edit"></i>
                                                 تغییر وضعیت سفارش</a>
-                                            <a href="" class="dropdown-item text-right"><i
+                                            <a href="{{route('admin.market.order.cancelOrder',$order)}}" class="dropdown-item text-right"><i
                                                         class="fa fa-window-close"></i> باطل کردن سفارش</a>
                                         </div>
                                     </div>
