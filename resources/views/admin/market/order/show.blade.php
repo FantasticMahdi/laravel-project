@@ -33,7 +33,7 @@
                             <th>{{$order->id}}</th>
                             <td class="text-left">
                                 <a href="" class="btn btn-dark btn-sm" id="print"><i class="fa fa-print"></i> چاپ</a>
-                                <a href="" class="btn btn-warning btn-sm"><i class="fa fa-book"></i> جزییات سفارش</a>
+                                <a href="{{route('admin.market.order.show.detail',$order)}}" class="btn btn-warning btn-sm"><i class="fa fa-book"></i> جزییات سفارش</a>
                             </td>
                         </tr>
                         <tr class="border-bottom">

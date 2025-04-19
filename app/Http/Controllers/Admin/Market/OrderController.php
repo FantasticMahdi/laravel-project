@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
+use App\Models\Market\AmazingSale;
 use App\Models\Market\Order;
 
 class OrderController extends Controller
@@ -50,6 +51,19 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         return view('admin.market.order.show',['order' => $order]);
+    }
+
+    public function detail(Order $order)
+    {
+        $order->load([
+            'orderItems.singleProduct',
+            'orderItems.amazingSale',
+            'orderItems.guarantee',
+            'orderItems.orderItemAttributes.categoryAttribute',
+            'orderItems.orderItemAttributes.categoryAttributeValue',
+        ]);
+
+        return view('admin.market.order.detail',['order' => $order]);
     }
 
     public function changeSendStatus(Order $order)
