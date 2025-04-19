@@ -103,7 +103,7 @@
                                             <i class="fa fa-tools"></i> عملیات
                                         </a>
                                         <div class="dropdown-menu" aria-label="dropdownMenuLink">
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-images"></i>
+                                            <a href="{{route('admin.market.order.show',$order)}}" class="dropdown-item text-right"><i class="fa fa-images"></i>
                                                 مشاهده فاکتور</a>
                                             <a href="{{route('admin.market.order.changeSendStatus',$order)}}" class="dropdown-item text-right"><i class="fa fa-list-ul"></i>
                                                 تغییر وضعیت ارسال</a>

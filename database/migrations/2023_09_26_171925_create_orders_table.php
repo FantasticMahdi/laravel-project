@@ -15,7 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-$table->foreignId('users_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+$table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
 $table->foreignId('address_id')->nullable()->constrained('addresses')->onUpdate('cascade')->onDelete('cascade');
 $table->longText('address_object')->nullable();
 $table->foreignId('payment_id')->nullable()->constrained('payments')->onUpdate('cascade')->onDelete('cascade');
