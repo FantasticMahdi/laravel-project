@@ -40,29 +40,7 @@
                             <li class="list-group-item list-group-item-action">
                                 <section class="media">
                                     <img class="notification-img" src="{{ asset('admin-assets/images/avatar-2.jpg') }}"
-                                        alt="avatar">
-                                    <section class="media-body pr-2">
-                                        <h5 class="notification-user">mahdi khorasani</h5>
-                                        <p class="notification-text">Lorem, ipsum dolor.</p>
-                                        <p class="notification-time"> test description for picture</p>
-                                    </section>
-                                </section>
-                            </li>
-                            <li class="list-group-item list-group-item-action">
-                                <section class="media">
-                                    <img class="notification-img" src="{{ asset('admin-assets/images/avatar-2.jpg') }}"
-                                        alt="">
-                                    <section class="media-body pr-2">
-                                        <h5 class="notification-user">mahdi khorasani</h5>
-                                        <p class="notification-text">Lorem, ipsum dolor.</p>
-                                        <p class="notification-time"> test description for picture</p>
-                                    </section>
-                                </section>
-                            </li>
-                            <li class="list-group-item list-group-item-action">
-                                <section class="media">
-                                    <img class="notification-img" src="{{ asset('admin-assets/images/avatar-2.jpg') }}"
-                                        alt="">
+                                         alt="avatar">
                                     <section class="media-body pr-2">
                                         <h5 class="notification-user">mahdi khorasani</h5>
                                         <p class="notification-text">Lorem, ipsum dolor.</p>
@@ -75,121 +53,40 @@
                 </span>
                 <span class="ml-2 ml-md-4 position-relative">
                     <span id="header-comment-toggle" class="pointer">
-                        <i class="far fa-comment-alt"><sup class="badge badge-danger">3</sup></i>
+                        <i class="far fa-comment-alt">
+                                @if($unseenComments->count() !== 0)
+                                <sup class="badge badge-danger">
+                                    {{$unseenComments->count()}}
+                            </sup>
+                            @endif
+                        </i>
                     </span>
                     <section id="header-comment" class="header-comment">
                         <section class="border-bottom px-4"><input type="text"
-                                class="form-control form-control-sm my-4" placeholder="دنبال چه میگردید...؟">
+                                                                   class="form-control form-control-sm my-4"
+                                                                   placeholder="دنبال چه میگردید...؟">
                         </section>
 
 
                         <section class="header-comment-wrapper">
                             <ul class="list-group rounded px-0">
-                                <li class="list-group-item list-group-item-action">
+                                @foreach($unseenComments as $unseenComment)
+                                    <li class="list-group-item list-group-item-action">
                                     <section class="media">
                                         <img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt="avatar"
-                                            class="notification-img">
+                                             class="notification-img">
                                         <section class="media-body pr-1">
                                             <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">مهدی خراسانی</h5>
+                                                <h5 class="comment-user">{{$unseenComment->user->fullName}}</h5>
                                                 <span><i
-                                                        class="fas fa-circle text-success comment-user-status"></i></span>
+                                                            class="fas fa-circle text-success comment-user-status"></i>
+                                                    {{$unseenComment->body}}
+                                                </span>
                                             </section>
                                         </section>
                                     </section>
                                 </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt="avatar"
-                                            class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">مهدی خراسانی</h5>
-                                                <span><i
-                                                        class="fas fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt="avatar"
-                                            class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">مهدی خراسانی</h5>
-                                                <span><i
-                                                        class="fas fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt="avatar"
-                                            class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">مهدی خراسانی</h5>
-                                                <span><i
-                                                        class="fas fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt="avatar"
-                                            class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">مهدی خراسانی</h5>
-                                                <span><i
-                                                        class="fas fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt="avatar"
-                                            class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">مهدی خراسانی</h5>
-                                                <span><i
-                                                        class="fas fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt="avatar"
-                                            class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">مهدی خراسانی</h5>
-                                                <span><i
-                                                        class="fas fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{ asset('admin-assets/images/avatar-2.jpg') }}" alt="avatar"
-                                            class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">مهدی خراسانی</h5>
-                                                <span><i
-                                                        class="fas fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-
+                                @endforeach
                             </ul>
                         </section>
                     </section>
@@ -197,22 +94,22 @@
                 <span class="ml-3 ml-md-5 position-relative">
                     <span id="header-profile-toggle" class="pointer">
                         <img class="header-avatar" src="{{ asset('admin-assets/images/avatar-2.jpg') }}"
-                            alt="">
+                             alt="">
                         <span class="header-username">مهدی خراسانی</span>
                         <i class="fas fa-angle-down"></i>
                     </span>
                     <section id="header-profile" class="header-profile rounded">
                         <section class="list-group rounded">
                             <a href="#" class="list-group-item list-group-item-action header-profile-link"><i
-                                    class="fas fa-cog"></i>تنظیمات</a>
+                                        class="fas fa-cog"></i>تنظیمات</a>
                             <a href="#" class="list-group-item list-group-item-action header-profile-link"><i
-                                    class="fas fa-user"></i>کاربر</a>
+                                        class="fas fa-user"></i>کاربر</a>
                             <a href="#" class="list-group-item list-group-item-action header-profile-link"><i
-                                    class="far fa-envelope"></i>پیام ها</a>
+                                        class="far fa-envelope"></i>پیام ها</a>
                             <a href="#" class="list-group-item list-group-item-action header-profile-link"><i
-                                    class="fas fa-lock"></i>قفل صفحه</a>
+                                        class="fas fa-lock"></i>قفل صفحه</a>
                             <a href="#" class="list-group-item list-group-item-action header-profile-link"><i
-                                    class="fas fa-sign-out-alt"></i>خروج</a>
+                                        class="fas fa-sign-out-alt"></i>خروج</a>
                         </section>
 
                     </section>

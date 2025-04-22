@@ -43,28 +43,13 @@
 
                         <tr class="border-bottom">
                             <th>وضعیت پرداخت :</th>
-                            <td class="text-left font-weight-bolder">
-                                @if($order->payment_status == 0)
-                                    پرداخت نشده
-                                @elseif($order->payment_status == 1)
-                                    پرداخت شده
-                                @elseif($order->payment_status == 2)
-                                    باطل شده
-                                @else
-                                    برگشت داده شده
-                                @endif</td>
+                            <td class="text-left font-weight-bolder">{{$order->payment_status_value}}</td>
                         </tr>
 
                         <tr class="border-bottom">
                             <th>نوع پرداخت :</th>
                             <td class="text-left font-weight-bolder">
-                                @if($order->payment_type == 0)
-                                    آنلاین
-                                @elseif($order->payment_type == 1)
-                                    آفلاین
-                                @else
-                                    درمحل
-                                @endif
+                                {{$order->payment_type_value}}
                             </td>
                         </tr>
                         <tr class="border-bottom">
@@ -74,16 +59,7 @@
 
                         <tr class="border-bottom">
                             <th>وضعیت ارسال :</th>
-                            <td class="text-left font-weight-bolder">
-                                @if($order->delivery_status == 0)
-                                    ارسال نشده
-                                @elseif($order->delivery_status == 1)
-                                    درحال ارسال
-                                @elseif($order->delivery_status == 2)
-                                    ارسال شده
-                                @else
-                                    تحویل شده
-                                @endif</td>
+                            <td class="text-left font-weight-bolder">{{$order->delivery_status_value}}</td>
                         </tr>
 
                         <tr class="border-bottom">

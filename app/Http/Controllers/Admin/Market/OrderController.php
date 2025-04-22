@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
-use App\Models\Market\AmazingSale;
 use App\Models\Market\Order;
 
 class OrderController extends Controller

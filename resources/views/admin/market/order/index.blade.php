@@ -55,46 +55,12 @@
                                 <td>{{$order->order_discount_amount}}</td>
                                 <td>{{$order->order_total_products_discount_amount}}</td>
                                 <td>{{$order->order_final_amount - $order->order_discount_amount}}</td>
-                                <td>@if($order->payment_status == 0)
-                                        پرداخت نشده
-                                    @elseif($order->payment_status == 1)
-                                        پرداخت شده
-                                    @elseif($order->payment_status == 2)
-                                        باطل شده
-                                    @else
-                                        برگشت داده شده
-                                    @endif</td>
-                                <td>@if($order->payment_type == 0)
-                                        آنلاین
-                                    @elseif($order->payment_type == 1)
-                                        آفلاین
-                                    @else
-                                        درمحل
-                                    @endif</td>
+                                <td>{{$order->payment_status_value}}</td>
+                                <td>{{$order->payment_type_value}}</td>
                                 <td>{{$order->payment->paymentable->getway ?? '-'}}</td>
-                                <td>@if($order->delivery_status == 0)
-                                        ارسال نشده
-                                    @elseif($order->delivery_status == 1)
-                                        درحال ارسال
-                                    @elseif($order->delivery_status == 2)
-                                        ارسال شده
-                                    @else
-                                        تحویل شده
-                                    @endif</td>
+                                <td>{{$order->delivery_status_value}}</td>
                                 <td>{{{$order->delivery->name}}}</td>
-                                <td>@if($order->order_status == 0)
-                                        برسسی نشده
-                                    @elseif($order->order_status == 1)
-                                        در انتظار تایید
-                                    @elseif($order->order_status == 2)
-                                        تایید نشده
-                                    @elseif($order->order_status == 3)
-                                        تایید شده
-                                    @elseif($order->order_status == 4)
-                                        باطل شده
-                                    @else
-                                        مرجوعی
-                                    @endif</td>
+                                <td>{{$order->order_status_value}}</td>
                                 <td class="width-8-rem text-left">
                                     <div class="dropdown">
                                         <a href="" class="btn  btn-success btn-sm btn-block dropdown-toggle"
@@ -103,13 +69,17 @@
                                             <i class="fa fa-tools"></i> عملیات
                                         </a>
                                         <div class="dropdown-menu" aria-label="dropdownMenuLink">
-                                            <a href="{{route('admin.market.order.show',$order)}}" class="dropdown-item text-right"><i class="fa fa-images"></i>
+                                            <a href="{{route('admin.market.order.show',$order)}}"
+                                               class="dropdown-item text-right"><i class="fa fa-images"></i>
                                                 مشاهده فاکتور</a>
-                                            <a href="{{route('admin.market.order.changeSendStatus',$order)}}" class="dropdown-item text-right"><i class="fa fa-list-ul"></i>
+                                            <a href="{{route('admin.market.order.changeSendStatus',$order)}}"
+                                               class="dropdown-item text-right"><i class="fa fa-list-ul"></i>
                                                 تغییر وضعیت ارسال</a>
-                                            <a href="{{route('admin.market.order.changeOrderStatus',$order)}}" class="dropdown-item text-right"><i class="fa fa-edit"></i>
+                                            <a href="{{route('admin.market.order.changeOrderStatus',$order)}}"
+                                               class="dropdown-item text-right"><i class="fa fa-edit"></i>
                                                 تغییر وضعیت سفارش</a>
-                                            <a href="{{route('admin.market.order.cancelOrder',$order)}}" class="dropdown-item text-right"><i
+                                            <a href="{{route('admin.market.order.cancelOrder',$order)}}"
+                                               class="dropdown-item text-right"><i
                                                         class="fa fa-window-close"></i> باطل کردن سفارش</a>
                                         </div>
                                     </div>
