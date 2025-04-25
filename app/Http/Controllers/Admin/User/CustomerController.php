@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Models\User;
+use App\Notifications\NewUserRegistered;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\CustomerRequest;
@@ -61,6 +62,11 @@ class CustomerController extends Controller
             'password' => $inputs['password'],
             'profile_photo_path' => $inputs['profile_photo_path'] ?? null,
         ]);
+        $details = [
+            'message' => 'یک کاربر جدید در سایت ثبت نام کرد!'
+        ];
+        $adminUser = User::find(1);
+        $adminUser->notify(new NewUserRegistered($details));
         return redirect()->route('admin.user.customer.index')->with('swal-success', 'کاربر شما با موفقیت ساخته شد');
     }
 
