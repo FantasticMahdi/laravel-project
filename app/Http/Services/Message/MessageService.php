@@ -2,7 +2,7 @@
 
 namespace App\Http\Services\Message;
 
-use App\Http\interfaces\MessageInterface;
+use App\Http\Interfaces\MessageInterface;
 
 class MessageService
 {

@@ -15,7 +15,7 @@ class CreateOtpsTable extends Migration
     {
         Schema::create('otps', function (Blueprint $table) {
             $table->id();
-            $table->string('toke');
+            $table->string('token');
             $table->foreignId('user_id')->constrained('users');
             $table->string('otp_code');
             $table->string('login_id')->comment('email address or mobile number');
