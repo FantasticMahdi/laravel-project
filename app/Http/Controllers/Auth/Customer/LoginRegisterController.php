@@ -81,6 +81,10 @@ class LoginRegisterController extends Controller
             $messagesService = new MessageService($smsService);
 
         }
+        elseif($type == 1)
+        {
+
+        }
 
         $messagesService->send();
     }
