@@ -94,9 +94,17 @@ class LoginRegisterController extends Controller
 
             $messagesService = new MessageService($emailService);
         }
-
         $messagesService->send();
 
-        dd('ok');
+        return redirect()->route('auth.customer.login-confirm-form',$token);
+    }
+
+    public function loginConfirmForm($token)
+    {
+        $otp = Otp::where('token', $token)->first();
+        if (empty($otp)) {
+            return redirect()->route('auth.customer.login-register-form')->withErrors(['id' => 'آدرس وارد شده نامعتبر میباشد!']);
+        }
+        return view('customer.auth.login-confirm', ['token' => $token , 'otp' => $otp]);
     }
 }
