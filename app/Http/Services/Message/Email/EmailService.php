@@ -3,6 +3,7 @@
 namespace App\Http\Services\Message\Email;
 
 use App\Http\interfaces\MessageInterface;
+use Illuminate\Support\Facades\Mail;
 
 class EmailService implements MessageInterface
 {
@@ -19,8 +20,8 @@ class EmailService implements MessageInterface
 
     public function fire()
     {
-        // TODO: Implement fire() method.
-
+        Mail::to($this->to)->send(new MailViewProvider($this->details, $this->subject, $this->from));
+        return true;
     }
 
     public function getDetails()
@@ -58,11 +59,13 @@ class EmailService implements MessageInterface
         ];
     }
 
-    public function getTo(){
+    public function getTo()
+    {
         return $this->to;
     }
 
-    public function setTo($to){
+    public function setTo($to)
+    {
         $this->to = $to;
     }
 
