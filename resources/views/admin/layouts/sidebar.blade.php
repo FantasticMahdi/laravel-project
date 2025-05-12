@@ -74,7 +74,6 @@
             </a>
 
 
-
             <section class="sidebar-part-title">بخش محتوی</section>
             <a href="{{ route('admin.content.category.index') }}" class="sidebar-link">
                 <i class="fas fa-bars"></i>
@@ -100,7 +99,10 @@
                 <i class="fas fa-bars"></i>
                 <span>پیج ساز</span>
             </a>
-
+            <a href="{{ route('admin.content.banner.index') }}" class="sidebar-link">
+                <i class="fas fa-bars"></i>
+                <span>بنر ها</span>
+            </a>
 
 
             <section class="sidebar-part-title">بخش کاربران</section>
@@ -116,7 +118,6 @@
                 <i class="fas fa-bars"></i>
                 <span>سطوح دسترسی</span>
             </a>
-
 
 
             <section class="sidebar-part-title">تیکت ها</section>
@@ -150,7 +151,6 @@
             </a>
 
 
-
             <section class="sidebar-part-title">اطلاع رسانی</section>
             <a href="{{ route('admin.notify.email.index') }}" class="sidebar-link">
                 <i class="fas fa-bars"></i>
@@ -160,7 +160,6 @@
                 <i class="fas fa-bars"></i>
                 <span>اعلامیه پیامکی</span>
             </a>
-
 
 
             <section class="sidebar-part-title">تنظیمات</section>
