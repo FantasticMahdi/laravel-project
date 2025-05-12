@@ -7,15 +7,17 @@
 <body>
 
 
-<main id="main-body-one-col" class="main-body">
+    <main id="main-body-one-col" class="main-body">
 
     @yield('content')
 
+    </main>
 
-</main>
 
 
-@include('customer.layouts.script')
-@yield('script')
+
+
+    @include('customer.layouts.script')
+    @yield('script')
 </body>
 </html>
