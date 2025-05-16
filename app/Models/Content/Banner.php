@@ -12,6 +12,9 @@ class Banner extends Model
 
     protected $fillable = ['title', 'image', 'url', 'position', 'status'];
 
+    protected $casts = ['image' => 'array'];
+
+
     public static $positions = [
         0 => 'اسلاید شو (صفحه اصلی)',
         1 => 'کنار اسلاید شو (صفحه اصلی)',

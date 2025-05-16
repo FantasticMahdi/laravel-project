@@ -35,6 +35,7 @@ use App\Http\Controllers\Admin\User\CustomerController;
 use App\Http\Controllers\Admin\User\PermissionController;
 use App\Http\Controllers\Admin\User\RoleController;
 use App\Http\Controllers\Auth\Customer\LoginRegisterController;
+use App\Http\Controllers\Customer\HomeController;
 use Illuminate\Support\Facades\Route;
 
 //Admin
@@ -328,6 +329,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/edit/{banner}',[BannerController::class,'edit'])->name('admin.content.banner.edit');
             Route::put('/update/{banner}',[BannerController::class,'update'])->name('admin.content.banner.update');
             Route::delete('/destroy/{banner}',[BannerController::class,'destroy'])->name('admin.content.banner.destroy');
+            Route::get('/status/{banner}',[BannerController::class,'status'])->name('admin.content.banner.status');
         });
     });
 
@@ -480,10 +482,6 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::post('/notification/read-all', [NotificationController::class, 'readAll'])->name('admin.notification.readAll');
 });
 
-Route::get('/', function () {
-    return view('customer.home');
-})->name('customer.home');
-
 Route::namespace('Auth')->group(function () {
     Route::get('login-register', [LoginRegisterController::class, 'loginRegisterForm'])->name('auth.customer.login-register-form');
     Route::middleware('throttle:customer-login-register-limiter')->post('login-register', [LoginRegisterController::class, 'loginRegister'])->name('auth.customer.login-register');
@@ -495,6 +493,9 @@ Route::namespace('Auth')->group(function () {
 
     Route::get('/logout', [LoginRegisterController::class, 'logout'])->name('auth.customer.logout');
 });
+
+Route::get('/',[HomeController::class,'home'])->name('customer.home');
+
 
 Route::middleware([
     'auth:sanctum',

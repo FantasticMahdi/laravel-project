@@ -16,8 +16,9 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banners = Banner::select('id', 'title', 'image', 'url', 'status')->orderBy('created_at', 'desc')->simplePaginate(10);
-        return view('admin.content.banner.index', ['banners' => $banners]);
+        $banners = Banner::select('id', 'title', 'image', 'url', 'status','position')->orderBy('created_at', 'desc')->simplePaginate(10);
+        $positions = Banner::$positions;
+        return view('admin.content.banner.index', ['banners' => $banners, 'positions' => $positions]);
     }
 
     /**
@@ -27,7 +28,8 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return view('admin.content.banner.create');
+        $positions = Banner::$positions;
+        return view('admin.content.banner.create', ['positions' => $positions]);
     }
 
     /**
@@ -43,7 +45,7 @@ class BannerController extends Controller
 
         if ($request->hasFile('image')) {
             $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'banner');
-            $result = $imageService->createIndexAndSave($request->file('image'));
+            $result = $imageService->save($request->file('image'));
             if ($result === false) {
                 return redirect()->route('admin.content.banner.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
             }
@@ -78,7 +80,8 @@ class BannerController extends Controller
      */
     public function edit(Banner $banner)
     {
-        return view('admin.content.banner.edit', ['banner' => $banner]);
+        $positions = Banner::$positions;
+        return view('admin.content.banner.edit', ['banner' => $banner, 'positions' => $positions]);
     }
 
     /**
@@ -91,12 +94,13 @@ class BannerController extends Controller
     public function update(BannerRequest $request, Banner $banner, ImageService $imageService)
     {
         $inputs = $request->only('title', 'image', 'status', 'url', 'position');
+
         if ($request->hasFile('image')) {
             if (!empty($banner->image)) {
                 $imageService->deleteDirectoryAndFiles($banner->image['directory']);
             }
             $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'banner');
-            $result = $imageService->createIndexAndSave($request->file('image'));
+            $result = $imageService->save($request->file('image'));
             if ($result === false) {
                 return redirect()->route('admin.content.banner.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
             }
@@ -110,7 +114,7 @@ class BannerController extends Controller
         }
         $banner->update([
             'title' => $inputs['title'],
-            'image' => $inputs['image'],
+            'image' => $inputs['image'] ?? $banner->image,
             'status' => $inputs['status'],
             'url' => $inputs['url'],
             'position' => $inputs['position'],
