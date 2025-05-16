@@ -10,7 +10,7 @@ class ProductColor extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['color_name','product_id', 'color_id','price_increase','status','sold_number','frozen_number'];
+    protected $fillable = ['color_name', 'color' , 'product_id', 'price_increase', 'status', 'sold_number', 'frozen_number', 'marketable_number'];
     public function product()
     {
         return $this->belongsTo(Product::class);

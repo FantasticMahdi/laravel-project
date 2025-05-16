@@ -21,7 +21,6 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::select('id', 'name', 'image', 'brand_id', 'category_id', 'price', 'weight')->orderBy('created_at', 'desc')->simplePaginate(15);
-//dd($products);
         return view('admin.market.product.index', ['products' => $products]);
     }
 

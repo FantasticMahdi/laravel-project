@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
+use App\Models\Market\Guarantee;
 use App\Models\Market\Product;
-use App\Models\Market\ProductColor;
 use Illuminate\Http\Request;
 
-class ProductColorController extends Controller
+class GuaranteeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class ProductColorController extends Controller
      */
     public function index(Product $product)
     {
-        return view('admin.market.product.color.index', ['product' => $product]);
+        return view('admin.market.product.guarantee.index', compact('product'));
     }
 
     /**
@@ -26,37 +26,31 @@ class ProductColorController extends Controller
      */
     public function create(Product $product)
     {
-        return view('admin.market.product.color.create', ['product' => $product]);
+        return view('admin.market.product.guarantee.create', compact('product'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Product $product)
     {
         $validated = $request->validate([
-            'color_name' => ['required', 'string'],
-            'price_increase' => ['required', 'integer'],
-            'color' => 'required|max:120',
+            'name'              =>  'required',
+            'price_increase'    =>  'required|numeric'
         ]);
-        $inputs = $request->only(['color_name', 'price_increase', 'color']);
+        $inputs = $request->all();
         $inputs['product_id'] = $product->id;
-        $color = ProductColor::create([
-            'color_name' => $inputs['color_name'],
-            'price_increase' => $inputs['price_increase'],
-            'color' => $inputs['color'],
-            'product_id' => $inputs['product_id']
-        ]);
-        return redirect()->route('admin.market.color.index', $product)->with('swal-success', 'رنگ شما با موفقیت ثبت شد!');
+        $guarantee = Guarantee::create($inputs);
+        return redirect()->route('admin.market.guarantee.index', $product->id)->with('swal-success', 'گارانتی شما با موفقیت ثبت شد');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -67,7 +61,7 @@ class ProductColorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -78,8 +72,8 @@ class ProductColorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -90,12 +84,12 @@ class ProductColorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product, ProductColor $productColor)
+    public function destroy(Product $product, Guarantee $guarantee)
     {
-        $productColor->delete();
-        return redirect()->route('admin.market.color.index', $product)->with('swal-success', 'رنگ شما با موفقیت حذف شد!');
+        $guarantee->delete();
+        return back();
     }
 }

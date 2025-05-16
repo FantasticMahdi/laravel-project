@@ -26,7 +26,7 @@ class Product extends Model
 
     public function category()
     {
-        return $this->belongsTo(ProductCategory::class, 'parent_id');
+        return $this->belongsTo(ProductCategory::class, 'category_id');
     }
 
     public function brand()
@@ -51,5 +51,10 @@ class Product extends Model
     public function values()
     {
         return $this->hasMany(CategoryValue::class);
+    }
+
+    public function guarantees()
+    {
+        return $this->hasMany(Guarantee::class);
     }
 }
