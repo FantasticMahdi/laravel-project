@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\Market\OrderController;
 use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Market\ProductColorController;
 use App\Http\Controllers\Admin\Market\ProductController;
+use App\Http\Controllers\Customer\Market\ProductController as CustomerProductController;
 use App\Http\Controllers\Admin\Market\PropertyController;
 use App\Http\Controllers\Admin\Market\PropertyValueController;
 use App\Http\Controllers\Admin\Market\StoreController;
@@ -38,23 +39,6 @@ use App\Http\Controllers\Admin\User\RoleController;
 use App\Http\Controllers\Auth\Customer\LoginRegisterController;
 use App\Http\Controllers\Customer\HomeController;
 use Illuminate\Support\Facades\Route;
-
-//Admin
-
-//Market
-
-// Content
-
-//User
-
-
-//Notify
-
-
-//Ticket
-
-//Setting
-
 
 /*
 |--------------------------------------------------------------------------
@@ -502,6 +486,11 @@ Route::namespace('Auth')->group(function () {
 });
 
 Route::get('/',[HomeController::class,'home'])->name('customer.home');
+
+Route::namespace('Market')->group(function (){
+    Route::get('/product/{product:slug}', [CustomerProductController::class, 'product'])->name('customer.market.product');
+    Route::post('/add-comment/product/{product:slug}', [CustomerProductController::class, 'addComment'])->name('customer.market.add-comment');
+});
 
 
 Route::middleware([
