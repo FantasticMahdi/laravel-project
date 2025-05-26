@@ -73,7 +73,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.home');
 
     //market
-    Route::prefix('market')->namespace('Market')->group(function () {
+    Route::prefix('market')->namespace('market')->group(function () {
 
 
         //category
@@ -487,7 +487,7 @@ Route::namespace('Auth')->group(function () {
 
 Route::get('/',[HomeController::class,'home'])->name('customer.home');
 
-Route::namespace('Market')->group(function (){
+Route::namespace('market')->group(function (){
     Route::get('/product/{product:slug}', [CustomerProductController::class, 'product'])->name('customer.market.product');
     Route::post('/add-comment/product/{product:slug}', [CustomerProductController::class, 'addComment'])->name('customer.market.add-comment');
 });

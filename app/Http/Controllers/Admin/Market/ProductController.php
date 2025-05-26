@@ -165,7 +165,7 @@ class ProductController extends Controller
                 ['meta_id', 'meta_key', 'meta_value'],
                 [$meta_id, $meta_key, $meta_value]
             );
-        }, $meta_keys, $meta_values, $meta_ids);
+        }, $meta_ids, $meta_keys, $meta_values);
         foreach ($metas as $meta)
             ProductMeta::where('id', $meta['meta_id'])->update([
                 'meta_key' => $meta['meta_key'],
