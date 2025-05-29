@@ -14,8 +14,7 @@ class ProductController extends Controller
             'images',
             'colors',
             'guarantees',
-            'brand',
-            'category'
+            'amazingSales',
         ]);
         return view('customer.market.product.product', ['relatedProducts' => $relatedProducts, 'product' => $product]);
     }
