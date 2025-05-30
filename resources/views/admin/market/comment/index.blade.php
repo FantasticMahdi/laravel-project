@@ -43,9 +43,9 @@
                             @foreach ($comments as $key => $comment)
                                 <tr>
                                     <th>{{ $key + 1 }}</th>
-                                    <td>{{ $comment->author_id }}</td>
                                     <td>{{ Str::limit($comment->body, 10) }}</td>
                                     <td>{{ $comment->parent_id ? Str::limit($comment->parent->body, 10) : '' }}</td>
+                                    <td>{{ $comment->author_id }}</td>
                                     <td>{{ $comment->user->fullName }}</td>
                                     <td>{{ $comment->commentable_id }}</td>
                                     <td>{{ $comment->commentable->name }}</td>

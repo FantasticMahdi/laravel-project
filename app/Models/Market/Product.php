@@ -69,4 +69,14 @@ class Product extends Model
     {
         return $this->amazingSales()->where([['start_date', '<=', Carbon::now()], ['end_date', '>=', Carbon::now()]])->first();
     }
+
+    public function comments()
+    {
+        return $this->morphMany('App\Models\Content\Comment', 'commentable');
+    }
+
+    public function activeComments()
+    {
+        return $this->comments()->where([['approved', 1], ['parent_id', null]]);
+    }
 }

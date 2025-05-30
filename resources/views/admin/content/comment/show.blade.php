@@ -39,7 +39,7 @@
 
                 @if ($comment->parent_id == null)
                 <section>
-                    <form action="{{ route('admin.content.comment.answer', $comment->id) }}" method="post">
+                    <form action="{{ route('admin.content.comment.answer', $comment) }}" method="post">
                         @csrf
                         <section class="row">
                             <section class="col-12">
