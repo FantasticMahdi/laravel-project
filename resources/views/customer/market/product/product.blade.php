@@ -77,13 +77,21 @@
                                 </section>
                                 <section class="product-info">
                                     @if($product->colors->count() != 0)
-                                        <p><span>رنگ : قهوه ای</span></p>
+                                        <p><span>رنگ انتخاب شده :
+                                                <span id="selected_color_name">{{$product->colors()->first()->color_name}}</span>
+                                            </span></p>
                                         <p>
-                                            @foreach($product->colors as $color)
-                                                <span style="background-color: {{$color->color ?? '#fff'}}"
-                                                      class="product-info-colors me-1"
-                                                      data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                      title="{{$color->color_name}}"></span>
+                                            @foreach($product->colors as $key => $color)
+
+                                                <label for="{{'color_' . $color->id}}"
+                                                       style="background-color: {{$color->color ?? '#fff'}}"
+                                                       class="product-info-colors me-1"
+                                                       data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                       title="{{$color->color_name}}"></label>
+                                                <input class="d-none" type="radio" name="color"
+                                                       id="{{'color_' . $color->id}}" value="{{$color->id}}"
+                                                       data-color-name="{{$color->color_name}}"
+                                                       @if($key == 0) checked @endif>
                                             @endforeach
                                         </p>
                                     @endif
@@ -131,24 +139,23 @@
                             <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">قیمت کالا</p>
-                                    <p class="text-muted"> {{priceFormat($product->price)}} <span
-                                                class="small">تومان</span></p>
+                                    <p class="text-muted"> {{priceFormat($product->price)}}
+                                        <span class="small">تومان</span></p>
                                 </section>
-
                                 @if($product->activeAmazingSales())
                                     <section class="d-flex justify-content-between align-items-center">
                                         <p class="text-muted">تخفیف کالا</p>
                                         <p class="text-danger fw-bolder">{{priceFormat($product->price * ($product->activeAmazingSales()->percentage / 100))}}
                                             <span class="small">تومان</span></p>
                                     </section>
+
+                                    <section class="border-bottom mb-3"></section>
+
+                                    <section class="d-flex justify-content-end align-items-center">
+                                        <p class="fw-bolder">{{priceFormat($product->price - ($product->price * ($product->activeAmazingSales()->percentage / 100)))}}
+                                            <span class="small">تومان</span></p>
+                                    </section>
                                 @endif
-
-                                <section class="border-bottom mb-3"></section>
-
-                                <section class="d-flex justify-content-end align-items-center">
-                                    <p class="fw-bolder">{{priceFormat($product->price - ($product->price * ($product->activeAmazingSales()->percentage / 100)))}}
-                                        <span class="small">تومان</span></p>
-                                </section>
 
                                 <section class="">
                                     @if($product->marketable_number > 0)
@@ -424,7 +431,6 @@
                                 @endforeach
                             </section>
                         </section>
-
                     </section>
                 </section>
             </section>
@@ -432,4 +438,22 @@
     </section>
     <!-- end description, features and comments -->
 
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function(){
+            // bill();
+
+            //input color
+            $('input[name="color"]').change(function (){
+                bill();
+            });
+        });
+        function bill()
+        {
+            var selected_color = $('input[name="color"]:checked');
+            $('#selected_color_name').html(selected_color.attr('data-color-name'));
+        }
+    </script>
 @endsection
