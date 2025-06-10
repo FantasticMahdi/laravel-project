@@ -42,4 +42,9 @@ class ProductController extends Controller
         ]);
         return back()->with('swal-success', 'نظر شما با موفقیت ثبت شد و بعد از تایید ادمین نمایش داده میشود!');
     }
+
+    public function addToFavorites(Product $product, Request $request)
+    {
+
+    }
 }

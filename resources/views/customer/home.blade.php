@@ -58,9 +58,33 @@
                                     <section class="item">
                                         <section class="lazyload-item-wrapper">
                                             <section class="product">
-                                            {{--<section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>--}}
-                                            {{-- <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>--}}
-                                                <a class="product-link" href="{{ route('customer.market.product',$mostVisitedProduct) }}">
+                                                <section class="product-add-to-cart">
+                                                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="left"
+                                                       title="افزودن به سبد خرید">
+                                                        <i class="fa fa-cart-plus"></i>
+                                                    </a>
+                                                </section>
+                                                @guest
+                                                    <section class="product-add-to-favorite">
+                                                        <button class="btn btn-light btn-sm text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="left"
+                                                                title="افزودن به علاقه مندی">
+                                                            <i class="fa fa-heart align-middle"></i>
+                                                        </button>
+                                                    </section>
+                                                @endguest
+                                                @auth
+                                                    @if($mostVisitedProduct->user->contains())
+
+                                                    @endif
+                                                @endauth
+                                                <section class="product-add-to-favorite">
+                                                    <button class="btn btn-light btn-sm text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="left"
+                                                       title="افزودن به علاقه مندی">
+                                                        <i class="fa fa-heart align-middle"></i>
+                                                    </button>
+                                                </section>
+                                                <a class="product-link"
+                                                   href="{{ route('customer.market.product',$mostVisitedProduct) }}">
                                                     <section class="product-image">
                                                         <img class=""
                                                              src="{{asset($mostVisitedProduct->image['indexArray']['medium'])}}"
@@ -77,14 +101,13 @@
                                                         <section
                                                                 class="product-price">{{priceFormat($mostVisitedProduct->price)}} </section>
                                                     </section>
-                                                    {{--<section class="product-colors">
-                                                        <section class="product-colors-item"
-                                                                 style="background-color: white;"></section>
-                                                        <section class="product-colors-item"
-                                                                 style="background-color: blue;"></section>
-                                                        <section class="product-colors-item"
-                                                                 style="background-color: red;"></section>
-                                                    </section>--}}
+                                                    <section class="product-colors">
+                                                        @foreach($mostVisitedProduct->colors as $color)
+                                                            <section class="product-colors-item"
+                                                                     style="background-color: {{$color->color}};"></section>
+                                                        @endforeach
+
+                                                    </section>
                                                 </a>
                                             </section>
                                         </section>
@@ -145,9 +168,20 @@
                                     <section class="item">
                                         <section class="lazyload-item-wrapper">
                                             <section class="product">
-                                                {{--                                            <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>--}}
-                                                {{--                                            <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>--}}
-                                                <a class="product-link" href="{{ route('customer.market.product',$offerProduct) }}">
+                                                <section class="product-add-to-cart">
+                                                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="left"
+                                                       title="افزودن به سبد خرید">
+                                                        <i class="fa fa-cart-plus"></i>
+                                                    </a>
+                                                </section>
+                                                <section class="product-add-to-favorite">
+                                                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="left"
+                                                       title="افزودن به علاقه مندی">
+                                                        <i class="fa fa-heart"></i>
+                                                    </a>
+                                                </section>
+                                                <a class="product-link"
+                                                   href="{{ route('customer.market.product',$offerProduct) }}">
                                                     <section class="product-image">
                                                         <img class=""
                                                              src="{{asset($offerProduct->image['indexArray']['medium'])}}"
@@ -164,14 +198,12 @@
                                                         <section
                                                                 class="product-price">{{priceFormat($offerProduct->price)}} </section>
                                                     </section>
-                                                    {{--<section class="product-colors">
-                                                        <section class="product-colors-item"
-                                                                 style="background-color: white;"></section>
-                                                        <section class="product-colors-item"
-                                                                 style="background-color: blue;"></section>
-                                                        <section class="product-colors-item"
-                                                                 style="background-color: red;"></section>
-                                                    </section>--}}
+                                                    <section class="product-colors">
+                                                        @foreach($offerProduct->colors as $color)
+                                                            <section class="product-colors-item"
+                                                                     style="background-color: {{$color->color}};"></section>
+                                                        @endforeach
+                                                    </section>
                                                 </a>
                                             </section>
                                         </section>
@@ -223,13 +255,14 @@
                     <section class="brands-wrapper py-4">
                         <section class="brands dark-owl-nav owl-carousel owl-theme">
                             @foreach($brands as $brand)
-                            <section class="item">
-                                <section class="brand-item">
-                                    <a href="">
-                                        <img class="rounded-2" src="{{ asset($brand->logo['indexArray']['medium']) }}" alt="">
-                                    </a>
+                                <section class="item">
+                                    <section class="brand-item">
+                                        <a href="">
+                                            <img class="rounded-2"
+                                                 src="{{ asset($brand->logo['indexArray']['medium']) }}" alt="">
+                                        </a>
+                                    </section>
                                 </section>
-                            </section>
                             @endforeach
                         </section>
                     </section>
@@ -239,4 +272,12 @@
     </section>
     <!-- end brand part-->
 
+@endsection
+
+@section('script')
+    <script>
+        $('.add_to_favorite').click(function (){
+
+        })
+    </script>
 @endsection

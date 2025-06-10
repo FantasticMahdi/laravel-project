@@ -16,10 +16,10 @@ class HomeController extends Controller
             ->whereIn('position', [0, 1, 2, 3])
             ->get()
             ->groupBy('position');
-        $slideShowImages = $banners->get(0, collect());
-        $topBanners = $banners->get(1, collect())->take(2);
-        $middleBanners = $banners->get(2, collect())->take(2);
-        $bottomBanners = $banners->get(3, collect())->first();
+        $slideShowImages = $banners[0] ?? collect();
+        $topBanners = $banners[1]->take(2) ?? collect();
+        $middleBanners = $banners[2]->take(2) ?? collect();
+        $bottomBanners = $banners[3]->first() ?? null;
 
         $brands = Brand::all();
 
