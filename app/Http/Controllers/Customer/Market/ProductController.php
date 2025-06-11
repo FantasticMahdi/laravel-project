@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Content\Comment;
 use App\Models\Market\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -43,8 +44,17 @@ class ProductController extends Controller
         return back()->with('swal-success', 'نظر شما با موفقیت ثبت شد و بعد از تایید ادمین نمایش داده میشود!');
     }
 
-    public function addToFavorites(Product $product, Request $request)
+    public function addToFavorites(Product $product)
     {
-
+        if (Auth::check()) {
+            $product->user()->toggle([Auth::user()->id]);
+            if ($product->user->contains(Auth::user()->id)) {
+                return response()->json(['status' => 1]);
+            } else {
+                return response()->json(['status' => 2]);
+            }
+        } else {
+            return response()->json(['status' => 3]);
+        }
     }
 }
