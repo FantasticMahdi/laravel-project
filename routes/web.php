@@ -493,6 +493,13 @@ Route::namespace('market')->group(function (){
     Route::get('/add-to-favorite/product/{product:slug}', [CustomerProductController::class, 'addToFavorites'])->name('customer.market.add-to-favorite');
 });
 
+Route::namespace('SalesProcess')->group(function (){
+    Route::get('/cart', [CartController::class, 'cart'])->name('customer.sales-process.cart');
+    Route::post('/cart', [CartController::class, 'updateCart'])->name('customer.sales-process.update-cart');
+    Route::post('/add-to-cart/{product:slug}', [CartController::class, 'addToCart'])->name('customer.market.add-to-cart');
+    Route::delete('/remove-from-cart/{cartItem}', [CartController::class, 'removeFromCart'])->name('customer.market.remove-from-cart');
+});
+
 
 Route::middleware([
     'auth:sanctum',
