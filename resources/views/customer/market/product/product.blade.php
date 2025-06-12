@@ -117,22 +117,53 @@
                                             <span>اتمام موجودی</span>
                                         @endif
                                     </p>
-                                    <p><a class="btn btn-light  btn-sm text-decoration-none" href="#"><i
-                                                    class="fa fa-heart text-danger"></i> افزودن به علاقه مندی</a></p>
+                                    <section class="product-add-to-favorite position-relative top-0 mb-2 px-0">
+                                        @guest
+                                            <button class="btn btn-light btn-sm text-decoration-none"
+                                                    data-url="{{route('customer.market.add-to-favorite',$product)}}"
+                                                    data-bs-toggle="tooltip" data-bs-placement="left"
+                                                    title="افزودن به علاقه مندی">
+                                                <i class="fa fa-heart align-middle"></i>
+                                            </button>
+                                        @endguest
+                                        @auth
+                                            @if($product->user->contains(auth()->user()->id))
+                                                <button class="btn btn-light btn-sm text-decoration-none"
+                                                        data-url="{{route('customer.market.add-to-favorite',$product)}}"
+                                                        data-bs-toggle="tooltip" data-bs-placement="left"
+                                                        title="حذف از علاقه مندی">
+                                                    <i class="fa fa-heart align-middle text-danger"></i>
+                                                </button>
+                                            @else
+                                                <button class="btn btn-light btn-sm text-decoration-none"
+                                                        data-url="{{route('customer.market.add-to-favorite',$product)}}"
+                                                        data-bs-toggle="tooltip" data-bs-placement="left"
+                                                        title="اضافه به علاقه مندی">
+                                                    <i class="fa fa-heart align-middle text-dark"></i>
+                                                </button>
+                                            @endif
+                                        @endauth
+                                    </section>
                                     <section>
                                         <section class="cart-product-number d-inline-block">
-                                            <button class="cart-number cart-number-down" type="button">-</button>
-                                            <input type="number" id="number" name="number" min="1" max="5" step="1"
+                                            <button class="cart-number cart-number-down" type="button">-
+                                            </button>
+                                            <input type="number" id="number" name="number" min="1" max="5"
+                                                   step="1"
                                                    value="1"
                                                    readonly="readonly">
                                             <button class="cart-number cart-number-up" type="button">+</button>
                                         </section>
                                     </section>
                                     <p class="mb-3 mt-5">
-                                        <i class="fa fa-info-circle me-1"></i>کاربر گرامی خرید شما هنوز نهایی نشده است.
-                                        برای ثبت سفارش و تکمیل خرید باید ابتدا آدرس خود را انتخاب کنید و سپس نحوه ارسال
-                                        را انتخاب کنید. نحوه ارسال انتخابی شما محاسبه و به این مبلغ اضافه شده خواهد شد.
-                                        و در نهایت پرداخت این سفارش صورت میگیرد. پس از ثبت سفارش کالا بر اساس نحوه ارسال
+                                        <i class="fa fa-info-circle me-1"></i>کاربر گرامی خرید شما هنوز نهایی
+                                        نشده است.
+                                        برای ثبت سفارش و تکمیل خرید باید ابتدا آدرس خود را انتخاب کنید و سپس
+                                        نحوه ارسال
+                                        را انتخاب کنید. نحوه ارسال انتخابی شما محاسبه و به این مبلغ اضافه شده
+                                        خواهد شد.
+                                        و در نهایت پرداخت این سفارش صورت میگیرد. پس از ثبت سفارش کالا بر اساس
+                                        نحوه ارسال
                                         که شما انتخاب کرده اید کالا برای شما در مدت زمان مذکور ارسال می گردد.
                                     </p>
                                 </section>
@@ -213,16 +244,43 @@
                                     <section class="item">
                                         <section class="lazyload-item-wrapper">
                                             <section class="product">
-                                                <section class="product-add-to-cart"><a href="#"
-                                                                                        data-bs-toggle="tooltip"
-                                                                                        data-bs-placement="left"
-                                                                                        title="افزودن به سبد خرید"><i
-                                                                class="fa fa-cart-plus"></i></a></section>
-                                                <section class="product-add-to-favorite"><a href="#"
-                                                                                            data-bs-toggle="tooltip"
-                                                                                            data-bs-placement="left"
-                                                                                            title="افزودن به علاقه مندی"><i
-                                                                class="fa fa-heart"></i></a></section>
+                                                <section class="product-add-to-cart">
+                                                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="left"
+                                                       title="افزودن به سبد خرید">
+                                                        <i class="fa fa-cart-plus"></i>
+                                                    </a>
+                                                </section>
+                                                @guest
+                                                    <section class="product-add-to-favorite">
+                                                        <button class="btn btn-light btn-sm text-decoration-none"
+                                                                data-url="{{route('customer.market.add-to-favorite',$relatedProduct)}}"
+                                                                data-bs-toggle="tooltip" data-bs-placement="left"
+                                                                title="افزودن به علاقه مندی">
+                                                            <i class="fa fa-heart align-middle"></i>
+                                                        </button>
+                                                    </section>
+                                                @endguest
+                                                @auth
+                                                    @if($relatedProduct->user->contains(auth()->user()->id))
+                                                        <section class="product-add-to-favorite">
+                                                            <button class="btn btn-light btn-sm text-decoration-none"
+                                                                    data-url="{{route('customer.market.add-to-favorite',$relatedProduct)}}"
+                                                                    data-bs-toggle="tooltip" data-bs-placement="left"
+                                                                    title="حذف از علاقه مندی">
+                                                                <i class="fa fa-heart align-middle text-danger"></i>
+                                                            </button>
+                                                        </section>
+                                                    @else
+                                                        <section class="product-add-to-favorite">
+                                                            <button class="btn btn-light btn-sm text-decoration-none"
+                                                                    data-url="{{route('customer.market.add-to-favorite',$relatedProduct)}}"
+                                                                    data-bs-toggle="tooltip" data-bs-placement="left"
+                                                                    title="اضافه به علاقه مندی">
+                                                                <i class="fa fa-heart align-middle text-dark"></i>
+                                                            </button>
+                                                        </section>
+                                                    @endif
+                                                @endauth
                                                 <a class="product-link" href="#">
                                                     <section class="product-image">
                                                         <img class=""
@@ -441,7 +499,24 @@
         </section>
     </section>
     <!-- end description, features and comments -->
-
+    <section class="position-fixed p-4 flex-row-reverse"
+             style="z-index: 99999; left: 0; top: 3rem; width: 26rem; max-width:80%;">
+        <div class="toast" data-delay="7000" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header justify-content-between">
+                <strong class="mr-auto">فروشگاه</strong>
+                <button type="button" class="ml-2 mb-1 close border-0 rounded " data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <strong class="ml-auto">
+                    برای افزودن کالا به لیست علاقه مندی ها باید ابتدا <a
+                            href="{{route('auth.customer.login-register-form')}}" class="text-danger">وارد</a>
+                    حساب کاربری خود شوید!
+                </strong>
+            </div>
+        </div>
+    </section>
 @endsection
 
 @section('script')
@@ -508,5 +583,30 @@
             //convert to persian
             return number.toString().replace(/\d/g, x => farsiDigits[x]);
         }
+    </script>
+
+    <script>
+        $('.product-add-to-favorite button').click(function () {
+            var url = $(this).attr('data-url');
+            var element = $(this);
+            $.ajax({
+                url: url,
+                success: function (result) {
+                    if (result.status == 1) {
+                        $(element).children().first().removeClass('text-dark');
+                        $(element).children().first().addClass('text-danger');
+                        $(element).attr('data-original-title', 'حذف از علاقه مندی');
+                        $(element).attr('data-bs-original-title', 'حذف از علاقه مندی');
+                    } else if (result.status == 2) {
+                        $(element).children().first().removeClass('text-danger');
+                        $(element).children().first().addClass('text-dark');
+                        $(element).attr('data-original-title', 'افزودن به علاقه مندی');
+                        $(element).attr('data-bs-original-title', 'افزودن به علاقه مندی');
+                    } else if (result.status == 3) {
+                        $('.toast').toast('show');
+                    }
+                }
+            })
+        })
     </script>
 @endsection
