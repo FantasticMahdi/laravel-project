@@ -21,7 +21,7 @@ class CartController extends Controller
         }
         $validated = $request->validate([
             'color' => ['nullable', 'exists:product_colors,id'],
-            'guarantee' => ['nullable', 'exists:guarantee,id'],
+            'guarantee' => ['nullable', 'exists:guarantees,id'],
             'number' => ['required', 'min:1', 'max:5'],
         ]);
 
@@ -32,8 +32,8 @@ class CartController extends Controller
 
         $cartItem = CartItem::where([['product_id', $product->id], ['user_id', $userId], ['color_id', $colorId], ['guarantee_id', $guaranteeId]])->first();
         if ($cartItem) {
-            if (($cartItem->quantity + $number) > 5)
-                return back()->with('error', 'تعداد این محصول در سبد خرید شما نمیتواند بیشتر از ۵ باشد!');
+            if (($cartItem->number + $number) > 5)
+                return back()->with('alert-section-error', 'تعداد این محصول در سبد خرید شما نمیتواند بیشتر از ۵ باشد!');
             else {
               $cartItem->number += $number;
                 $cartItem->save();
@@ -48,7 +48,7 @@ class CartController extends Controller
                 'number' => $number,
             ]);
         }
-        return back()->with('success', 'محصول به سبد خرید اضافه شد');
+        return back()->with('alert-section-success', 'محصول به سبد خرید اضافه شد');
     }
 
     public function updateCart(Request $request)

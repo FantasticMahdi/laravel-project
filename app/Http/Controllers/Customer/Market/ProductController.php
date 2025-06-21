@@ -12,6 +12,7 @@ class ProductController extends Controller
 {
     public function product(Product $product)
     {
+        Auth::loginUsingId(10);
         $relatedProducts = Product::all();
         $product->load([
             'images',

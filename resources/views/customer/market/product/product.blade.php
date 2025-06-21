@@ -76,96 +76,100 @@
                                     </section>
                                 </section>
                                 <section class="product-info">
-                                    @if($product->colors->count() != 0)
-                                        <p><span>رنگ انتخاب شده :
+                                    <form id="add_to_cart" action="{{route('customer.market.add-to-cart',$product)}}"
+                                          method="post" class="product-info">
+                                        @csrf
+                                        @if($product->colors->count() != 0)
+                                            <p><span>رنگ انتخاب شده :
                                                 <span id="selected_color_name">{{$product->colors()->first()->color_name}}</span>
                                             </span></p>
-                                        <p>
-                                            @foreach($product->colors as $key => $color)
+                                            <p>
+                                                @foreach($product->colors as $key => $color)
 
-                                                <label for="{{'color_' . $color->id}}"
-                                                       style="background-color: {{$color->color ?? '#fff'}}"
-                                                       class="product-info-colors me-1"
-                                                       data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                       title="{{$color->color_name}}"></label>
-                                                <input class="d-none" type="radio" name="color"
-                                                       id="{{'color_' . $color->id}}" value="{{$color->id}}"
-                                                       data-color-name="{{$color->color_name}}"
-                                                       data-color-price="{{$color->price_increase}}"
-                                                       @if($key == 0) checked @endif>
-                                            @endforeach
-                                        </p>
-                                    @endif
-
-                                    @if($product->guarantees->count() > 0)
-                                        <p><i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i>
-                                            گارانتی:
-                                            <select name="guarantee" id="guarantee" class="p-1">
-                                                @foreach($product->guarantees as $key => $guarantee)
-                                                    <option value="{{$guarantee->id}}"
-                                                            data-guarantee-price="{{$guarantee->price_increase}}">{{$guarantee->name}}</option>
+                                                    <label for="{{'color_' . $color->id}}"
+                                                           style="background-color: {{$color->color ?? '#fff'}}"
+                                                           class="product-info-colors me-1"
+                                                           data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                           title="{{$color->color_name}}"></label>
+                                                    <input class="d-none" type="radio" name="color"
+                                                           id="{{'color_' . $color->id}}" value="{{$color->id}}"
+                                                           data-color-name="{{$color->color_name}}"
+                                                           data-color-price="{{$color->price_increase}}"
+                                                           @if($key == 0) checked @endif>
                                                 @endforeach
-                                            </select>
-                                        </p>
-                                    @endif
-
-                                    <p>
-                                        <i class="fa fa-store-alt cart-product-selected-store me-1"></i>
-                                        @if($product->marketable_number > 0)
-                                            <span>کالا موجود در انبار</span>
-                                        @else
-                                            <span>اتمام موجودی</span>
+                                            </p>
                                         @endif
-                                    </p>
-                                    <section class="product-add-to-favorite position-relative top-0 mb-2 px-0">
-                                        @guest
-                                            <button class="btn btn-light btn-sm text-decoration-none"
-                                                    data-url="{{route('customer.market.add-to-favorite',$product)}}"
-                                                    data-bs-toggle="tooltip" data-bs-placement="left"
-                                                    title="افزودن به علاقه مندی">
-                                                <i class="fa fa-heart align-middle"></i>
-                                            </button>
-                                        @endguest
-                                        @auth
-                                            @if($product->user->contains(auth()->user()->id))
-                                                <button class="btn btn-light btn-sm text-decoration-none"
-                                                        data-url="{{route('customer.market.add-to-favorite',$product)}}"
-                                                        data-bs-toggle="tooltip" data-bs-placement="left"
-                                                        title="حذف از علاقه مندی">
-                                                    <i class="fa fa-heart align-middle text-danger"></i>
-                                                </button>
+
+                                        @if($product->guarantees->count() > 0)
+                                            <p><i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i>
+                                                گارانتی:
+                                                <select name="guarantee" id="guarantee" class="p-1">
+                                                    @foreach($product->guarantees as $key => $guarantee)
+                                                        <option value="{{$guarantee->id}}"
+                                                                data-guarantee-price="{{$guarantee->price_increase}}">{{$guarantee->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </p>
+                                        @endif
+
+                                        <p>
+                                            <i class="fa fa-store-alt cart-product-selected-store me-1"></i>
+                                            @if($product->marketable_number > 0)
+                                                <span>کالا موجود در انبار</span>
                                             @else
+                                                <span>اتمام موجودی</span>
+                                            @endif
+                                        </p>
+                                        <section class="product-add-to-favorite position-relative top-0 mb-2 px-0">
+                                            @guest
                                                 <button class="btn btn-light btn-sm text-decoration-none"
                                                         data-url="{{route('customer.market.add-to-favorite',$product)}}"
                                                         data-bs-toggle="tooltip" data-bs-placement="left"
-                                                        title="اضافه به علاقه مندی">
-                                                    <i class="fa fa-heart align-middle text-dark"></i>
+                                                        title="افزودن به علاقه مندی">
+                                                    <i class="fa fa-heart align-middle"></i>
                                                 </button>
-                                            @endif
-                                        @endauth
-                                    </section>
-                                    <section>
-                                        <section class="cart-product-number d-inline-block">
-                                            <button class="cart-number cart-number-down" type="button">-
-                                            </button>
-                                            <input type="number" id="number" name="number" min="1" max="5"
-                                                   step="1"
-                                                   value="1"
-                                                   readonly="readonly">
-                                            <button class="cart-number cart-number-up" type="button">+</button>
+                                            @endguest
+                                            @auth
+                                                @if($product->user->contains(auth()->user()->id))
+                                                    <button class="btn btn-light btn-sm text-decoration-none"
+                                                            data-url="{{route('customer.market.add-to-favorite',$product)}}"
+                                                            data-bs-toggle="tooltip" data-bs-placement="left"
+                                                            title="حذف از علاقه مندی">
+                                                        <i class="fa fa-heart align-middle text-danger"></i>
+                                                    </button>
+                                                @else
+                                                    <button class="btn btn-light btn-sm text-decoration-none"
+                                                            data-url="{{route('customer.market.add-to-favorite',$product)}}"
+                                                            data-bs-toggle="tooltip" data-bs-placement="left"
+                                                            title="اضافه به علاقه مندی">
+                                                        <i class="fa fa-heart align-middle text-dark"></i>
+                                                    </button>
+                                                @endif
+                                            @endauth
                                         </section>
-                                    </section>
-                                    <p class="mb-3 mt-5">
-                                        <i class="fa fa-info-circle me-1"></i>کاربر گرامی خرید شما هنوز نهایی
-                                        نشده است.
-                                        برای ثبت سفارش و تکمیل خرید باید ابتدا آدرس خود را انتخاب کنید و سپس
-                                        نحوه ارسال
-                                        را انتخاب کنید. نحوه ارسال انتخابی شما محاسبه و به این مبلغ اضافه شده
-                                        خواهد شد.
-                                        و در نهایت پرداخت این سفارش صورت میگیرد. پس از ثبت سفارش کالا بر اساس
-                                        نحوه ارسال
-                                        که شما انتخاب کرده اید کالا برای شما در مدت زمان مذکور ارسال می گردد.
-                                    </p>
+                                        <section>
+                                            <section class="cart-product-number d-inline-block">
+                                                <button class="cart-number cart-number-down" type="button">-
+                                                </button>
+                                                <input type="number" id="number" name="number" min="1" max="5"
+                                                       step="1"
+                                                       value="1"
+                                                       readonly="readonly">
+                                                <button class="cart-number cart-number-up" type="button">+</button>
+                                            </section>
+                                        </section>
+                                        <p class="mb-3 mt-5">
+                                            <i class="fa fa-info-circle me-1"></i>کاربر گرامی خرید شما هنوز نهایی
+                                            نشده است.
+                                            برای ثبت سفارش و تکمیل خرید باید ابتدا آدرس خود را انتخاب کنید و سپس
+                                            نحوه ارسال
+                                            را انتخاب کنید. نحوه ارسال انتخابی شما محاسبه و به این مبلغ اضافه شده
+                                            خواهد شد.
+                                            و در نهایت پرداخت این سفارش صورت میگیرد. پس از ثبت سفارش کالا بر اساس
+                                            نحوه ارسال
+                                            که شما انتخاب کرده اید کالا برای شما در مدت زمان مذکور ارسال می گردد.
+                                        </p>
+                                    </form>
                                 </section>
                             </section>
 
@@ -200,8 +204,10 @@
 
                                 <section class="">
                                     @if($product->marketable_number > 0)
-                                        <a id="next-level" href="#" class="btn btn-danger d-block">افزودن به سبد
-                                            خرید</a>
+                                        <button id="next-level" href="#" class="btn btn-danger d-block w-100"
+                                                onclick="document.getElementById('add_to_cart').submit();">افزودن به سبد
+                                            خرید
+                                        </button>
                                     @else
                                         <a id="next-level" href="#" class="btn btn-secondary disabled d-block">محصول
                                             ناموجود میباشد!</a>
