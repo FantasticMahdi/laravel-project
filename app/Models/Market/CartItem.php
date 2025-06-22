@@ -14,7 +14,7 @@ class CartItem extends Model
     protected $fillable = ['user_id', 'product_id', 'color_id', 'guarantee_id', 'number'];
 
 
-    /*public function product()
+    public function product()
     {
         return $this->belongsTo(Product::class);
     }
@@ -28,8 +28,43 @@ class CartItem extends Model
     {
         return $this->belongsTo(Guarantee::class);
     }
+
     public function color()
     {
         return $this->belongsTo(ProductColor::class);
-    }*/
+    }
+
+    //productPrice + colorPrice + guaranteePrice
+    public function cartItemProductPrice()
+    {
+        $guaranteePriceIncrease = empty($this->guarantee_id) ? 0 : $this->guarantee->price_increase;
+        $colorPriceIncrease = empty($this->color_id) ? 0 : $this->color->price_increase;
+        return $this->product->price + $guaranteePriceIncrease + $colorPriceIncrease;
+    }
+
+    // productPrice * (discountPercentage / 100)
+    public function cartItemProductDiscount()
+    {
+        $cartItemProductPrice = $this->cartItemProductPrice();
+        $productDiscount = empty($this->product->activeAmazingSale())
+            ? 0
+            : $cartItemProductPrice * ($this->product->activeAmazingSale()->percentage / 100);
+        return $productDiscount;
+    }
+
+    //number * (productPrice + colorPrice + guaranteePrice - discountPrice)
+    public function cartItemFinalPrice()
+    {
+        $cartItemProductPrice = $this->cartItemProductPrice();
+        $productDiscount = $this->cartItemProductDiscount();
+        return $this->number *($cartItemProductPrice - $productDiscount);
+    }
+
+    //number * productDiscount
+    public function cartItemFinalDiscount()
+    {
+        $productDiscount = $this->cartItemProductDiscount();
+        return $this->number * $productDiscount;
+
+    }
 }
