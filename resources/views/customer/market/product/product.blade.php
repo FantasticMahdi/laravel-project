@@ -122,7 +122,7 @@
                                         </p>
                                         <section class="product-add-to-favorite position-relative top-0 mb-2 px-0">
                                             @guest
-                                                <button class="btn btn-light btn-sm text-decoration-none"
+                                                <button type="button" class="btn btn-light btn-sm text-decoration-none"
                                                         data-url="{{route('customer.market.add-to-favorite',$product)}}"
                                                         data-bs-toggle="tooltip" data-bs-placement="left"
                                                         title="افزودن به علاقه مندی">
@@ -131,14 +131,14 @@
                                             @endguest
                                             @auth
                                                 @if($product->user->contains(auth()->user()->id))
-                                                    <button class="btn btn-light btn-sm text-decoration-none"
+                                                    <button type="button" class="btn btn-light btn-sm text-decoration-none"
                                                             data-url="{{route('customer.market.add-to-favorite',$product)}}"
                                                             data-bs-toggle="tooltip" data-bs-placement="left"
                                                             title="حذف از علاقه مندی">
                                                         <i class="fa fa-heart align-middle text-danger"></i>
                                                     </button>
                                                 @else
-                                                    <button class="btn btn-light btn-sm text-decoration-none"
+                                                    <button type="button" class="btn btn-light btn-sm text-decoration-none"
                                                             data-url="{{route('customer.market.add-to-favorite',$product)}}"
                                                             data-bs-toggle="tooltip" data-bs-placement="left"
                                                             title="اضافه به علاقه مندی">
@@ -614,5 +614,22 @@
                 }
             })
         })
+    </script>
+    <script>
+        //start product introduction, features and comment
+        $(document).ready(function() {
+            var s = $("#introduction-features-comments");
+            var pos = s.position();
+            $(window).scroll(function() {
+                var windowpos = $(window).scrollTop();
+
+                if (windowpos >= pos.top) {
+                    s.addClass("stick");
+                } else {
+                    s.removeClass("stick");
+                }
+            });
+        });
+        //end product introduction, features and comment
     </script>
 @endsection

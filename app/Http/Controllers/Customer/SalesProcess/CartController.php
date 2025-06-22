@@ -5,18 +5,25 @@ namespace App\Http\Controllers\Customer\SalesProcess;
 use App\Http\Controllers\Controller;
 use App\Models\Market\CartItem;
 use App\Models\Market\Product;
+use Auth;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
     public function cart()
     {
-        $cart = 0;
+
+        if (!Auth::check()) {
+            return redirect()->route('auth.customer.login-register-form');
+        }
+        $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
+        $relatedProducts = Product::all();
+        return view('customer.sales-process.cart', ['cartItems' => $cartItems, 'relatedProducts' => $relatedProducts]);
     }
 
     public function addToCart(Product $product, Request $request)
     {
-        if (!\Auth::check()) {
+        if (!Auth::check()) {
             return redirect()->route('auth.customer.login-register-form');
         }
         $validated = $request->validate([
@@ -35,7 +42,7 @@ class CartController extends Controller
             if (($cartItem->number + $number) > 5)
                 return back()->with('alert-section-error', 'تعداد این محصول در سبد خرید شما نمیتواند بیشتر از ۵ باشد!');
             else {
-              $cartItem->number += $number;
+                $cartItem->number += $number;
                 $cartItem->save();
             }
         } else {
