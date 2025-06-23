@@ -46,9 +46,9 @@ class CartItem extends Model
     public function cartItemProductDiscount()
     {
         $cartItemProductPrice = $this->cartItemProductPrice();
-        $productDiscount = empty($this->product->activeAmazingSale())
+        $productDiscount = empty($this->product->activeAmazingSales())
             ? 0
-            : $cartItemProductPrice * ($this->product->activeAmazingSale()->percentage / 100);
+            : $cartItemProductPrice * ($this->product->activeAmazingSales()->percentage / 100);
         return $productDiscount;
     }
 
