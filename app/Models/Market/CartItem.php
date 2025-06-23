@@ -19,15 +19,18 @@ class CartItem extends Model
         return $this->belongsTo(Product::class);
     }
 
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+
     public function guarantee()
     {
         return $this->belongsTo(Guarantee::class);
     }
+
 
     public function color()
     {
@@ -52,12 +55,12 @@ class CartItem extends Model
         return $productDiscount;
     }
 
-    //number * (productPrice + colorPrice + guaranteePrice - discountPrice)
+    //number * (productPrice + colorPrice + guranateePrice - discountPrice)
     public function cartItemFinalPrice()
     {
         $cartItemProductPrice = $this->cartItemProductPrice();
         $productDiscount = $this->cartItemProductDiscount();
-        return $this->number *($cartItemProductPrice - $productDiscount);
+        return $this->number * ($cartItemProductPrice - $productDiscount);
     }
 
     //number * productDiscount
@@ -65,6 +68,5 @@ class CartItem extends Model
     {
         $productDiscount = $this->cartItemProductDiscount();
         return $this->number * $productDiscount;
-
     }
 }
