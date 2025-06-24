@@ -76,7 +76,7 @@
                                     </section>
                                 </section>
                                 <section class="product-info">
-                                    <form id="add_to_cart" action="{{route('customer.market.add-to-cart',$product)}}"
+                                    <form id="add_to_cart" action="{{route('customer.sales-process.add-to-cart',$product)}}"
                                           method="post" class="product-info">
                                         @csrf
                                         @if($product->colors->count() != 0)

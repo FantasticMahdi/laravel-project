@@ -497,8 +497,8 @@ Route::namespace('market')->group(function (){
 Route::namespace('SalesProcess')->group(function (){
     Route::get('/cart', [CartController::class, 'cart'])->name('customer.sales-process.cart');
     Route::post('/cart', [CartController::class, 'updateCart'])->name('customer.sales-process.update-cart');
-    Route::post('/add-to-cart/{product:slug}', [CartController::class, 'addToCart'])->name('customer.market.add-to-cart');
-    Route::delete('/remove-from-cart/{cartItem}', [CartController::class, 'removeFromCart'])->name('customer.market.remove-from-cart');
+    Route::post('/add-to-cart/{product:slug}', [CartController::class, 'addToCart'])->name('customer.sales-process.add-to-cart');
+    Route::get('/remove-from-cart/{cartItem}', [CartController::class, 'removeFromCart'])->name('customer.sales-process.remove-from-cart');
 });
 
 
