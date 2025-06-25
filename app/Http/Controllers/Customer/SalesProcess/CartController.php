@@ -60,6 +60,16 @@ class CartController extends Controller
 
     public function updateCart(Request $request)
     {
+        $numbers = $request->input('number');
+        $cartItems = CartItem::whereIn('id', array_keys($numbers))
+            ->where('user_id', Auth::id())->get();
+        foreach ($cartItems as $cartItem) {
+            $newQuantity = $numbers[$cartItem->id];
+            if ($cartItem->number != $newQuantity) {
+                $cartItem->update(['number' => $newQuantity]);
+            }
+        }
+        return redirect()->route('customer.sales-process.address-and-delivery');
     }
 
 

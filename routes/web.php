@@ -19,7 +19,6 @@ use App\Http\Controllers\Admin\Market\OrderController;
 use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Market\ProductColorController;
 use App\Http\Controllers\Admin\Market\ProductController;
-use App\Http\Controllers\Customer\Market\ProductController as CustomerProductController;
 use App\Http\Controllers\Admin\Market\PropertyController;
 use App\Http\Controllers\Admin\Market\PropertyValueController;
 use App\Http\Controllers\Admin\Market\StoreController;
@@ -38,7 +37,10 @@ use App\Http\Controllers\Admin\User\PermissionController;
 use App\Http\Controllers\Admin\User\RoleController;
 use App\Http\Controllers\Auth\Customer\LoginRegisterController;
 use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\Customer\Market\ProductController as CustomerProductController;
+use App\Http\Controllers\Customer\SalesProcess\AddressController;
 use App\Http\Controllers\Customer\SalesProcess\CartController;
+use App\Http\Controllers\Customer\SalesProcess\ProfileCompletionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -314,14 +316,14 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
             Route::get('/commentable/{post}', [PostController::class, 'commentable'])->name('admin.content.post.commentable');
         });
 
-        Route::prefix('banner')->group(function (){
-            Route::get('/',[BannerController::class,'index'])->name('admin.content.banner.index');
-            Route::get('/create',[BannerController::class,'create'])->name('admin.content.banner.create');
-            Route::post('/store',[BannerController::class,'store'])->name('admin.content.banner.store');
-            Route::get('/edit/{banner}',[BannerController::class,'edit'])->name('admin.content.banner.edit');
-            Route::put('/update/{banner}',[BannerController::class,'update'])->name('admin.content.banner.update');
-            Route::delete('/destroy/{banner}',[BannerController::class,'destroy'])->name('admin.content.banner.destroy');
-            Route::get('/status/{banner}',[BannerController::class,'status'])->name('admin.content.banner.status');
+        Route::prefix('banner')->group(function () {
+            Route::get('/', [BannerController::class, 'index'])->name('admin.content.banner.index');
+            Route::get('/create', [BannerController::class, 'create'])->name('admin.content.banner.create');
+            Route::post('/store', [BannerController::class, 'store'])->name('admin.content.banner.store');
+            Route::get('/edit/{banner}', [BannerController::class, 'edit'])->name('admin.content.banner.edit');
+            Route::put('/update/{banner}', [BannerController::class, 'update'])->name('admin.content.banner.update');
+            Route::delete('/destroy/{banner}', [BannerController::class, 'destroy'])->name('admin.content.banner.destroy');
+            Route::get('/status/{banner}', [BannerController::class, 'status'])->name('admin.content.banner.status');
         });
     });
 
@@ -486,19 +488,29 @@ Route::namespace('Auth')->group(function () {
     Route::get('/logout', [LoginRegisterController::class, 'logout'])->name('auth.customer.logout');
 });
 
-Route::get('/',[HomeController::class,'home'])->name('customer.home');
+Route::get('/', [HomeController::class, 'home'])->name('customer.home');
 
-Route::namespace('market')->group(function (){
+Route::namespace('market')->group(function () {
     Route::get('/product/{product:slug}', [CustomerProductController::class, 'product'])->name('customer.market.product');
     Route::post('/add-comment/product/{product:slug}', [CustomerProductController::class, 'addComment'])->name('customer.market.add-comment');
     Route::get('/add-to-favorite/product/{product:slug}', [CustomerProductController::class, 'addToFavorites'])->name('customer.market.add-to-favorite');
 });
 
-Route::namespace('SalesProcess')->group(function (){
+Route::namespace('SalesProcess')->group(function () {
     Route::get('/cart', [CartController::class, 'cart'])->name('customer.sales-process.cart');
     Route::post('/cart', [CartController::class, 'updateCart'])->name('customer.sales-process.update-cart');
     Route::post('/add-to-cart/{product:slug}', [CartController::class, 'addToCart'])->name('customer.sales-process.add-to-cart');
     Route::get('/remove-from-cart/{cartItem}', [CartController::class, 'removeFromCart'])->name('customer.sales-process.remove-from-cart');
+
+    //profile completion
+    Route::get('/profile-completion', [ProfileCompletionController::class, 'profileCompletion'])->name('customer.sales-process.profile-completion');
+    Route::put('/profile-completion', [ProfileCompletionController::class, 'updateProfile'])->name('customer.sales-process.profile-completion-update');
+
+
+    //address
+    Route::get('/address-and-delivery/', [AddressController::class, 'AddressAndDelivery'])->name('customer.sales-process.address-and-delivery');
+    Route::post('/add-address/', [AddressController::class, 'AddAddress'])->name('customer.sales-process.add-address');
+
 });
 
 
