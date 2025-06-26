@@ -504,7 +504,7 @@ Route::namespace('SalesProcess')->group(function () {
 
     //profile completion
     Route::get('/profile-completion', [ProfileCompletionController::class, 'profileCompletion'])->name('customer.sales-process.profile-completion');
-    Route::put('/profile-completion', [ProfileCompletionController::class, 'updateProfile'])->name('customer.sales-process.profile-completion-update');
+    Route::post('/profile-completion', [ProfileCompletionController::class, 'profileUpdate'])->name('customer.sales-process.profile-completion-update');
 
 
     //address

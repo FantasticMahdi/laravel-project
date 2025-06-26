@@ -190,5 +190,6 @@ return [
         "color_name"                => "نام رنگ",
         "color"                     => "رنگ",
         "price_increase"            => "افزایش قیمت",
+        "national_code"             => "کد ملی",
     ],
 ];
