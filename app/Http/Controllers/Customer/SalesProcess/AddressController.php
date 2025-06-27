@@ -11,9 +11,6 @@ class AddressController extends Controller
     {
         //check profile
         $user = \Auth::user();
-        if (empty($user->mobile) || empty($user->first_name) || empty($user->last_name) || empty($user->email) || empty($user->nation_code)) {
-            return redirect()->route('customer.sales-process.profile-completion');
-        }
         if (empty(CartItem::where('user_id', $user->id)->count())) {
             return redirect()->route('customer.sales-process.cart');
         }
