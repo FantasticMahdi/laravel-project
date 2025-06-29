@@ -510,6 +510,7 @@ Route::namespace('SalesProcess')->group(function () {
         //address
         Route::get('/address-and-delivery/', [AddressController::class, 'AddressAndDelivery'])->name('customer.sales-process.address-and-delivery');
         Route::post('/add-address/', [AddressController::class, 'AddAddress'])->name('customer.sales-process.add-address');
+        Route::get('/get-cities/{province}/', [AddressController::class, 'getCities'])->name('customer.sales-process.get-cities');
     });
 
 });
