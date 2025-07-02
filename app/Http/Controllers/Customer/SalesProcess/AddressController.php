@@ -36,9 +36,14 @@ class AddressController extends Controller
     {
         $inputs = $request->only('province_id', 'city_id', 'address', 'postal_code', 'no', 'unit', 'receiver', 'recipient_first_name', 'recipient_last_name');
         $inputs['user_id'] = \Auth::user()->id;
+        $inputs['postal_code'] = convertPersianToEnglish($inputs['postal_code']);
         $address = Address::create(array_filter($inputs));
         return redirect()->back();
     }
 
+    public function updateAddress()
+    {
+
+    }
 
 }
