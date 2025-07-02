@@ -512,6 +512,10 @@ Route::namespace('SalesProcess')->group(function () {
         Route::post('/add-address/', [AddressController::class, 'AddAddress'])->name('customer.sales-process.add-address');
         Route::put('/update-address/{address}', [AddressController::class, 'UpdateAddress'])->name('customer.sales-process.update-address');
         Route::get('/get-cities/{province}/', [AddressController::class, 'getCities'])->name('customer.sales-process.get-cities');
+
+        //payment
+        Route::get('/payment', [CustomerProductController::class, 'payment'])->name('customer.sales-process.payment');
+
     });
 
 });
