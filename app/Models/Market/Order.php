@@ -12,6 +12,8 @@ class Order extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $guarded = ['id'];
+
     public function payment()
     {
         return $this->belongsTo(Payment::class);

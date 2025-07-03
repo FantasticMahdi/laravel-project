@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Customer\SalesProcess;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Customer\SalesProcess\ChooseAddressAndDeliveryRequest;
 use App\Http\Requests\Customer\SalesProcess\StoreAddressRequest;
 use App\Http\Requests\Customer\SalesProcess\UpdateAddressRequest;
 use App\Models\Address;
 use App\Models\Market\CartItem;
 use App\Models\Market\Delivery;
+use App\Models\Market\Order;
 use App\Models\Province;
 use Auth;
 
@@ -52,6 +54,18 @@ class AddressController extends Controller
         $inputs['postal_code'] = convertPersianToEnglish($inputs['postal_code']);
         $address->update($inputs);
         return redirect()->back();
+    }
+
+    public function ChooseAddressAndDelivery(ChooseAddressAndDeliveryRequest $request)
+    {
+        $inputs = $request->only('address_id', 'delivery_id');
+        $user = auth()->user();
+        $inputs['user_id'] = $user->id;
+        $order = Order::updateOrCreate([
+            'user_id' => $user->id,
+            'order_status' => 0
+        ], $inputs);
+        return redirect()->route('customer.sales-process.payment');
     }
 
 }

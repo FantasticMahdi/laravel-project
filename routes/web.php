@@ -38,6 +38,7 @@ use App\Http\Controllers\Admin\User\RoleController;
 use App\Http\Controllers\Auth\Customer\LoginRegisterController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\Market\ProductController as CustomerProductController;
+use App\Http\Controllers\Customer\SalesProcess\PaymentController as CustomerPaymentController;
 use App\Http\Controllers\Customer\SalesProcess\AddressController;
 use App\Http\Controllers\Customer\SalesProcess\CartController;
 use App\Http\Controllers\Customer\SalesProcess\ProfileCompletionController;
@@ -512,9 +513,10 @@ Route::namespace('SalesProcess')->group(function () {
         Route::post('/add-address/', [AddressController::class, 'AddAddress'])->name('customer.sales-process.add-address');
         Route::put('/update-address/{address}', [AddressController::class, 'UpdateAddress'])->name('customer.sales-process.update-address');
         Route::get('/get-cities/{province}/', [AddressController::class, 'getCities'])->name('customer.sales-process.get-cities');
+        Route::post('/choose-address-and-delivery/', [AddressController::class, 'chooseAddressAndDelivery'])->name('customer.sales-process.choose-address-and-delivery');
 
         //payment
-        Route::get('/payment', [CustomerProductController::class, 'payment'])->name('customer.sales-process.payment');
+        Route::get('/payment', [CustomerPaymentController::class, 'payment'])->name('customer.sales-process.payment');
 
     });
 

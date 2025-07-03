@@ -378,9 +378,11 @@
                                         </secrion>
                                     </section>
                                     @foreach($deliveryMethods as $deliveryMethod)
-                                        <input type="radio" form="myForm" name="delivery_id" value="{{$deliveryMethod->id}}"
+                                        <input type="radio" form="myForm" name="delivery_id"
+                                               value="{{$deliveryMethod->id}}"
                                                id="d-{{$deliveryMethod->id}}"/>
-                                        <label for="d-{{$deliveryMethod->id}}" class="col-12 col-md-4 delivery-wrapper mb-2 pt-2">
+                                        <label for="d-{{$deliveryMethod->id}}"
+                                               class="col-12 col-md-4 delivery-wrapper mb-2 pt-2">
                                             <section class="mb-2">
                                                 <i class="fa fa-shipping-fast mx-1"></i>
                                                 {{$deliveryMethod->name}}
@@ -397,9 +399,6 @@
                                 </section>
                             </section>
 
-                            <form action="{{route('customer.sales-process.payment')}}" id="myForm">
-
-                            </form>
                         </section>
                         <section class="col-md-3">
                             <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
@@ -447,10 +446,12 @@
                                     این سفارش صورت میگیرد.
                                 </p>
 
+                                <form action="{{route('customer.sales-process.choose-address-and-delivery')}}"
+                                      id="myForm" method="post"> @csrf </form>
 
                                 <section class="">
                                     <button type="button"
-                                            onclick="document.getElementById('profile_completion').submit();"
+                                            onclick="document.getElementById('myForm').submit();"
                                             class="btn btn-danger d-block w-100">تکمیل فرآیند خرید
                                     </button>
                                 </section>
