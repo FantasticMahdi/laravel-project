@@ -517,6 +517,7 @@ Route::namespace('SalesProcess')->group(function () {
 
         //payment
         Route::get('/payment', [CustomerPaymentController::class, 'payment'])->name('customer.sales-process.payment');
+        Route::post('/coupon-discount', [CustomerPaymentController::class, 'couponDiscount'])->name('customer.sales-process.coupon-discount');
 
     });
 

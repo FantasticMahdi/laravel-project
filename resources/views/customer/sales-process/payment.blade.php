@@ -9,7 +9,7 @@
 
     <!-- start cart -->
     <section class="mb-4">
-        <section class="container-xxl" >
+        <section class="container-xxl">
             <section class="row">
                 <section class="col">
                     <!-- start vontent header -->
@@ -40,7 +40,8 @@
                                     </section>
                                 </section>
 
-                                <section class="payment-alert alert alert-primary d-flex align-items-center p-2" role="alert">
+                                <section class="payment-alert alert alert-primary d-flex align-items-center p-2"
+                                         role="alert">
                                     <i class="fa fa-info-circle flex-shrink-0 me-2"></i>
                                     <secrion>
                                         کد تخفیف خود را در این بخش وارد کنید.
@@ -49,10 +50,15 @@
 
                                 <section class="row">
                                     <section class="col-md-5">
-                                        <section class="input-group input-group-sm">
-                                            <input type="text" class="form-control" placeholder="کد تخفیف را وارد کنید">
-                                            <button class="btn btn-primary" type="button">اعمال کد</button>
-                                        </section>
+                                        <form action="{{route('customer.sales-process.coupon-discount')}}"
+                                              method="post">
+                                            <section class="input-group input-group-sm">
+                                                @csrf
+                                                <input type="text" name="coupon" class="form-control"
+                                                       placeholder="کد تخفیف را وارد کنید">
+                                                <button class="btn btn-primary" type="submit">اعمال کد</button>
+                                            </section>
+                                        </form>
                                     </section>
 
                                 </section>
@@ -74,10 +80,12 @@
                                 </section>
                                 <section class="payment-select">
 
-                                    <section class="payment-alert alert alert-primary d-flex align-items-center p-2" role="alert">
+                                    <section class="payment-alert alert alert-primary d-flex align-items-center p-2"
+                                             role="alert">
                                         <i class="fa fa-info-circle flex-shrink-0 me-2"></i>
                                         <secrion>
-                                            برای پیشگیری از انتقال ویروس کرونا پیشنهاد می کنیم روش پرداخت اینترنتی رو پرداخت کنید.
+                                            برای پیشگیری از انتقال ویروس کرونا پیشنهاد می کنیم روش پرداخت اینترنتی رو
+                                            پرداخت کنید.
                                         </secrion>
                                     </section>
 
@@ -126,8 +134,6 @@
                             </section>
 
 
-
-
                         </section>
                         <section class="col-md-3">
                             <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
@@ -159,7 +165,8 @@
                                 </section>
 
                                 <p class="my-3">
-                                    <i class="fa fa-info-circle me-1"></i> کاربر گرامی کالاها بر اساس نوع ارسالی که انتخاب می کنید در مدت زمان ذکر شده ارسال می شود.
+                                    <i class="fa fa-info-circle me-1"></i> کاربر گرامی کالاها بر اساس نوع ارسالی که
+                                    انتخاب می کنید در مدت زمان ذکر شده ارسال می شود.
                                 </p>
 
                                 <section class="border-bottom mb-3"></section>
@@ -170,8 +177,12 @@
                                 </section>
 
                                 <section class="">
-                                    <section id="payment-button" class="text-warning border border-warning text-center py-2 pointer rounded-2 d-block">نوع پرداخت را انتخاب کن</section>
-                                    <a id="final-level" href="my-orders.html" class="btn btn-danger d-none">ثبت سفارش و گرفتن کد رهگیری</a>
+                                    <section id="payment-button"
+                                             class="text-warning border border-warning text-center py-2 pointer rounded-2 d-block">
+                                        نوع پرداخت را انتخاب کن
+                                    </section>
+                                    <a id="final-level" href="my-orders.html" class="btn btn-danger d-none">ثبت سفارش و
+                                        گرفتن کد رهگیری</a>
                                 </section>
 
                             </section>
