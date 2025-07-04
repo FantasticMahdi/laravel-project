@@ -8,6 +8,7 @@ use App\Http\Requests\Customer\SalesProcess\StoreAddressRequest;
 use App\Http\Requests\Customer\SalesProcess\UpdateAddressRequest;
 use App\Models\Address;
 use App\Models\Market\CartItem;
+use App\Models\Market\CommonDiscount;
 use App\Models\Market\Delivery;
 use App\Models\Market\Order;
 use App\Models\Province;
@@ -63,10 +64,10 @@ class AddressController extends Controller
         $inputs['user_id'] = $user->id;
 
         $cartItems = CartItem::where('user_id', $user->id)->get();
+
         $totalProductPrice = 0;
         $totalDiscount = 0;
         $totalFinalPrice = 0;
-        $totalFinalDiscountPrice = 0;
         $totalFinalDiscountPriceWithNumbers = 0;
 
         foreach ($cartItems as $cartItem) {
@@ -76,8 +77,29 @@ class AddressController extends Controller
             $totalFinalDiscountPriceWithNumbers += $cartItem->cartItemFinalDiscount();
         }
 
+// Common Discount
+        $finalPrice = $totalFinalPrice;
+        $commonDiscount = CommonDiscount::where([
+            ['status', 1],
+            ['end_date', '>', now()],
+            ['start_date', '<', now()]
+        ])->first();
+
+        if ($commonDiscount && $totalFinalPrice >= $commonDiscount->minimal_order_amount) {
+            $commonPercentageDiscountAmount = $totalFinalPrice * ($commonDiscount->percentage / 100);
+            if ($commonPercentageDiscountAmount > $commonDiscount->discount_ceiling) {
+                $commonPercentageDiscountAmount = $commonDiscount->discount_ceiling;
+            }
+
+            $finalPrice -= $commonPercentageDiscountAmount;
+        } else {
+            $commonPercentageDiscountAmount = null;
+        }
+
         $inputs['order_final_amount'] = $totalFinalPrice;
         $inputs['order_discount_amount'] = $totalFinalDiscountPriceWithNumbers;
+        $inputs['order_common_discount_amount'] = $commonPercentageDiscountAmount;
+        $inputs['order_total_products_discount_amount'] = $inputs['order_discount_amount'] + $inputs['order_common_discount_amount'];
         $order = Order::updateOrCreate([
             'user_id' => $user->id,
             'order_status' => 0
