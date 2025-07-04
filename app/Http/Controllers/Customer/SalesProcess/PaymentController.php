@@ -21,24 +21,28 @@ class PaymentController extends Controller
         ]);
 
         $coupon = Coupon::where([
-            ['code', $request->code],
+            ['code', $request->coupon],
             ['status', 1],
             ['end_date', '>', now()],
             ['start_date', '<', now()]
         ])->first();
-
-        if ($coupon->user_id != null) {
-            $coupon = Coupon::where([
-                ['code', $request->code],
-                ['status', 1],
-                ['end_date', '>', now()],
-                ['start_date', '<', now()],
-                ['user_id', auth()->user()->id]
-            ])->first();
-            if ($coupon == null) {
-                return redirect()->back();
+        if ($coupon != null) {
+            if ($coupon->user_id != null) {
+                $coupon = Coupon::where([
+                    ['code', $request->coupon],
+                    ['status', 1],
+                    ['end_date', '>', now()],
+                    ['start_date', '<', now()],
+                    ['user_id', auth()->user()->id]
+                ])->first();
+                if ($coupon == null) {
+                    return redirect()->back();
+                }
             }
+        } else {
+            return redirect()->back();
         }
+
         $order = Order::where([
             ['user_id', auth()->user()->id],
             ['order_status', 0],
@@ -60,6 +64,9 @@ class PaymentController extends Controller
                 'order_coupon_discount_amount' => $couponDiscountAmount,
                 'order_total_product_discount_amount' => $finalDiscount
             ]);
-        }
+
+            return redirect()->back();
+        } else
+            return redirect()->back();
     }
 }

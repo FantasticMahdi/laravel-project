@@ -11,6 +11,13 @@
     <section class="mb-4">
         <section class="container-xxl">
             <section class="row">
+                @if ($errors->any())
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
                 <section class="col">
                     <!-- start vontent header -->
                     <section class="content-header">

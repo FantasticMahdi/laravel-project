@@ -149,9 +149,9 @@
                                 <div class="form-group">
                                     <label for="">وضعیت</label>
                                     <select class="form-control form-control-sm" name="status" id="status">
-                                        <option value="0" @if(old('status',$coupon->status) == 0) selected @endif>فعال
+                                        <option value="0" @if(old('status',$coupon->status) == 0) selected @endif>غیرفعال
                                         </option>
-                                        <option value="1" @if(old('status',$coupon->status) == 1) selected @endif>غیر
+                                        <option value="1" @if(old('status',$coupon->status) == 1) selected @endif>
                                             فعال
                                         </option>
                                     </select>
