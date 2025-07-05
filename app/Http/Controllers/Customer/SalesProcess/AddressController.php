@@ -86,6 +86,7 @@ class AddressController extends Controller
         ])->first();
 
         if ($commonDiscount && $totalFinalPrice >= $commonDiscount->minimal_order_amount) {
+            $inputs['common_discount_id'] = $commonDiscount->id;
             $commonPercentageDiscountAmount = $totalFinalPrice * ($commonDiscount->percentage / 100);
             if ($commonPercentageDiscountAmount > $commonDiscount->discount_ceiling) {
                 $commonPercentageDiscountAmount = $commonDiscount->discount_ceiling;

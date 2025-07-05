@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer\SalesProcess;
 
 use App\Http\Controllers\Controller;
+use App\Models\Market\CartItem;
 use App\Models\Market\Coupon;
 use App\Models\Market\Order;
 use Illuminate\Http\Request;
@@ -11,7 +12,10 @@ class PaymentController extends Controller
 {
     public function payment()
     {
-        return view('customer.sales-process.payment');
+        $user = auth()->user();
+        $cartItems = CartItem::where('user_id', $user->id)->get();
+        $order = Order::where([['user_id', $user->id], ['order_status', 0]])->first();
+        return view('customer.sales-process.payment', ['cartItems' => $cartItems, 'order' => $order]);
     }
 
     public function couponDiscount(Request $request)
