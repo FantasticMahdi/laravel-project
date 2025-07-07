@@ -40,11 +40,11 @@ class PaymentController extends Controller
                     ['user_id', auth()->user()->id]
                 ])->first();
                 if ($coupon == null) {
-                    return redirect()->back();
+                    return redirect()->back()->withErrors(['coupon' => ['کد تخفیف اشتباه وارد شده است']]);
                 }
             }
         } else {
-            return redirect()->back();
+            return redirect()->back()->withErrors(['coupon' => ['کد تخفیف اشتباه وارد شده است']]);
         }
 
         $order = Order::where([
@@ -69,8 +69,33 @@ class PaymentController extends Controller
                 'order_total_product_discount_amount' => $finalDiscount
             ]);
 
-            return redirect()->back();
+            return redirect()->back()->with(['coupon' => 'کد تخفیف با موفقیت اعمال شد']);
         } else
-            return redirect()->back();
+            return redirect()->back()->withErrors(['coupon' => ['کد تخفیف اشتباه وارد شده است']]);
+    }
+
+    public function paymentSubmit(Request $request)
+    {
+        $request->validate([
+            'payment_type' => 'required',
+        ]);
+        $order = Order::where([
+            ['user_id', auth()->user()->id],
+            ['order_status', 0]
+        ])->first();
+        $cartItems = CartItem::where('user_id', \Auth::user()->id)->get();
+        switch ($request->payment_type) {
+            case '1':
+                dd('online');
+                break;
+            case '2':
+                dd('offline');
+                break;
+            case '3':
+                dd('cash');
+                break;
+            default:
+                return redirect()->back();
+        }
     }
 }

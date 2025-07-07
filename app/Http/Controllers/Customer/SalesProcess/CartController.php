@@ -12,11 +12,13 @@ class CartController extends Controller
 {
     public function cart()
     {
-
         if (!Auth::check()) {
             return redirect()->route('auth.customer.login-register-form');
         }
         $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
+        if ($cartItems->count() <= 0) {
+        return redirect()->back();
+        }
         $relatedProducts = Product::all();
         return view('customer.sales-process.cart', ['cartItems' => $cartItems, 'relatedProducts' => $relatedProducts]);
     }
