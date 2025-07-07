@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Customer\SalesProcess;
 
 use App\Http\Controllers\Controller;
 use App\Models\Market\CartItem;
+use App\Models\Market\CashPayment;
 use App\Models\Market\Coupon;
+use App\Models\Market\OfflinePayment;
+use App\Models\Market\OnlinePayment;
 use App\Models\Market\Order;
+use App\Models\Market\Payment;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -86,16 +90,43 @@ class PaymentController extends Controller
         $cartItems = CartItem::where('user_id', \Auth::user()->id)->get();
         switch ($request->payment_type) {
             case '1':
-                dd('online');
+                $targetModel = OnlinePayment::class;
+                $type = 0;
                 break;
             case '2':
-                dd('offline');
+                $targetModel = OfflinePayment::class;
+                $type = 1;
                 break;
             case '3':
-                dd('cash');
+                $targetModel = CashPayment::class;
+                $type = 2;
                 break;
             default:
-                return redirect()->back();
+                return redirect()->back()->withErrors(['error' => 'خطا']);
         }
+        $paymented = $targetModel::create([
+            'amount' => $order->order_final_amount,
+            'user_id' => auth()->user()->id,
+            'pay_date' => now(),
+            'status' => 1,
+        ]);
+        $payment = Payment::create([
+            'amount' => $order->order_final_amount,
+            'user_id' => auth()->user()->id,
+            'type' => $type,
+            'paymentable_id' => $paymented->id,
+            'paymentable_type' => $targetModel,
+            'status' => 1,
+        ]);
+
+        $order->update([
+            'order_status' => 3
+        ]);
+
+        foreach ($cartItems as $cartItem) {
+            $cartItem->delete();
+        }
+
+        return redirect()->route('customer.home')->with('swal-success','سفارش شما با موفقیت ثبت شد!');
     }
 }
