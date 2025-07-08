@@ -88,6 +88,7 @@ class PaymentController extends Controller
             ['order_status', 0]
         ])->first();
         $cartItems = CartItem::where('user_id', \Auth::user()->id)->get();
+        $cash_receiver = null;
         switch ($request->payment_type) {
             case '1':
                 $targetModel = OnlinePayment::class;
@@ -100,6 +101,7 @@ class PaymentController extends Controller
             case '3':
                 $targetModel = CashPayment::class;
                 $type = 2;
+                $cash_receiver = $request->cash_receiver ?? null;
                 break;
             default:
                 return redirect()->back()->withErrors(['error' => 'خطا']);
@@ -108,6 +110,7 @@ class PaymentController extends Controller
             'amount' => $order->order_final_amount,
             'user_id' => auth()->user()->id,
             'pay_date' => now(),
+            'cash_receiver' => $cash_receiver,
             'status' => 1,
         ]);
         $payment = Payment::create([
